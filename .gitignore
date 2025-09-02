@@ -13,3 +13,5 @@ models/
 outputs/
 *.pyc
 real_implementation/
+
+gender_bias_experiment_results/

@@ -509,6 +509,46 @@ class WandbTracker:
         return sweep_id
 
 
+
+    def log_experiment_results(self, results: Dict[str, Any]) -> None:
+        """
+        Log complete experiment results to wandb.
+        
+        Args:
+            results: Complete experiment results dictionary
+        """
+        # Log final metrics
+        if 'final_evaluation' in results:
+            final_eval = results['final_evaluation']
+            if 'final_results' in final_eval:
+                final_results = final_eval['final_results']
+                
+                # Log bias metrics
+                if hasattr(final_results, 'bias_metrics'):
+                    bias_metrics = final_results.bias_metrics
+                    wandb.log({
+                        "final_gender_gap": bias_metrics.gender_gap,
+                        "final_male_accuracy": bias_metrics.male_accuracy,
+                        "final_female_accuracy": bias_metrics.female_accuracy,
+                        "final_demographic_parity": bias_metrics.demographic_parity,
+                        "final_equalized_odds": bias_metrics.equalized_odds
+                    })
+                
+                # Log quality metrics
+                if hasattr(final_results, 'quality_metrics'):
+                    quality_metrics = final_results.quality_metrics
+                    wandb.log({
+                        "final_bleu_4": quality_metrics.bleu_4,
+                        "final_rouge_l": quality_metrics.rouge_l,
+                        "final_meteor": quality_metrics.meteor,
+                        "final_bertscore_f1": quality_metrics.bertscore_f1
+                    })
+        
+        # Log results as artifact
+        self.log_results_artifact(results, "complete_experiment_results")
+        
+        print("Complete experiment results logged to wandb")
+
 def create_sample_experiment():
     """Create a sample experiment for demonstration."""
     # Initialize tracker

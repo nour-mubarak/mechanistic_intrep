@@ -49,12 +49,12 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Import our enhanced modules
-from wandb_integration import WandBLogger
+from wandb_integration import WandbTracker
 from comprehensive_evaluation import ComprehensiveEvaluator, EvaluationConfig
 from enhanced_fine_tuning import EnhancedTrainer, BiasAwareTrainingConfig, AdvancedLoRAConfig
-from circuit_discovery import CircuitAnalyzer
+from circuit_discovery import CircuitDiscoverer
 from interventions import InterventionEngine, InterventionConfig
-from visualizations import create_comprehensive_dashboard
+from visualizations import BiasVisualizer
 
 @dataclass
 class ExperimentConfig:
@@ -195,12 +195,11 @@ class GenderBiasExperiment:
         
         # Initialize WandB
         if self.config.use_wandb:
-            self.wandb_logger = WandBLogger(
+            self.wandb_logger = WandbTracker(
                 project_name=self.config.project_name,
-                experiment_name="gender_bias_mechanistic_analysis",
-                config=self.config.__dict__
+                tags=["gender_bias_mechanistic_analysis"]
             )
-            self.wandb_logger.init_experiment()
+            self.wandb_logger.init_experiment(self.config.__dict__)
         
         # Load model and processors
         self._load_model_and_processors()
@@ -494,7 +493,7 @@ class GenderBiasExperiment:
         print("Running mechanistic interpretability analysis...")
         
         # Initialize circuit analyzer
-        circuit_analyzer = CircuitAnalyzer(self.model)
+        circuit_analyzer = CircuitDiscoverer(self.model)
         
         # Analyze attention patterns
         test_loader = DataLoader(self.datasets['test'], batch_size=1, shuffle=False)
@@ -507,9 +506,22 @@ class GenderBiasExperiment:
             
             pixel_values = batch['pixel_values'].to(self.model.device)
             
-            # Extract attention patterns
+            # First generate a caption to get input_ids
             with torch.no_grad():
-                outputs = self.model(pixel_values=pixel_values, output_attentions=True)
+                # Generate caption
+                generated_ids = self.model.generate(
+                    pixel_values=pixel_values,
+                    max_length=self.config.max_length,
+                    num_beams=self.config.num_beams,
+                    do_sample=False
+                )
+                
+                # Now run forward pass with both pixel_values and input_ids for attention analysis
+                outputs = self.model(
+                    pixel_values=pixel_values, 
+                    input_ids=generated_ids,
+                    output_attentions=True
+                )
                 
                 if hasattr(outputs, 'attentions') and outputs.attentions:
                     # Analyze attention patterns for gender bias
@@ -870,7 +882,7 @@ class GenderBiasExperiment:
         
         # Create comprehensive dashboard
         dashboard_path = self.output_dir / "comprehensive_dashboard.html"
-        create_comprehensive_dashboard(
+        BiasVisualizer(
             results,
             str(dashboard_path),
             title="Gender Bias Mechanistic Interpretability Experiment Results"

@@ -27,10 +27,11 @@ Example usage:
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.optim import AdamW
 from torch.utils.data import DataLoader, Dataset
 from transformers import (
     AutoModel, AutoTokenizer, TrainingArguments, Trainer,
-    get_linear_schedule_with_warmup, AdamW
+    get_linear_schedule_with_warmup,
 )
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
 import numpy as np

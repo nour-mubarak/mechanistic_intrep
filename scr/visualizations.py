@@ -38,7 +38,7 @@ from pathlib import Path
 import json
 
 # Set up matplotlib for Arabic text support
-plt.rcParams['font.family'] = ['DejaVu Sans', 'Arial Unicode MS', 'Tahoma']
+plt.rcParams['font.family'] = ['DejaVu Sans', 'Liberation Sans', 'sans-serif']
 plt.rcParams['axes.unicode_minus'] = False
 
 class BiasVisualizer:
