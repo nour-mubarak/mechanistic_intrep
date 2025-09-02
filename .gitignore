@@ -1,0 +1,15 @@
+env/
+dataset/images/
+*.csv
+*.so
+*.so.*real_implementation/models/cache/
+__pycache__/
+*.pyc
+real_implementation/models/cache/
+__pycache__/
+fine_tuned_model/
+mechanistic_system/
+models/
+outputs/
+*.pyc
+real_implementation/

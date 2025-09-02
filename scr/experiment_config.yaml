@@ -1,0 +1,190 @@
+# Enhanced Mechanistic Interpretability Experiment Configuration
+# =============================================================
+
+# Experiment metadata
+experiment:
+  name: "gender_bias_mechanistic_analysis"
+  description: "Comprehensive gender bias analysis in English-Arabic image captioning"
+  version: "1.0.0"
+  tags: ["gender-bias", "mechanistic-interpretability", "multilingual", "llava"]
+
+# Model configuration
+model:
+  name: "llava-hf/llava-v1.6-mistral-7b-hf"
+  device: "auto"  # auto, cpu, cuda
+  precision: "fp16"  # fp32, fp16, bf16
+  max_memory: null
+  load_in_8bit: false
+  load_in_4bit: false
+
+# Dataset configuration
+dataset:
+  name: "english_arabic_captions"
+  data_dir: "./dataset"
+  image_dir: "./dataset/images"
+  csv_file: "image_caption.csv"
+  num_samples: 1000
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  seed: 42
+  
+  # Gender filtering
+  filter_by_gender: true
+  target_genders: ["male", "female", "neutral"]
+  min_samples_per_gender: 100
+
+# Training configuration
+training:
+  num_epochs: 5
+  batch_size: 4
+  gradient_accumulation_steps: 2
+  learning_rate: 1e-5
+  weight_decay: 0.01
+  warmup_steps: 100
+  max_grad_norm: 1.0
+  
+  # LoRA configuration
+  use_lora: true
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.1
+  lora_target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+  
+  # Optimization
+  optimizer: "adamw"
+  scheduler: "cosine"
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+
+# Activation extraction configuration
+activation_extraction:
+  layers_to_extract: [0, 4, 8, 12, 16, 20, 24, 28, 31]  # Specific layers
+  extract_all_layers: false
+  pooling_method: "mean"  # mean, max, cls
+  save_format: "numpy"  # numpy, torch
+  compression: true
+
+# Sparse Autoencoder (SAE) configuration
+sae:
+  dict_size: 8192
+  sparsity_penalty: 1e-3
+  learning_rate: 1e-4
+  num_epochs: 10
+  batch_size: 256
+  activation_threshold: 0.1
+  
+# Circuit discovery configuration
+circuit_discovery:
+  correlation_threshold: 0.7
+  min_circuit_size: 5
+  max_circuit_size: 100
+  discovery_method: "correlation"  # correlation, gradient, causal
+  intervention_strength: 0.5
+
+# Evaluation configuration
+evaluation:
+  metrics: ["accuracy", "bleu", "rouge", "meteor", "bias_gap"]
+  gender_classification_method: "keyword"  # keyword, clip, learned
+  quality_metrics_enabled: true
+  statistical_tests: true
+  significance_level: 0.05
+  
+  # Cross-lingual evaluation
+  cross_lingual_comparison: true
+  translation_quality_check: true
+
+# Visualization configuration
+visualization:
+  create_plots: true
+  save_format: ["png", "html"]
+  dpi: 300
+  interactive_dashboards: true
+  attention_heatmaps: true
+  circuit_visualizations: true
+  
+# Wandb configuration
+wandb:
+  enabled: true
+  project: "mechanistic-gender-bias"
+  entity: null  # Set your wandb username/team
+  tags: ["experiment", "gender-bias", "llava"]
+  log_frequency: 10
+  log_artifacts: true
+  log_model: true
+  
+  # Custom charts
+  custom_charts:
+    - name: "bias_over_time"
+      type: "line"
+      metrics: ["bias_score", "male_accuracy", "female_accuracy"]
+    - name: "quality_vs_bias"
+      type: "scatter"
+      x_metric: "bias_score"
+      y_metric: "bleu_score"
+
+# Intervention configuration
+intervention:
+  enabled: true
+  methods: ["activation_patching", "attention_knockout", "neuron_ablation"]
+  target_layers: [12, 16, 20]
+  intervention_strength: [0.1, 0.3, 0.5, 0.7, 1.0]
+  
+# Output configuration
+output:
+  base_dir: "./results"
+  save_activations: true
+  save_models: true
+  save_visualizations: true
+  save_logs: true
+  
+  # Directory structure
+  subdirs:
+    models: "models"
+    activations: "activations"
+    visualizations: "visualizations"
+    logs: "logs"
+    artifacts: "artifacts"
+
+# Computational resources
+compute:
+  num_workers: 4
+  pin_memory: true
+  prefetch_factor: 2
+  persistent_workers: true
+  
+  # Memory management
+  gradient_checkpointing: true
+  dataloader_drop_last: true
+  empty_cache_steps: 100
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false
+  
+# Debugging and development
+debug:
+  enabled: false
+  fast_dev_run: false
+  overfit_batches: 0
+  limit_train_batches: null
+  limit_val_batches: null
+  
+# Advanced features
+advanced:
+  # Curriculum learning
+  curriculum_learning: false
+  curriculum_schedule: "linear"
+  
+  # Multi-task learning
+  multi_task: false
+  task_weights: {"captioning": 1.0, "bias_detection": 0.5}
+  
+  # Ensemble methods
+  ensemble: false
+  num_models: 3
+  ensemble_method: "voting"
+
