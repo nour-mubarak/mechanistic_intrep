@@ -15,3 +15,7 @@ outputs/
 real_implementation/
 
 gender_bias_experiment_results/
+
+mech_intrep/
+
+*.hf_cache/

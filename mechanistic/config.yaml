@@ -1,0 +1,40 @@
+paths:
+  images_dir: /home2/jmsk62/project/mechanistic_intrep/dataset/images
+  captions_csv: /home2/jmsk62/project/mechanistic_intrep/dataset/image_caption.csv
+  out_root: /home2/jmsk62/project/mechanistic/outputs
+
+  # auto-created subfolders
+  filtered_dir: ${paths.out_root}/filtered
+  activations_dir: ${paths.out_root}/acts
+  sae_dir: ${paths.out_root}/sae
+  causal_dir: ${paths.out_root}/causal
+  metrics_dir: ${paths.out_root}/metrics
+  figs_dir: ${paths.out_root}/figs
+
+models:
+  clip_name: openai/clip-vit-base-patch32
+  ar_decoder: UBC-NLP/AraT5v2-base-1024
+
+extract:
+  device: cuda
+  clip_layers: [6, 9, 12]
+  decoder_layers: [4, 8, 12]
+  max_new_tokens: 40
+  temperature: 0.7
+  top_p: 0.9
+
+sae:
+  layer: decoder_8
+  k_latents: 4096
+  l1_lambda: 0.002
+  batch_size: 1024
+  lr: 0.001
+  epochs: 15
+
+causal:
+  feature_list: gender_top10.csv
+  latent_scale: 0.0
+  window_tokens: 6
+
+metrics:
+  clip_for_similarity: openai/clip-vit-base-patch32
