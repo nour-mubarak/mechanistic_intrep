@@ -6,9 +6,9 @@
 #SBATCH -t 2-00:00:00
 #SBATCH --qos short
 #SBATCH --gres=gpu:pascal:1
-#SBATCH --job-name cap_AIN_C
+#SBATCH --job-name caption_peacock
 #SBATCH --output output_%x_%j.log
 #SBATCH --error  error_%x_%j.log
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-python ain_arabic_captioning.py
+python arabic_image_captioning.py --image /home2/jmsk62/project/mechanistic_intrep/dataset/images --language both

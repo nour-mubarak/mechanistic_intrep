@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "peacock_compatible.py", line 22, in <module>
-    import torch
-ImportError: No module named torch
