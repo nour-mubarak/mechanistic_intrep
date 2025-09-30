@@ -1,0 +1,77 @@
+{
+  "os":  "Linux-5.4.0-176-generic-x86_64-with-glibc2.31",
+  "python":  "CPython 3.12.2",
+  "startedAt":  "2025-09-22T12:25:46.113478Z",
+  "program":  "/home2/jmsk62/project/mechanistic_intrep/peacock_model/peacock_caption_script.py",
+  "codePath":  "peacock_model/peacock_caption_script.py",
+  "codePathLocal":  "peacock_caption_script.py",
+  "git":  {
+    "remote":  "https://github.com/nour-mubarak/mechanistic_intrep.git",
+    "commit":  "a2659e1fe1c89ffc36fd2d001b92a2291bc46827"
+  },
+  "email":  "jmsk62@durham.ac.uk",
+  "root":  "/home2/jmsk62/project/mechanistic_intrep/peacock_model",
+  "host":  "gpu2",
+  "executable":  "/home2/jmsk62/project/mechanistic_intrep/.venv/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  16,
+  "gpu":  "NVIDIA TITAN Xp",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "182711357440",
+      "used":  "34168152064"
+    }
+  },
+  "memory":  {
+    "total":  "134981894144"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA TITAN Xp",
+      "memoryTotal":  "12884901888",
+      "cudaCores":  3840,
+      "architecture":  "Pascal",
+      "uuid":  "GPU-cc525b75-5b46-e395-f795-67ca5df1cca8"
+    }
+  ],
+  "cudaVersion":  "12.4",
+  "slurm":  {
+    "cluster_name":  "ncc",
+    "conf":  "/apps/slurm-23.11.10/slurm.conf",
+    "cpus_on_node":  "4",
+    "cpus_per_task":  "4",
+    "gpus_on_node":  "1",
+    "gtids":  "0",
+    "job_account":  "ncc_users",
+    "job_cpus_per_node":  "4",
+    "job_end_time":  "1758716680",
+    "job_gid":  "1001",
+    "job_gpus":  "0",
+    "job_id":  "789622",
+    "job_name":  "caption_peacock",
+    "job_nodelist":  "gpu2",
+    "job_num_nodes":  "1",
+    "job_partition":  "res-gpu-small",
+    "job_qos":  "short",
+    "job_start_time":  "1758543880",
+    "job_uid":  "2161",
+    "job_user":  "jmsk62",
+    "jobid":  "789622",
+    "localid":  "0",
+    "mem_per_node":  "28672",
+    "nnodes":  "1",
+    "nodeid":  "0",
+    "nodelist":  "gpu2",
+    "prio_process":  "0",
+    "procid":  "0",
+    "submit_dir":  "/home2/jmsk62/project/mechanistic_intrep/peacock_model",
+    "submit_host":  "ncc.clients.dur.ac.uk",
+    "task_pid":  "2933478",
+    "tasks_per_node":  "1",
+    "topology_addr":  "gpu2",
+    "topology_addr_pattern":  "node",
+    "tres_per_task":  "cpu:4"
+  },
+  "writerId":  "wx8ox997arrjd0zp8ku2tz68fet9s7d4"
+}

@@ -1,0 +1,12 @@
+=== Bilingual Image Captioning with CLIP + Arabic LLM ===
+Images directory: /home2/jmsk62/project/mechanistic_intrep/dataset/images
+Output CSV: /home2/jmsk62/project/mechanistic_intrep/arabic_clip_results.csv
+Max images: All
+Mode: Simple bilingual
+Force CPU: True
+Using device: cpu
+Loading CLIP model...
+✓ Loaded CLIP model: openai/clip-vit-base-patch32
+Loading Arabic embedding model...
+✓ Loaded embedding model: Omartificial-Intelligence-Space/Arabic-MiniLM-L12-v2-all-nli-triplet
+Loading Arabic LLM (optional)...

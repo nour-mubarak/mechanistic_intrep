@@ -18,4 +18,4 @@ cd "$PROJECT_ROOT"
 export PYTHONPATH="$PROJECT_ROOT:${PYTHONPATH:-}"
 export HF_HOME="$PROJECT_ROOT/.hf_cache"   # optional local cache
 # If you added the T5 decoder helper, you can now run full extract:
-srun "$PYTHON" -m mechanistic.extract.activation_extractor
+srun "$PYTHON" -m mechanistic.extract.activation_extractor  --config /home2/jmsk62/project/mechanistic_intrep/mechanistic/config.yaml

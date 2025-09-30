@@ -1,0 +1,94 @@
+_wandb:
+    value:
+        cli_version: 0.22.0
+        e:
+            jlfb9ln8t98kmt91m2gnnguorgtvv4mq:
+                codePath: peacock_model/peacock_caption_script.py
+                codePathLocal: peacock_caption_script.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.4"
+                disk:
+                    /:
+                        total: "182711357440"
+                        used: "34167828480"
+                email: jmsk62@durham.ac.uk
+                executable: /home2/jmsk62/project/mechanistic_intrep/.venv/bin/python
+                git:
+                    commit: a2659e1fe1c89ffc36fd2d001b92a2291bc46827
+                    remote: https://github.com/nour-mubarak/mechanistic_intrep.git
+                gpu: NVIDIA TITAN Xp
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Pascal
+                      cudaCores: 3840
+                      memoryTotal: "12884901888"
+                      name: NVIDIA TITAN Xp
+                      uuid: GPU-cc525b75-5b46-e395-f795-67ca5df1cca8
+                host: gpu2
+                memory:
+                    total: "134981894144"
+                os: Linux-5.4.0-176-generic-x86_64-with-glibc2.31
+                program: /home2/jmsk62/project/mechanistic_intrep/peacock_model/peacock_caption_script.py
+                python: CPython 3.12.2
+                root: /home2/jmsk62/project/mechanistic_intrep/peacock_model
+                slurm:
+                    cluster_name: ncc
+                    conf: /apps/slurm-23.11.10/slurm.conf
+                    cpus_on_node: "4"
+                    cpus_per_task: "4"
+                    gpus_on_node: "1"
+                    gtids: "0"
+                    job_account: ncc_users
+                    job_cpus_per_node: "4"
+                    job_end_time: "1758715242"
+                    job_gid: "1001"
+                    job_gpus: "0"
+                    job_id: "789616"
+                    job_name: caption_peacock
+                    job_nodelist: gpu2
+                    job_num_nodes: "1"
+                    job_partition: res-gpu-small
+                    job_qos: short
+                    job_start_time: "1758542442"
+                    job_uid: "2161"
+                    job_user: jmsk62
+                    jobid: "789616"
+                    localid: "0"
+                    mem_per_node: "24576"
+                    nnodes: "1"
+                    nodeid: "0"
+                    nodelist: gpu2
+                    prio_process: "0"
+                    procid: "0"
+                    submit_dir: /home2/jmsk62/project/mechanistic_intrep/peacock_model
+                    submit_host: ncc.clients.dur.ac.uk
+                    task_pid: "2928196"
+                    tasks_per_node: "1"
+                    topology_addr: gpu2
+                    topology_addr_pattern: node
+                    tres_per_task: cpu:4
+                startedAt: "2025-09-22T12:00:58.139522Z"
+                writerId: jlfb9ln8t98kmt91m2gnnguorgtvv4mq
+        m: []
+        python_version: 3.12.2
+        t:
+            "1":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 71
+            "2":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 71
+            "3":
+                - 2
+            "4": 3.12.2
+            "5": 0.22.0
+            "6": 4.56.2
+            "12": 0.22.0
+            "13": linux-x86_64

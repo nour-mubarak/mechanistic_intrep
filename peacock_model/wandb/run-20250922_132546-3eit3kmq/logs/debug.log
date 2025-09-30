@@ -1,0 +1,26 @@
+2025-09-22 13:25:46,172 INFO    MainThread:2933482 [wandb_setup.py:_flush():81] Current SDK version is 0.22.0
+2025-09-22 13:25:46,173 INFO    MainThread:2933482 [wandb_setup.py:_flush():81] Configure stats pid to 2933482
+2025-09-22 13:25:46,174 INFO    MainThread:2933482 [wandb_setup.py:_flush():81] Loading settings from /home2/jmsk62/.config/wandb/settings
+2025-09-22 13:25:46,174 INFO    MainThread:2933482 [wandb_setup.py:_flush():81] Loading settings from /home2/jmsk62/project/mechanistic_intrep/peacock_model/wandb/settings
+2025-09-22 13:25:46,174 INFO    MainThread:2933482 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-09-22 13:25:46,174 INFO    MainThread:2933482 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /home2/jmsk62/project/mechanistic_intrep/peacock_model/wandb/run-20250922_132546-3eit3kmq/logs/debug.log
+2025-09-22 13:25:46,174 INFO    MainThread:2933482 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /home2/jmsk62/project/mechanistic_intrep/peacock_model/wandb/run-20250922_132546-3eit3kmq/logs/debug-internal.log
+2025-09-22 13:25:46,175 INFO    MainThread:2933482 [wandb_init.py:init():813] calling init triggers
+2025-09-22 13:25:46,176 INFO    MainThread:2933482 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-09-22 13:25:46,177 INFO    MainThread:2933482 [wandb_init.py:init():861] starting backend
+2025-09-22 13:25:46,532 INFO    MainThread:2933482 [wandb_init.py:init():864] sending inform_init request
+2025-09-22 13:25:46,602 INFO    MainThread:2933482 [wandb_init.py:init():872] backend started and connected
+2025-09-22 13:25:46,831 INFO    MainThread:2933482 [wandb_init.py:init():942] updated telemetry
+2025-09-22 13:25:46,863 INFO    MainThread:2933482 [wandb_init.py:init():966] communicating run to backend with 90.0 second timeout
+2025-09-22 13:25:47,200 INFO    MainThread:2933482 [wandb_init.py:init():1017] starting run threads in backend
+2025-09-22 13:25:47,335 INFO    MainThread:2933482 [wandb_run.py:_console_start():2506] atexit reg
+2025-09-22 13:25:47,335 INFO    MainThread:2933482 [wandb_run.py:_redirect():2354] redirect: wrap_raw
+2025-09-22 13:25:47,335 INFO    MainThread:2933482 [wandb_run.py:_redirect():2423] Wrapping output streams.
+2025-09-22 13:25:47,337 INFO    MainThread:2933482 [wandb_run.py:_redirect():2446] Redirects installed.
+2025-09-22 13:25:47,356 INFO    MainThread:2933482 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-22 13:26:10,412 INFO    MainThread:2933482 [wandb_run.py:_finish():2272] finishing run nourmubarak/peacock_caption_experiments/3eit3kmq
+2025-09-22 13:26:10,414 INFO    MainThread:2933482 [wandb_run.py:_atexit_cleanup():2471] got exitcode: 0
+2025-09-22 13:26:10,415 INFO    MainThread:2933482 [wandb_run.py:_restore():2453] restore
+2025-09-22 13:26:10,415 INFO    MainThread:2933482 [wandb_run.py:_restore():2459] restore done
+2025-09-22 13:26:11,434 INFO    MainThread:2933482 [wandb_run.py:_footer_sync_info():3867] logging synced files

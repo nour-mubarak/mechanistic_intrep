@@ -4,12 +4,12 @@ paths:
   out_root: /home2/jmsk62/project/mechanistic/outputs
 
   # auto-created subfolders
-  filtered_dir: ${paths.out_root}/filtered
-  activations_dir: ${paths.out_root}/acts
-  sae_dir: ${paths.out_root}/sae
-  causal_dir: ${paths.out_root}/causal
-  metrics_dir: ${paths.out_root}/metrics
-  figs_dir: ${paths.out_root}/figs
+  filtered_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/filtered
+  activations_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/acts
+  sae_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/sae
+  causal_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/causal
+  metrics_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/metrics
+  figs_dir: /home2/jmsk62/project/mechanistic_intrep/outputs/figs
 
 models:
   clip_name: openai/clip-vit-base-patch32
