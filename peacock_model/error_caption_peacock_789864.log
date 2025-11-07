@@ -1,21 +1,0 @@
-Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
-/home2/jmsk62/project/mechanistic_intrep/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:283: UserWarning: 
-    Found GPU0 NVIDIA TITAN Xp which is of cuda capability 6.1.
-    Minimum and Maximum cuda capability supported by this version of PyTorch is
-    (7.0) - (12.0)
-    
-  warnings.warn(
-/home2/jmsk62/project/mechanistic_intrep/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:304: UserWarning: 
-    Please install PyTorch with a following CUDA
-    configurations:  12.6 following instructions at
-    https://pytorch.org/get-started/locally/
-    
-  warnings.warn(matched_cuda_warn.format(matched_arches))
-/home2/jmsk62/project/mechanistic_intrep/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:326: UserWarning: 
-NVIDIA TITAN Xp with CUDA capability sm_61 is not compatible with the current PyTorch installation.
-The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.
-If you want to use the NVIDIA TITAN Xp GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
-
-  warnings.warn(
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:44<00:44, 44.04s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:55<00:00, 25.06s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:55<00:00, 27.91s/it]
-slurmstepd: error: *** JOB 789864 ON gpu2 CANCELLED AT 2025-09-27T10:34:41 DUE TO TIME LIMIT ***

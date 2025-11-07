@@ -1,4 +1,5 @@
 env/
+.venv/
 dataset/images/
 *.csv
 *.so
@@ -17,5 +18,7 @@ real_implementation/
 gender_bias_experiment_results/
 
 mech_intrep/
+AIN_model/
+mech_test/
 
 *.hf_cache/
