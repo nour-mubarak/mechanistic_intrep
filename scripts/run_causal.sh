@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -p res-gpu-small
@@ -22,3 +23,9 @@ srun "$PYTHON" -m mechanistic.causal.patch_layer --config mechanistic/config.yam
 
 
 # srun "$PYTHON" -m mechanistic.causal.patch_sae_latents --config mechanistic/config.yaml
+=======
+#!/usr/bin/env bash
+set -e
+python -m mechanistic.causal.patch_layer --config mechanistic/config.yaml
+python -m mechanistic.causal.patch_sae_latents --config mechanistic/config.yaml
+>>>>>>> 614d0f4 (Implement mechanistic interpretability pipeline for Arabic image captioning)

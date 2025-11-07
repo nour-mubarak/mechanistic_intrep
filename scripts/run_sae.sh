@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -p res-gpu-small
@@ -18,3 +19,9 @@ cd "$PROJECT_ROOT"
 export PYTHONPATH="$PROJECT_ROOT:${PYTHONPATH:-}"
 srun "$PYTHON" -m mechanistic.sae.train_sae --config mechanistic/config.yaml
 srun "$PYTHON" -m mechanistic.sae.analyze_sae --config mechanistic/config.yaml
+=======
+#!/usr/bin/env bash
+set -e
+python -m mechanistic.sae.train_sae --config mechanistic/config.yaml
+python -m mechanistic.sae.analyze_sae --config mechanistic/config.yaml
+>>>>>>> 614d0f4 (Implement mechanistic interpretability pipeline for Arabic image captioning)

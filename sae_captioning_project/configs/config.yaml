@@ -1,0 +1,132 @@
+# Main Configuration for SAE Cross-Lingual Analysis
+# ================================================
+
+# Project paths
+paths:
+  project_root: "."
+  data_dir: "./data"
+  raw_data: "./data/raw"
+  processed_data: "./data/processed"
+  checkpoints: "./checkpoints"
+  results: "./results"
+  visualizations: "./visualizations"
+  logs: "./logs"
+
+# Model configuration
+model:
+  name: "google/gemma-3-4b-it"
+  dtype: "float16"  # float16, bfloat16, float32
+  device: "cuda"
+  max_new_tokens: 100
+  
+# Layers to analyze (adjust based on model architecture)
+# Gemma-3-4B has 34 layers (0-33)
+layers:
+  extraction: [2, 6, 10, 14, 18, 22, 26, 30]  # 8 layers spread across model
+  primary_analysis: [10, 14, 18, 22]  # Middle layers for main analysis
+
+# Dataset configuration
+data:
+  num_samples: 2000  # Total image-prompt pairs to analyze
+  val_split: 0.1
+  batch_size: 8
+  num_workers: 4
+  
+  # Image settings
+  image_size: 448
+  
+  # Prompt templates
+  english_prompt: "Describe the person in this image in detail."
+  arabic_prompt: "صف الشخص في هذه الصورة بالتفصيل."
+  
+  # Gender labels
+  gender_labels: ["male", "female", "unknown"]
+
+# SAE configuration
+sae:
+  # Architecture
+  expansion_factor: 8  # d_hidden = d_model * expansion_factor
+  l1_coefficient: 5e-4
+  
+  # Training
+  epochs: 50
+  batch_size: 2048
+  learning_rate: 1e-4
+  warmup_steps: 1000
+  weight_decay: 0.0
+  
+  # Normalization
+  normalize_decoder: true
+  tied_weights: false
+  
+  # Early stopping
+  patience: 10
+  min_delta: 1e-5
+
+# Feature analysis configuration
+analysis:
+  # Number of top features to examine
+  top_k_features: 100
+  
+  # Statistical thresholds
+  significance_level: 0.05
+  effect_size_threshold: 0.3  # Cohen's d
+  
+  # Correlation analysis
+  correlation_method: "spearman"
+  
+  # Clustering
+  n_clusters: 10
+  clustering_method: "kmeans"
+
+# Steering experiments
+steering:
+  strengths: [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0]
+  num_samples_per_condition: 100
+  features_to_steer: 20  # Top N gender-associated features
+
+# Visualization configuration
+visualization:
+  # Plot settings
+  dpi: 150
+  figure_width: 12
+  figure_height: 8
+  style: "seaborn-v0_8-whitegrid"
+  
+  # Color schemes
+  color_palette: "husl"
+  english_color: "#2ecc71"
+  arabic_color: "#e74c3c"
+  male_color: "#3498db"
+  female_color: "#e91e63"
+  
+  # Interactive plots
+  create_interactive: true
+  
+  # Output formats
+  save_formats: ["png", "pdf", "svg"]
+
+# Logging and experiment tracking
+logging:
+  level: "INFO"
+  use_wandb: false
+  wandb_project: "sae-captioning-bias"
+  wandb_entity: null
+  log_interval: 100
+  save_interval: 1000
+
+# SLURM configuration (for HPC)
+slurm:
+  partition: "gpu"
+  nodes: 1
+  gpus_per_node: 1
+  gpu_type: "a100"
+  cpus_per_task: 16
+  memory: "64G"
+  time_extraction: "8:00:00"
+  time_training: "24:00:00"
+  time_analysis: "4:00:00"
+
+# Reproducibility
+seed: 42
+deterministic: true

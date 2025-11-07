@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -p res-gpu-small
@@ -19,3 +20,8 @@ export PYTHONPATH="$PROJECT_ROOT:${PYTHONPATH:-}"
 export HF_HOME="$PROJECT_ROOT/.hf_cache"   # optional local cache
 # If you added the T5 decoder helper, you can now run full extract:
 srun "$PYTHON" -m mechanistic.extract.activation_extractor  --config /home2/jmsk62/project/mechanistic_intrep/mechanistic/config.yaml
+=======
+#!/usr/bin/env bash
+set -e
+python -m mechanistic.extract.activation_extractor --config mechanistic/config.yaml
+>>>>>>> 614d0f4 (Implement mechanistic interpretability pipeline for Arabic image captioning)

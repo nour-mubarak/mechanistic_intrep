@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -p res-gpu-small
@@ -36,3 +37,8 @@ export PYTHONPATH="$PROJECT_ROOT:${PYTHONPATH:-}"
 
 # Run the filter step (no GPU needed for this)
 srun "$PYTHON" -m mechanistic.extract.activation_extractor --filter_only
+=======
+#!/usr/bin/env bash
+set -e
+python -m mechanistic.extract.activation_extractor --filter_only
+>>>>>>> 614d0f4 (Implement mechanistic interpretability pipeline for Arabic image captioning)
