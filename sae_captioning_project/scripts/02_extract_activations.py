@@ -252,16 +252,23 @@ def main():
     logger.info(f"Dataset size: {len(dataset)}")
     
     # Extract for both languages
+    checkpoint_interval = 500  # Save every 500 samples to avoid OOM
+
     for language in ['english', 'arabic']:
         logger.info(f"\n{'='*50}")
         logger.info(f"Extracting activations for {language.upper()}")
         logger.info(f"{'='*50}")
 
-        all_activations = {layer: [] for layer in layers}
-        all_genders = []
-        all_image_ids = []
+        # Lists to accumulate chunks
+        chunk_activations = {layer: [] for layer in layers}
+        chunk_genders = []
+        chunk_image_ids = []
+
+        # Final accumulated data (will load from checkpoints at the end)
+        all_checkpoint_files = []
 
         start_time = time.time()
+        samples_processed = 0
 
         for i in tqdm(range(0, len(dataset), batch_size), desc=f"Processing {language}"):
             # Get batch
@@ -281,25 +288,58 @@ def main():
 
                 for layer in layers:
                     if batch_activations[layer] is not None:
-                        all_activations[layer].append(batch_activations[layer])
+                        chunk_activations[layer].append(batch_activations[layer])
 
-                all_genders.extend(genders)
-                all_image_ids.extend(image_ids)
+                chunk_genders.extend(genders)
+                chunk_image_ids.extend(image_ids)
+                samples_processed += len(batch_samples)
 
             except Exception as e:
                 logger.error(f"Error processing batch {i}: {e}")
                 continue
 
+            # Save checkpoint periodically to avoid OOM
+            if samples_processed >= checkpoint_interval or i + batch_size >= len(dataset):
+                if chunk_activations[layers[0]]:  # Check if we have any data
+                    # Stack current chunk
+                    stacked_chunk = {}
+                    for layer in layers:
+                        if chunk_activations[layer]:
+                            stacked_chunk[layer] = torch.cat(chunk_activations[layer], dim=0)
+
+                    # Save checkpoint
+                    checkpoint_idx = len(all_checkpoint_files)
+                    checkpoint_path = checkpoints_dir / f'activations_{language}_chunk_{checkpoint_idx}.pt'
+                    torch.save({
+                        'activations': stacked_chunk,
+                        'genders': chunk_genders,
+                        'image_ids': chunk_image_ids,
+                    }, checkpoint_path)
+
+                    all_checkpoint_files.append(checkpoint_path)
+                    logger.info(f"Saved checkpoint {checkpoint_idx} with {len(chunk_image_ids)} samples")
+
+                    # Clear chunk data
+                    chunk_activations = {layer: [] for layer in layers}
+                    chunk_genders = []
+                    chunk_image_ids = []
+                    samples_processed = 0
+
+                    # Clear memory
+                    del stacked_chunk
+                    gc.collect()
+                    torch.cuda.empty_cache()
+
             # Log to wandb periodically
             if wandb_run and i % (batch_size * 10) == 0 and i > 0:
                 elapsed = time.time() - start_time
-                samples_processed = i + batch_size
-                samples_per_sec = samples_processed / elapsed if elapsed > 0 else 0
+                total_processed = i + batch_size
+                samples_per_sec = total_processed / elapsed if elapsed > 0 else 0
 
                 log_dict = {
-                    f'{language}/samples_processed': samples_processed,
+                    f'{language}/samples_processed': total_processed,
                     f'{language}/samples_per_sec': samples_per_sec,
-                    f'{language}/progress': samples_processed / len(dataset) * 100,
+                    f'{language}/progress': total_processed / len(dataset) * 100,
                 }
 
                 # Log GPU memory if available
@@ -317,13 +357,32 @@ def main():
             if i % (batch_size * 10) == 0:
                 gc.collect()
                 torch.cuda.empty_cache()
-        
+
+        logger.info(f"Merging {len(all_checkpoint_files)} checkpoint files...")
+
+        # Load and merge all checkpoints
+        all_genders = []
+        all_image_ids = []
+        stacked_activations = {layer: [] for layer in layers}
+
+        for checkpoint_path in all_checkpoint_files:
+            checkpoint_data = torch.load(checkpoint_path)
+            for layer in layers:
+                if layer in checkpoint_data['activations']:
+                    stacked_activations[layer].append(checkpoint_data['activations'][layer])
+            all_genders.extend(checkpoint_data['genders'])
+            all_image_ids.extend(checkpoint_data['image_ids'])
+
         # Stack all activations
-        stacked_activations = {}
+        final_activations = {}
         for layer in layers:
-            if all_activations[layer]:
-                stacked_activations[layer] = torch.cat(all_activations[layer], dim=0)
-                logger.info(f"Layer {layer}: {stacked_activations[layer].shape}")
+            if stacked_activations[layer]:
+                final_activations[layer] = torch.cat(stacked_activations[layer], dim=0)
+                logger.info(f"Layer {layer}: {final_activations[layer].shape}")
+
+        # Clear memory
+        del stacked_activations
+        gc.collect()
 
         # Save
         output_path = checkpoints_dir / f'activations_{language}.pt'
