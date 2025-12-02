@@ -23,7 +23,6 @@ mech_test/
 
 
 sae_captioning_project/data/raw/
-
-
+sae_captioning_project/checkpoints/
 
 *.hf_cache/

@@ -252,7 +252,7 @@ def main():
     logger.info(f"Dataset size: {len(dataset)}")
     
     # Extract for both languages
-    checkpoint_interval = 500  # Save every 500 samples to avoid OOM
+    checkpoint_interval = 50  # Save every 50 samples to avoid OOM (very conservative for 24GB RAM)
 
     for language in ['english', 'arabic']:
         logger.info(f"\n{'='*50}")
@@ -387,7 +387,7 @@ def main():
         # Save
         output_path = checkpoints_dir / f'activations_{language}.pt'
         torch.save({
-            'activations': stacked_activations,
+            'activations': final_activations,
             'genders': all_genders,
             'image_ids': all_image_ids,
             'layers': layers,
@@ -408,7 +408,7 @@ def main():
             }
 
             # Log activation shapes
-            for layer, act in stacked_activations.items():
+            for layer, act in final_activations.items():
                 log_dict[f'{language}/layer_{layer}_shape'] = str(act.shape)
 
             # Log gender distribution
@@ -424,8 +424,18 @@ def main():
             except:
                 pass
 
+        # Clean up checkpoint files
+        logger.info(f"Cleaning up {len(all_checkpoint_files)} checkpoint files...")
+        for checkpoint_path in all_checkpoint_files:
+            try:
+                checkpoint_path.unlink()
+            except Exception as e:
+                logger.warning(f"Failed to delete checkpoint {checkpoint_path}: {e}")
+
         # Clear memory before next language
-        del all_activations
+        del final_activations
+        del all_genders
+        del all_image_ids
         gc.collect()
         torch.cuda.empty_cache()
 
