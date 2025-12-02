@@ -89,7 +89,7 @@ class CrossLingualCaptionDataset(Dataset):
                 if max_samples and idx >= max_samples:
                     break
                 
-                image_id = str(row.get("image_id", row.get("id", idx)))
+                image_id = str(row.get("image_id", row.get("image", row.get("id", idx))))
                 
                 # Find image file
                 image_path = self._find_image(image_id)
@@ -140,21 +140,23 @@ class CrossLingualCaptionDataset(Dataset):
     
     def _find_image(self, image_id: str) -> Optional[Path]:
         """Find image file by ID."""
-        extensions = ['.jpg', '.jpeg', '.png', '.webp']
+        extensions = ['.jpg', '.jpeg', '.png', '.webp', '']  # Empty string for when image_id already has extension
         search_dirs = [
             self.data_dir / "images",
             self.data_dir,
+            self.data_dir.parent / "raw" / "images",  # Also check raw images directory
+            Path("data/raw/images"),  # Absolute fallback
         ]
-        
+
         for search_dir in search_dirs:
             if not search_dir.exists():
                 continue
-            
+
             for ext in extensions:
                 path = search_dir / f"{image_id}{ext}"
                 if path.exists():
                     return path
-        
+
         return None
     
     def __len__(self) -> int:

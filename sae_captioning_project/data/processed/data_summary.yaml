@@ -1,0 +1,6 @@
+gender_distribution:
+  female: 410
+  male: 666
+  unknown: 924
+has_custom_prompts: true
+total_samples: 2000

@@ -22,13 +22,13 @@ echo "Node: $SLURMD_NODENAME"
 echo "Start time: $(date)"
 echo "========================================"
 
-# Load required modules
-module purge
-module load cuda/12.1
-module load python/3.10
+# Load required modules (adjust for your HPC environment)
+# module purge
+# module load cuda/12.1
+# module load python/3.10
 
-# Activate virtual environment
-source ~/envs/sae_env/bin/activate
+# Activate virtual environment if needed
+# source ~/envs/sae_env/bin/activate
 
 # Navigate to project directory
 cd $SLURM_SUBMIT_DIR
@@ -48,7 +48,7 @@ mkdir -p logs
 
 # Run SAE training
 echo "Starting SAE training..."
-python scripts/03_train_sae.py --config configs/config.yaml
+python3 scripts/03_train_sae.py --config configs/config.yaml
 
 EXIT_CODE=$?
 if [ $EXIT_CODE -eq 0 ]; then

@@ -21,6 +21,7 @@ from transformers import AutoModelForCausalLM, AutoProcessor
 from tqdm import tqdm
 import gc
 from datetime import datetime
+import time
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -77,11 +78,22 @@ def get_model_hidden_size(model) -> int:
         return model.config.hidden_size
     elif hasattr(model.config, 'd_model'):
         return model.config.d_model
+    elif hasattr(model.config, 'text_config') and hasattr(model.config.text_config, 'hidden_size'):
+        return model.config.text_config.hidden_size
     else:
-        # Try to infer from first layer
+        # Try to infer from model architecture
         try:
-            return model.model.layers[0].mlp.gate_proj.in_features
-        except:
+            # Try different model structures
+            if hasattr(model, 'language_model') and hasattr(model.language_model, 'layers'):
+                return model.language_model.layers[0].mlp.gate_proj.in_features
+            elif hasattr(model, 'model') and hasattr(model.model, 'layers'):
+                return model.model.layers[0].mlp.gate_proj.in_features
+            else:
+                raise ValueError("Could not find model layers")
+        except Exception as e:
+            logger.error(f"Error inferring hidden size: {e}")
+            logger.error(f"Model structure: {type(model)}")
+            logger.error(f"Model config: {model.config}")
             raise ValueError("Could not determine model hidden size")
 
 
@@ -94,11 +106,27 @@ def extract_activations_batch(
     device: str = "cuda"
 ) -> dict:
     """Extract activations for a batch of image-prompt pairs."""
-    
+
+    # For Gemma-3, we need to use apply_chat_template
+    # Format each prompt as a chat message with image
+    formatted_prompts = []
+    for prompt in prompts:
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "image"},
+                    {"type": "text", "text": prompt}
+                ]
+            }
+        ]
+        text = processor.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
+        formatted_prompts.append(text)
+
     # Prepare inputs
     inputs = processor(
         images=images,
-        text=prompts,
+        text=formatted_prompts,
         return_tensors="pt",
         padding=True
     )
@@ -127,7 +155,13 @@ def extract_activations_batch(
     
     # Register hooks
     for layer_idx in layers:
-        layer = model.model.layers[layer_idx]
+        # Access language model layers for Gemma-3
+        if hasattr(model, 'language_model') and hasattr(model.language_model, 'layers'):
+            layer = model.language_model.layers[layer_idx]
+        elif hasattr(model, 'model') and hasattr(model.model, 'layers'):
+            layer = model.model.layers[layer_idx]
+        else:
+            raise ValueError(f"Could not access layer {layer_idx} from model")
         h = layer.register_forward_hook(make_hook(layer_idx))
         hooks.append(h)
     
@@ -157,10 +191,32 @@ def main():
     parser.add_argument('--batch-size', type=int, default=None,
                        help='Override batch size')
     args = parser.parse_args()
-    
+
     # Load config
     config = load_config(args.config)
-    
+
+    # Initialize wandb if enabled
+    wandb_run = None
+    if config.get('logging', {}).get('use_wandb', False):
+        try:
+            import wandb
+            wandb_run = wandb.init(
+                project=config['logging']['wandb_project'],
+                entity=config['logging']['wandb_entity'],
+                name=f"activation-extraction-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+                config={
+                    'model': config['model']['name'],
+                    'layers': args.layers or config['layers']['extraction'],
+                    'num_samples': config['data'].get('num_samples'),
+                    'batch_size': args.batch_size or config['data'].get('batch_size', 4),
+                },
+                tags=['activation-extraction', 'gemma-3']
+            )
+            logger.info(f"Wandb initialized: {wandb_run.url}")
+        except Exception as e:
+            logger.warning(f"Failed to initialize wandb: {e}")
+            wandb_run = None
+
     # Setup paths
     processed_dir = Path(config['paths']['processed_data'])
     checkpoints_dir = Path(config['paths']['checkpoints'])
@@ -200,38 +256,63 @@ def main():
         logger.info(f"\n{'='*50}")
         logger.info(f"Extracting activations for {language.upper()}")
         logger.info(f"{'='*50}")
-        
+
         all_activations = {layer: [] for layer in layers}
         all_genders = []
         all_image_ids = []
-        
+
+        start_time = time.time()
+
         for i in tqdm(range(0, len(dataset), batch_size), desc=f"Processing {language}"):
             # Get batch
             batch_indices = range(i, min(i + batch_size, len(dataset)))
             batch_samples = [dataset[j] for j in batch_indices]
-            
+
             images = [s['image'] for s in batch_samples]
             prompts = [s[f'{language}_prompt'] for s in batch_samples]
             genders = [s['ground_truth_gender'] for s in batch_samples]
             image_ids = [s['image_id'] for s in batch_samples]
-            
+
             # Extract
             try:
                 batch_activations = extract_activations_batch(
                     model, processor, images, prompts, layers, device
                 )
-                
+
                 for layer in layers:
                     if batch_activations[layer] is not None:
                         all_activations[layer].append(batch_activations[layer])
-                
+
                 all_genders.extend(genders)
                 all_image_ids.extend(image_ids)
-                
+
             except Exception as e:
                 logger.error(f"Error processing batch {i}: {e}")
                 continue
-            
+
+            # Log to wandb periodically
+            if wandb_run and i % (batch_size * 10) == 0 and i > 0:
+                elapsed = time.time() - start_time
+                samples_processed = i + batch_size
+                samples_per_sec = samples_processed / elapsed if elapsed > 0 else 0
+
+                log_dict = {
+                    f'{language}/samples_processed': samples_processed,
+                    f'{language}/samples_per_sec': samples_per_sec,
+                    f'{language}/progress': samples_processed / len(dataset) * 100,
+                }
+
+                # Log GPU memory if available
+                if torch.cuda.is_available():
+                    log_dict[f'{language}/gpu_memory_allocated_gb'] = torch.cuda.memory_allocated() / 1e9
+                    log_dict[f'{language}/gpu_memory_reserved_gb'] = torch.cuda.memory_reserved() / 1e9
+
+                try:
+                    import wandb
+                    wandb.log(log_dict)
+                except:
+                    pass
+
             # Clear GPU memory periodically
             if i % (batch_size * 10) == 0:
                 gc.collect()
@@ -243,7 +324,7 @@ def main():
             if all_activations[layer]:
                 stacked_activations[layer] = torch.cat(all_activations[layer], dim=0)
                 logger.info(f"Layer {layer}: {stacked_activations[layer].shape}")
-        
+
         # Save
         output_path = checkpoints_dir / f'activations_{language}.pt'
         torch.save({
@@ -255,15 +336,50 @@ def main():
             'timestamp': datetime.now().isoformat(),
             'model': config['model']['name'],
         }, output_path)
-        
+
         logger.info(f"Saved {language} activations to {output_path}")
-        
+
+        # Log final stats to wandb
+        if wandb_run:
+            elapsed = time.time() - start_time
+            log_dict = {
+                f'{language}/total_samples': len(all_image_ids),
+                f'{language}/total_time_sec': elapsed,
+                f'{language}/avg_samples_per_sec': len(all_image_ids) / elapsed if elapsed > 0 else 0,
+            }
+
+            # Log activation shapes
+            for layer, act in stacked_activations.items():
+                log_dict[f'{language}/layer_{layer}_shape'] = str(act.shape)
+
+            # Log gender distribution
+            gender_counts = {}
+            for gender in all_genders:
+                gender_counts[gender] = gender_counts.get(gender, 0) + 1
+            for gender, count in gender_counts.items():
+                log_dict[f'{language}/gender_{gender}_count'] = count
+
+            try:
+                import wandb
+                wandb.log(log_dict)
+            except:
+                pass
+
         # Clear memory before next language
         del all_activations
         gc.collect()
         torch.cuda.empty_cache()
-    
+
     logger.info("\nActivation extraction complete!")
+
+    # Finish wandb run
+    if wandb_run:
+        try:
+            import wandb
+            wandb.finish()
+        except:
+            pass
+
     return 0
 
 

@@ -22,13 +22,13 @@ echo "Node: $SLURMD_NODENAME"
 echo "Start time: $(date)"
 echo "========================================"
 
-# Load required modules
-module purge
-module load cuda/12.1
-module load python/3.10
+# Load required modules (adjust for your HPC environment)
+# module purge
+# module load cuda/12.1
+# module load python/3.10
 
-# Activate virtual environment
-source ~/envs/sae_env/bin/activate
+# Activate virtual environment if needed
+# source ~/envs/sae_env/bin/activate
 
 # Navigate to project directory
 cd $SLURM_SUBMIT_DIR
@@ -47,7 +47,7 @@ mkdir -p logs results visualizations
 
 # Step 1: Feature Analysis
 echo "Starting feature analysis..."
-python scripts/04_analyze_features.py --config configs/config.yaml
+python3 scripts/04_analyze_features.py --config configs/config.yaml
 
 if [ $? -ne 0 ]; then
     echo "Feature analysis failed!"
@@ -57,7 +57,7 @@ fi
 # Step 2: Steering Experiments (optional - can be slow)
 echo ""
 echo "Starting steering experiments..."
-python scripts/05_steering_experiments.py --config configs/config.yaml
+python3 scripts/05_steering_experiments.py --config configs/config.yaml
 
 if [ $? -ne 0 ]; then
     echo "Steering experiments failed (continuing anyway)..."
@@ -66,7 +66,7 @@ fi
 # Step 3: Generate Visualizations
 echo ""
 echo "Generating visualizations..."
-python scripts/06_generate_visualizations.py --config configs/config.yaml
+python3 scripts/06_generate_visualizations.py --config configs/config.yaml
 
 EXIT_CODE=$?
 if [ $EXIT_CODE -eq 0 ]; then

@@ -44,22 +44,35 @@ def validate_images(image_dir: Path, df: pd.DataFrame) -> pd.DataFrame:
     valid_rows = []
     
     for idx, row in tqdm(df.iterrows(), total=len(df), desc="Validating images"):
-        image_id = str(row.get('image_id', row.get('id', idx)))
+        image_id = str(row.get('image_id', row.get('image', row.get('id', idx))))
         
         # Try to find image
         found = False
-        for ext in ['.jpg', '.jpeg', '.png', '.webp']:
-            image_path = image_dir / f"{image_id}{ext}"
-            if image_path.exists():
-                try:
-                    img = Image.open(image_path)
-                    img.verify()
-                    valid_rows.append(row)
-                    found = True
-                    break
-                except Exception as e:
-                    logger.warning(f"Invalid image {image_path}: {e}")
-        
+        # First try with the ID as-is (may already have extension)
+        image_path = image_dir / image_id
+        if image_path.exists():
+            try:
+                img = Image.open(image_path)
+                img.verify()
+                valid_rows.append(row)
+                found = True
+            except Exception as e:
+                logger.warning(f"Invalid image {image_path}: {e}")
+
+        # If not found, try adding extensions
+        if not found:
+            for ext in ['.jpg', '.jpeg', '.png', '.webp']:
+                image_path = image_dir / f"{image_id}{ext}"
+                if image_path.exists():
+                    try:
+                        img = Image.open(image_path)
+                        img.verify()
+                        valid_rows.append(row)
+                        found = True
+                        break
+                    except Exception as e:
+                        logger.warning(f"Invalid image {image_path}: {e}")
+
         if not found:
             logger.warning(f"Image not found for ID: {image_id}")
     
@@ -86,30 +99,112 @@ def prepare_prompts(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     return df
 
 
+def extract_gender_from_arabic(text: str) -> str:
+    """
+    Extract gender from Arabic caption text.
+
+    Arabic gender markers:
+    - Male: رجل (man), ولد (boy), طفل (male child), شاب (young man)
+    - Female: امرأة (woman), فتاة (girl), طفلة (female child), بنت (girl)
+    """
+    if pd.isna(text) or not isinstance(text, str):
+        return 'unknown'
+
+    text = text.lower()
+
+    # Female markers (check first as some are substrings of male markers)
+    female_markers = [
+        'امرأة', 'نساء',  # woman, women
+        'فتاة', 'فتيات',  # girl, girls
+        'طفلة',  # female child
+        'بنت', 'بنات',  # girl, girls
+        'سيدة',  # lady
+        'أنثى',  # female
+    ]
+
+    # Male markers
+    male_markers = [
+        'رجل', 'رجال',  # man, men
+        'ولد', 'أولاد',  # boy, boys
+        'شاب', 'شبان',  # young man, young men
+        'طفل',  # male child (when not طفلة)
+        'صبي',  # boy
+        'ذكر',  # male
+    ]
+
+    # Check for female markers first
+    for marker in female_markers:
+        if marker in text:
+            return 'female'
+
+    # Then check for male markers
+    for marker in male_markers:
+        if marker in text:
+            return 'male'
+
+    return 'unknown'
+
+
+def extract_gender_from_english(text: str) -> str:
+    """Extract gender from English caption text."""
+    if pd.isna(text) or not isinstance(text, str):
+        return 'unknown'
+
+    text = text.lower()
+
+    # Female markers
+    female_markers = ['woman', 'women', 'girl', 'girls', 'female', 'lady', 'ladies', 'she', 'her']
+
+    # Male markers
+    male_markers = ['man', 'men', 'boy', 'boys', 'male', 'gentleman', 'he', 'his', 'him']
+
+    # Check for female markers first
+    for marker in female_markers:
+        if f' {marker} ' in f' {text} ' or f' {marker}.' in f' {text}' or f' {marker},' in f' {text}':
+            return 'female'
+
+    # Then check for male markers
+    for marker in male_markers:
+        if f' {marker} ' in f' {text} ' or f' {marker}.' in f' {text}' or f' {marker},' in f' {text}':
+            return 'male'
+
+    return 'unknown'
+
+
 def validate_gender_labels(df: pd.DataFrame) -> pd.DataFrame:
     """Validate and standardize gender labels."""
-    if 'ground_truth_gender' not in df.columns:
-        if 'gender' in df.columns:
-            df['ground_truth_gender'] = df['gender']
-        else:
-            logger.warning("No gender labels found. Setting to 'unknown'")
-            df['ground_truth_gender'] = 'unknown'
-    
-    # Standardize labels
+
+    # If ground_truth_gender column doesn't exist or is all unknown, extract from captions
+    if 'ground_truth_gender' not in df.columns or (df['ground_truth_gender'] == 'unknown').all():
+        logger.info("Extracting gender from captions...")
+
+        # First try Arabic captions if available
+        if 'ar_caption' in df.columns:
+            logger.info("Extracting gender from Arabic captions...")
+            df['ground_truth_gender'] = df['ar_caption'].apply(extract_gender_from_arabic)
+
+        # Fall back to English captions if Arabic didn't find gender
+        if 'en_caption' in df.columns:
+            unknown_mask = df['ground_truth_gender'] == 'unknown'
+            if unknown_mask.any():
+                logger.info(f"Extracting gender from English captions for {unknown_mask.sum()} samples...")
+                df.loc[unknown_mask, 'ground_truth_gender'] = df.loc[unknown_mask, 'en_caption'].apply(extract_gender_from_english)
+
+    # Standardize existing labels if they exist
     label_map = {
         'm': 'male', 'M': 'male', 'Male': 'male', 'MALE': 'male',
         'f': 'female', 'F': 'female', 'Female': 'female', 'FEMALE': 'female',
         'man': 'male', 'woman': 'female', 'boy': 'male', 'girl': 'female',
     }
-    
+
     df['ground_truth_gender'] = df['ground_truth_gender'].map(
         lambda x: label_map.get(x, x) if pd.notna(x) else 'unknown'
     )
-    
+
     # Report distribution
     gender_dist = df['ground_truth_gender'].value_counts()
     logger.info(f"Gender distribution:\n{gender_dist}")
-    
+
     return df
 
 

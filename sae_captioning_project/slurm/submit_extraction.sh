@@ -23,17 +23,12 @@ echo "Start time: $(date)"
 echo "========================================"
 
 # Load required modules (adjust for your HPC environment)
-module purge
-module load cuda/12.1
-module load python/3.10
-# module load anaconda3  # Uncomment if using conda
+# module purge
+# module load cuda/12.1
+# module load python/3.10
 
-# Activate virtual environment
-# Option 1: venv
-source ~/envs/sae_env/bin/activate
-
-# Option 2: conda (uncomment if using conda)
-# conda activate sae_env
+# Activate virtual environment if needed
+# source ~/envs/sae_env/bin/activate
 
 # Navigate to project directory
 cd $SLURM_SUBMIT_DIR
@@ -49,14 +44,14 @@ echo ""
 # Set environment variables
 export CUDA_VISIBLE_DEVICES=0
 export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
-export HF_HOME=$SCRATCH/.cache/huggingface  # Adjust cache location
+export HF_HOME=~/.cache/huggingface  # Adjust cache location
 
 # Create logs directory if needed
 mkdir -p logs
 
 # Run activation extraction
 echo "Starting activation extraction..."
-python scripts/02_extract_activations.py --config configs/config.yaml
+python3 scripts/02_extract_activations.py --config configs/config.yaml
 
 # Check exit status
 EXIT_CODE=$?

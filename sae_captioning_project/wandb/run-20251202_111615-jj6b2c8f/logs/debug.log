@@ -1,0 +1,29 @@
+2025-12-02 11:16:15,912 INFO    MainThread:3185759 [wandb_setup.py:_flush():70] Current SDK version is 0.19.11
+2025-12-02 11:16:15,912 INFO    MainThread:3185759 [wandb_setup.py:_flush():70] Configure stats pid to 3185759
+2025-12-02 11:16:15,912 INFO    MainThread:3185759 [wandb_setup.py:_flush():70] Loading settings from /home/nour/.config/wandb/settings
+2025-12-02 11:16:15,912 INFO    MainThread:3185759 [wandb_setup.py:_flush():70] Loading settings from /home/nour/mchanistic project/mechanistic_intrep/sae_captioning_project/wandb/settings
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_setup.py:_flush():70] Loading settings from environment variables
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:setup_run_log_directory():724] Logging user logs to /home/nour/mchanistic project/mechanistic_intrep/sae_captioning_project/wandb/run-20251202_111615-jj6b2c8f/logs/debug.log
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:setup_run_log_directory():725] Logging internal logs to /home/nour/mchanistic project/mechanistic_intrep/sae_captioning_project/wandb/run-20251202_111615-jj6b2c8f/logs/debug-internal.log
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:init():852] calling init triggers
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:init():857] wandb.init called with sweep_config: {}
+config: {'paths': {'project_root': '.', 'data_dir': './data', 'raw_data': './data/raw', 'processed_data': './data/processed', 'checkpoints': './checkpoints', 'results': './results', 'visualizations': './visualizations', 'logs': './logs'}, 'model': {'name': 'google/gemma-3-4b-it', 'dtype': 'float16', 'device': 'cuda', 'max_new_tokens': 100}, 'layers': {'extraction': [2, 6, 10, 14, 18, 22, 26, 30], 'primary_analysis': [10, 14, 18, 22]}, 'data': {'num_samples': 2000, 'val_split': 0.1, 'batch_size': 8, 'num_workers': 4, 'image_size': 448, 'english_prompt': 'Describe the person in this image in detail.', 'arabic_prompt': 'صف الشخص في هذه الصورة بالتفصيل.', 'gender_labels': ['male', 'female', 'unknown']}, 'sae': {'expansion_factor': 8, 'l1_coefficient': '5e-4', 'epochs': 50, 'batch_size': 2048, 'learning_rate': '1e-4', 'warmup_steps': 1000, 'weight_decay': 0.0, 'normalize_decoder': True, 'tied_weights': False, 'patience': 10, 'min_delta': '1e-5'}, 'analysis': {'top_k_features': 100, 'significance_level': 0.05, 'effect_size_threshold': 0.3, 'correlation_method': 'spearman', 'n_clusters': 10, 'clustering_method': 'kmeans'}, 'steering': {'strengths': [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0], 'num_samples_per_condition': 100, 'features_to_steer': 20}, 'visualization': {'dpi': 150, 'figure_width': 12, 'figure_height': 8, 'style': 'seaborn-v0_8-whitegrid', 'color_palette': 'husl', 'english_color': '#2ecc71', 'arabic_color': '#e74c3c', 'male_color': '#3498db', 'female_color': '#e91e63', 'create_interactive': True, 'save_formats': ['png', 'pdf', 'svg']}, 'logging': {'level': 'INFO', 'use_wandb': True, 'wandb_project': 'sae-captioning-bias', 'wandb_entity': 'nourmubarak', 'log_interval': 100, 'save_interval': 1000}, 'slurm': {'partition': 'gpu', 'nodes': 1, 'gpus_per_node': 1, 'gpu_type': 'a100', 'cpus_per_task': 16, 'memory': '64G', 'time_extraction': '8:00:00', 'time_training': '24:00:00', 'time_analysis': '4:00:00'}, 'seed': 42, 'deterministic': True, '_wandb': {}}
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:init():893] starting backend
+2025-12-02 11:16:15,913 INFO    MainThread:3185759 [wandb_init.py:init():897] sending inform_init request
+2025-12-02 11:16:15,922 INFO    MainThread:3185759 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-12-02 11:16:15,922 INFO    MainThread:3185759 [wandb_init.py:init():907] backend started and connected
+2025-12-02 11:16:15,923 INFO    MainThread:3185759 [wandb_init.py:init():1005] updated telemetry
+2025-12-02 11:16:15,927 INFO    MainThread:3185759 [wandb_init.py:init():1029] communicating run to backend with 90.0 second timeout
+2025-12-02 11:16:16,599 INFO    MainThread:3185759 [wandb_init.py:init():1104] starting run threads in backend
+2025-12-02 11:16:16,832 INFO    MainThread:3185759 [wandb_run.py:_console_start():2573] atexit reg
+2025-12-02 11:16:16,832 INFO    MainThread:3185759 [wandb_run.py:_redirect():2421] redirect: wrap_raw
+2025-12-02 11:16:16,832 INFO    MainThread:3185759 [wandb_run.py:_redirect():2490] Wrapping output streams.
+2025-12-02 11:16:16,833 INFO    MainThread:3185759 [wandb_run.py:_redirect():2513] Redirects installed.
+2025-12-02 11:16:16,834 INFO    MainThread:3185759 [wandb_init.py:init():1150] run started, returning control to user process
+2025-12-02 11:16:16,834 INFO    MainThread:3185759 [wandb_run.py:_finish():2321] finishing run nourmubarak/sae-captioning-bias/jj6b2c8f
+2025-12-02 11:16:16,834 INFO    MainThread:3185759 [wandb_run.py:_atexit_cleanup():2538] got exitcode: 0
+2025-12-02 11:16:16,834 INFO    MainThread:3185759 [wandb_run.py:_restore():2520] restore
+2025-12-02 11:16:16,834 INFO    MainThread:3185759 [wandb_run.py:_restore():2526] restore done
+2025-12-02 11:16:18,115 INFO    MainThread:3185759 [wandb_run.py:_footer_history_summary_info():4188] rendering history
+2025-12-02 11:16:18,115 INFO    MainThread:3185759 [wandb_run.py:_footer_history_summary_info():4220] rendering summary
+2025-12-02 11:16:18,115 INFO    MainThread:3185759 [wandb_run.py:_footer_sync_info():4149] logging synced files

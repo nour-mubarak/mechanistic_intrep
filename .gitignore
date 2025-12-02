@@ -21,4 +21,9 @@ mech_intrep/
 AIN_model/
 mech_test/
 
+
+sae_captioning_project/data/raw/
+
+
+
 *.hf_cache/

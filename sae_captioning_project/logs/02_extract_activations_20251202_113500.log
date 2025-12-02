@@ -1,0 +1,1027 @@
+2025-12-02 11:35:03.665520: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-02 11:35:04.377790: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-02 11:35:05,384 - INFO - Loading model: google/gemma-3-4b-it
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+2025-12-02 11:35:11,018 - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.11s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.17it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.12it/s]
+2025-12-02 11:35:13,398 - INFO - Model loaded with dtype torch.float16
+2025-12-02 11:35:13,398 - INFO - Model hidden size: 2560
+2025-12-02 11:35:13,398 - INFO - Extracting layers: [2, 6, 10, 14, 18, 22, 26, 30]
+2025-12-02 11:35:13,695 - INFO - Loaded 2000 samples
+2025-12-02 11:35:13,695 - INFO - Dataset size: 2000
+2025-12-02 11:35:13,695 - INFO - 
+==================================================
+2025-12-02 11:35:13,695 - INFO - Extracting activations for ENGLISH
+2025-12-02 11:35:13,695 - INFO - ==================================================
+Processing english:   0%|          | 0/500 [00:00<?, ?it/s]2025-12-02 11:35:13,785 - ERROR - Error processing batch 0: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:13,872 - ERROR - Error processing batch 4: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   0%|          | 2/500 [00:00<00:44, 11.32it/s]2025-12-02 11:35:13,956 - ERROR - Error processing batch 8: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,043 - ERROR - Error processing batch 12: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   1%|          | 4/500 [00:00<00:43, 11.52it/s]2025-12-02 11:35:14,129 - ERROR - Error processing batch 16: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,216 - ERROR - Error processing batch 20: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   1%|          | 6/500 [00:00<00:42, 11.53it/s]2025-12-02 11:35:14,304 - ERROR - Error processing batch 24: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,388 - ERROR - Error processing batch 28: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   2%|▏         | 8/500 [00:00<00:42, 11.57it/s]2025-12-02 11:35:14,478 - ERROR - Error processing batch 32: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,563 - ERROR - Error processing batch 36: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   2%|▏         | 10/500 [00:00<00:42, 11.52it/s]2025-12-02 11:35:14,650 - ERROR - Error processing batch 40: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,736 - ERROR - Error processing batch 44: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   2%|▏         | 12/500 [00:01<00:42, 11.55it/s]2025-12-02 11:35:14,822 - ERROR - Error processing batch 48: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:14,911 - ERROR - Error processing batch 52: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   3%|▎         | 14/500 [00:01<00:42, 11.51it/s]2025-12-02 11:35:14,997 - ERROR - Error processing batch 56: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:15,084 - ERROR - Error processing batch 60: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   3%|▎         | 16/500 [00:01<00:42, 11.52it/s]2025-12-02 11:35:15,173 - ERROR - Error processing batch 64: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:15,259 - ERROR - Error processing batch 68: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   4%|▎         | 18/500 [00:01<00:41, 11.49it/s]2025-12-02 11:35:15,346 - ERROR - Error processing batch 72: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:15,437 - ERROR - Error processing batch 76: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   4%|▍         | 20/500 [00:01<00:42, 11.40it/s]2025-12-02 11:35:15,569 - ERROR - Error processing batch 80: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:15,660 - ERROR - Error processing batch 84: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   4%|▍         | 22/500 [00:01<00:45, 10.53it/s]2025-12-02 11:35:15,746 - ERROR - Error processing batch 88: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:15,830 - ERROR - Error processing batch 92: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   5%|▍         | 24/500 [00:02<00:43, 10.88it/s]2025-12-02 11:35:15,919 - ERROR - Error processing batch 96: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,011 - ERROR - Error processing batch 100: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   5%|▌         | 26/500 [00:02<00:43, 10.94it/s]2025-12-02 11:35:16,095 - ERROR - Error processing batch 104: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,180 - ERROR - Error processing batch 108: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   6%|▌         | 28/500 [00:02<00:42, 11.19it/s]2025-12-02 11:35:16,270 - ERROR - Error processing batch 112: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,356 - ERROR - Error processing batch 116: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   6%|▌         | 30/500 [00:02<00:41, 11.24it/s]2025-12-02 11:35:16,444 - ERROR - Error processing batch 120: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,531 - ERROR - Error processing batch 124: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   6%|▋         | 32/500 [00:02<00:41, 11.29it/s]2025-12-02 11:35:16,620 - ERROR - Error processing batch 128: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,711 - ERROR - Error processing batch 132: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   7%|▋         | 34/500 [00:03<00:41, 11.24it/s]2025-12-02 11:35:16,810 - ERROR - Error processing batch 136: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:16,902 - ERROR - Error processing batch 140: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   7%|▋         | 36/500 [00:03<00:42, 11.00it/s]2025-12-02 11:35:16,992 - ERROR - Error processing batch 144: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,079 - ERROR - Error processing batch 148: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   8%|▊         | 38/500 [00:03<00:41, 11.09it/s]2025-12-02 11:35:17,163 - ERROR - Error processing batch 152: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,251 - ERROR - Error processing batch 156: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   8%|▊         | 40/500 [00:03<00:40, 11.25it/s]2025-12-02 11:35:17,338 - ERROR - Error processing batch 160: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,424 - ERROR - Error processing batch 164: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   8%|▊         | 42/500 [00:03<00:40, 11.34it/s]2025-12-02 11:35:17,508 - ERROR - Error processing batch 168: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,594 - ERROR - Error processing batch 172: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   9%|▉         | 44/500 [00:03<00:39, 11.45it/s]2025-12-02 11:35:17,680 - ERROR - Error processing batch 176: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,763 - ERROR - Error processing batch 180: Received inconsistently sized batches of images (1) and text (4).
+Processing english:   9%|▉         | 46/500 [00:04<00:39, 11.56it/s]2025-12-02 11:35:17,851 - ERROR - Error processing batch 184: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:17,938 - ERROR - Error processing batch 188: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  10%|▉         | 48/500 [00:04<00:39, 11.53it/s]2025-12-02 11:35:18,026 - ERROR - Error processing batch 192: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:18,119 - ERROR - Error processing batch 196: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  10%|█         | 50/500 [00:04<00:39, 11.39it/s]2025-12-02 11:35:18,207 - ERROR - Error processing batch 200: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:18,308 - ERROR - Error processing batch 204: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  10%|█         | 52/500 [00:04<00:40, 11.13it/s]2025-12-02 11:35:18,397 - ERROR - Error processing batch 208: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:18,492 - ERROR - Error processing batch 212: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  11%|█         | 54/500 [00:04<00:40, 11.05it/s]2025-12-02 11:35:18,578 - ERROR - Error processing batch 216: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:18,667 - ERROR - Error processing batch 220: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  11%|█         | 56/500 [00:04<00:39, 11.17it/s]2025-12-02 11:35:18,753 - ERROR - Error processing batch 224: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:18,839 - ERROR - Error processing batch 228: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  12%|█▏        | 58/500 [00:05<00:39, 11.29it/s]2025-12-02 11:35:18,925 - ERROR - Error processing batch 232: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,012 - ERROR - Error processing batch 236: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  12%|█▏        | 60/500 [00:05<00:38, 11.38it/s]2025-12-02 11:35:19,097 - ERROR - Error processing batch 240: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,185 - ERROR - Error processing batch 244: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  12%|█▏        | 62/500 [00:05<00:38, 11.43it/s]2025-12-02 11:35:19,271 - ERROR - Error processing batch 248: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,357 - ERROR - Error processing batch 252: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  13%|█▎        | 64/500 [00:05<00:37, 11.49it/s]2025-12-02 11:35:19,444 - ERROR - Error processing batch 256: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,530 - ERROR - Error processing batch 260: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  13%|█▎        | 66/500 [00:05<00:37, 11.50it/s]2025-12-02 11:35:19,620 - ERROR - Error processing batch 264: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,708 - ERROR - Error processing batch 268: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  14%|█▎        | 68/500 [00:06<00:37, 11.42it/s]2025-12-02 11:35:19,795 - ERROR - Error processing batch 272: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:19,880 - ERROR - Error processing batch 276: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  14%|█▍        | 70/500 [00:06<00:37, 11.48it/s]2025-12-02 11:35:19,966 - ERROR - Error processing batch 280: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,054 - ERROR - Error processing batch 284: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  14%|█▍        | 72/500 [00:06<00:37, 11.49it/s]2025-12-02 11:35:20,140 - ERROR - Error processing batch 288: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,227 - ERROR - Error processing batch 292: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  15%|█▍        | 74/500 [00:06<00:36, 11.52it/s]2025-12-02 11:35:20,313 - ERROR - Error processing batch 296: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,401 - ERROR - Error processing batch 300: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  15%|█▌        | 76/500 [00:06<00:36, 11.51it/s]2025-12-02 11:35:20,491 - ERROR - Error processing batch 304: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,578 - ERROR - Error processing batch 308: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  16%|█▌        | 78/500 [00:06<00:36, 11.43it/s]2025-12-02 11:35:20,669 - ERROR - Error processing batch 312: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,755 - ERROR - Error processing batch 316: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  16%|█▌        | 80/500 [00:07<00:36, 11.40it/s]2025-12-02 11:35:20,843 - ERROR - Error processing batch 320: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:20,933 - ERROR - Error processing batch 324: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  16%|█▋        | 82/500 [00:07<00:36, 11.36it/s]2025-12-02 11:35:21,021 - ERROR - Error processing batch 328: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,106 - ERROR - Error processing batch 332: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  17%|█▋        | 84/500 [00:07<00:36, 11.41it/s]2025-12-02 11:35:21,191 - ERROR - Error processing batch 336: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,277 - ERROR - Error processing batch 340: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  17%|█▋        | 86/500 [00:07<00:36, 11.49it/s]2025-12-02 11:35:21,363 - ERROR - Error processing batch 344: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,451 - ERROR - Error processing batch 348: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  18%|█▊        | 88/500 [00:07<00:35, 11.50it/s]2025-12-02 11:35:21,540 - ERROR - Error processing batch 352: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,625 - ERROR - Error processing batch 356: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  18%|█▊        | 90/500 [00:07<00:35, 11.49it/s]2025-12-02 11:35:21,710 - ERROR - Error processing batch 360: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,795 - ERROR - Error processing batch 364: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  18%|█▊        | 92/500 [00:08<00:35, 11.58it/s]2025-12-02 11:35:21,881 - ERROR - Error processing batch 368: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:21,969 - ERROR - Error processing batch 372: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  19%|█▉        | 94/500 [00:08<00:35, 11.55it/s]2025-12-02 11:35:22,055 - ERROR - Error processing batch 376: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,141 - ERROR - Error processing batch 380: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  19%|█▉        | 96/500 [00:08<00:34, 11.57it/s]2025-12-02 11:35:22,226 - ERROR - Error processing batch 384: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,313 - ERROR - Error processing batch 388: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  20%|█▉        | 98/500 [00:08<00:34, 11.59it/s]2025-12-02 11:35:22,401 - ERROR - Error processing batch 392: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,488 - ERROR - Error processing batch 396: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  20%|██        | 100/500 [00:08<00:34, 11.53it/s]2025-12-02 11:35:22,572 - ERROR - Error processing batch 400: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,656 - ERROR - Error processing batch 404: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  20%|██        | 102/500 [00:08<00:34, 11.64it/s]2025-12-02 11:35:22,742 - ERROR - Error processing batch 408: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,828 - ERROR - Error processing batch 412: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  21%|██        | 104/500 [00:09<00:34, 11.64it/s]2025-12-02 11:35:22,911 - ERROR - Error processing batch 416: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:22,996 - ERROR - Error processing batch 420: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  21%|██        | 106/500 [00:09<00:33, 11.73it/s]2025-12-02 11:35:23,080 - ERROR - Error processing batch 424: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:23,166 - ERROR - Error processing batch 428: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  22%|██▏       | 108/500 [00:09<00:33, 11.74it/s]2025-12-02 11:35:23,252 - ERROR - Error processing batch 432: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:23,340 - ERROR - Error processing batch 436: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  22%|██▏       | 110/500 [00:09<00:33, 11.65it/s]2025-12-02 11:35:23,429 - ERROR - Error processing batch 440: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:23,521 - ERROR - Error processing batch 444: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  22%|██▏       | 112/500 [00:09<00:33, 11.46it/s]2025-12-02 11:35:23,608 - ERROR - Error processing batch 448: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:23,695 - ERROR - Error processing batch 452: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  23%|██▎       | 114/500 [00:10<00:33, 11.48it/s]2025-12-02 11:35:23,782 - ERROR - Error processing batch 456: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:23,868 - ERROR - Error processing batch 460: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  23%|██▎       | 116/500 [00:10<00:33, 11.50it/s]2025-12-02 11:35:23,955 - ERROR - Error processing batch 464: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,042 - ERROR - Error processing batch 468: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  24%|██▎       | 118/500 [00:10<00:33, 11.50it/s]2025-12-02 11:35:24,130 - ERROR - Error processing batch 472: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,215 - ERROR - Error processing batch 476: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  24%|██▍       | 120/500 [00:10<00:33, 11.52it/s]2025-12-02 11:35:24,303 - ERROR - Error processing batch 480: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,390 - ERROR - Error processing batch 484: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  24%|██▍       | 122/500 [00:10<00:32, 11.49it/s]2025-12-02 11:35:24,475 - ERROR - Error processing batch 488: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,561 - ERROR - Error processing batch 492: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  25%|██▍       | 124/500 [00:10<00:32, 11.55it/s]2025-12-02 11:35:24,645 - ERROR - Error processing batch 496: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,730 - ERROR - Error processing batch 500: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  25%|██▌       | 126/500 [00:11<00:32, 11.63it/s]2025-12-02 11:35:24,816 - ERROR - Error processing batch 504: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:24,902 - ERROR - Error processing batch 508: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  26%|██▌       | 128/500 [00:11<00:31, 11.63it/s]2025-12-02 11:35:24,990 - ERROR - Error processing batch 512: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,075 - ERROR - Error processing batch 516: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  26%|██▌       | 130/500 [00:11<00:31, 11.61it/s]2025-12-02 11:35:25,161 - ERROR - Error processing batch 520: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,246 - ERROR - Error processing batch 524: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  26%|██▋       | 132/500 [00:11<00:31, 11.64it/s]2025-12-02 11:35:25,333 - ERROR - Error processing batch 528: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,421 - ERROR - Error processing batch 532: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  27%|██▋       | 134/500 [00:11<00:31, 11.58it/s]2025-12-02 11:35:25,508 - ERROR - Error processing batch 536: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,592 - ERROR - Error processing batch 540: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  27%|██▋       | 136/500 [00:11<00:31, 11.60it/s]2025-12-02 11:35:25,678 - ERROR - Error processing batch 544: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,760 - ERROR - Error processing batch 548: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  28%|██▊       | 138/500 [00:12<00:30, 11.70it/s]2025-12-02 11:35:25,847 - ERROR - Error processing batch 552: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:25,936 - ERROR - Error processing batch 556: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  28%|██▊       | 140/500 [00:12<00:31, 11.59it/s]2025-12-02 11:35:26,024 - ERROR - Error processing batch 560: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,108 - ERROR - Error processing batch 564: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  28%|██▊       | 142/500 [00:12<00:30, 11.60it/s]2025-12-02 11:35:26,194 - ERROR - Error processing batch 568: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,278 - ERROR - Error processing batch 572: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  29%|██▉       | 144/500 [00:12<00:30, 11.66it/s]2025-12-02 11:35:26,363 - ERROR - Error processing batch 576: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,451 - ERROR - Error processing batch 580: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  29%|██▉       | 146/500 [00:12<00:30, 11.63it/s]2025-12-02 11:35:26,539 - ERROR - Error processing batch 584: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,622 - ERROR - Error processing batch 588: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  30%|██▉       | 148/500 [00:12<00:30, 11.64it/s]2025-12-02 11:35:26,709 - ERROR - Error processing batch 592: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,793 - ERROR - Error processing batch 596: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  30%|███       | 150/500 [00:13<00:29, 11.67it/s]2025-12-02 11:35:26,877 - ERROR - Error processing batch 600: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:26,962 - ERROR - Error processing batch 604: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  30%|███       | 152/500 [00:13<00:29, 11.71it/s]2025-12-02 11:35:27,046 - ERROR - Error processing batch 608: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,130 - ERROR - Error processing batch 612: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  31%|███       | 154/500 [00:13<00:29, 11.78it/s]2025-12-02 11:35:27,216 - ERROR - Error processing batch 616: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,304 - ERROR - Error processing batch 620: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  31%|███       | 156/500 [00:13<00:29, 11.69it/s]2025-12-02 11:35:27,389 - ERROR - Error processing batch 624: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,477 - ERROR - Error processing batch 628: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  32%|███▏      | 158/500 [00:13<00:29, 11.65it/s]2025-12-02 11:35:27,562 - ERROR - Error processing batch 632: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,651 - ERROR - Error processing batch 636: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  32%|███▏      | 160/500 [00:13<00:29, 11.59it/s]2025-12-02 11:35:27,737 - ERROR - Error processing batch 640: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,822 - ERROR - Error processing batch 644: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  32%|███▏      | 162/500 [00:14<00:29, 11.63it/s]2025-12-02 11:35:27,908 - ERROR - Error processing batch 648: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:27,992 - ERROR - Error processing batch 652: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  33%|███▎      | 164/500 [00:14<00:28, 11.67it/s]2025-12-02 11:35:28,076 - ERROR - Error processing batch 656: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:28,163 - ERROR - Error processing batch 660: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  33%|███▎      | 166/500 [00:14<00:28, 11.68it/s]2025-12-02 11:35:28,250 - ERROR - Error processing batch 664: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:28,337 - ERROR - Error processing batch 668: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  34%|███▎      | 168/500 [00:14<00:28, 11.61it/s]2025-12-02 11:35:28,421 - ERROR - Error processing batch 672: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:28,507 - ERROR - Error processing batch 676: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  34%|███▍      | 170/500 [00:14<00:28, 11.67it/s]2025-12-02 11:35:28,594 - ERROR - Error processing batch 680: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:28,679 - ERROR - Error processing batch 684: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  34%|███▍      | 172/500 [00:14<00:28, 11.65it/s]2025-12-02 11:35:28,765 - ERROR - Error processing batch 688: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:28,849 - ERROR - Error processing batch 692: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  35%|███▍      | 174/500 [00:15<00:27, 11.68it/s]2025-12-02 11:35:28,938 - ERROR - Error processing batch 696: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,020 - ERROR - Error processing batch 700: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  35%|███▌      | 176/500 [00:15<00:27, 11.69it/s]2025-12-02 11:35:29,104 - ERROR - Error processing batch 704: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,190 - ERROR - Error processing batch 708: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  36%|███▌      | 178/500 [00:15<00:27, 11.72it/s]2025-12-02 11:35:29,276 - ERROR - Error processing batch 712: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,361 - ERROR - Error processing batch 716: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  36%|███▌      | 180/500 [00:15<00:27, 11.70it/s]2025-12-02 11:35:29,448 - ERROR - Error processing batch 720: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,537 - ERROR - Error processing batch 724: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  36%|███▋      | 182/500 [00:15<00:27, 11.61it/s]2025-12-02 11:35:29,621 - ERROR - Error processing batch 728: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,708 - ERROR - Error processing batch 732: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  37%|███▋      | 184/500 [00:16<00:27, 11.63it/s]2025-12-02 11:35:29,795 - ERROR - Error processing batch 736: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:29,879 - ERROR - Error processing batch 740: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  37%|███▋      | 186/500 [00:16<00:26, 11.65it/s]2025-12-02 11:35:29,963 - ERROR - Error processing batch 744: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,047 - ERROR - Error processing batch 748: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  38%|███▊      | 188/500 [00:16<00:26, 11.73it/s]2025-12-02 11:35:30,133 - ERROR - Error processing batch 752: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,219 - ERROR - Error processing batch 756: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  38%|███▊      | 190/500 [00:16<00:26, 11.69it/s]2025-12-02 11:35:30,305 - ERROR - Error processing batch 760: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,390 - ERROR - Error processing batch 764: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  38%|███▊      | 192/500 [00:16<00:26, 11.68it/s]2025-12-02 11:35:30,478 - ERROR - Error processing batch 768: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,566 - ERROR - Error processing batch 772: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  39%|███▉      | 194/500 [00:16<00:26, 11.60it/s]2025-12-02 11:35:30,654 - ERROR - Error processing batch 776: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,741 - ERROR - Error processing batch 780: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  39%|███▉      | 196/500 [00:17<00:26, 11.55it/s]2025-12-02 11:35:30,826 - ERROR - Error processing batch 784: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:30,913 - ERROR - Error processing batch 788: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  40%|███▉      | 198/500 [00:17<00:26, 11.58it/s]2025-12-02 11:35:30,997 - ERROR - Error processing batch 792: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,080 - ERROR - Error processing batch 796: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  40%|████      | 200/500 [00:17<00:25, 11.68it/s]2025-12-02 11:35:31,166 - ERROR - Error processing batch 800: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,254 - ERROR - Error processing batch 804: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  40%|████      | 202/500 [00:17<00:25, 11.64it/s]2025-12-02 11:35:31,339 - ERROR - Error processing batch 808: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,424 - ERROR - Error processing batch 812: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  41%|████      | 204/500 [00:17<00:25, 11.68it/s]2025-12-02 11:35:31,514 - ERROR - Error processing batch 816: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,604 - ERROR - Error processing batch 820: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  41%|████      | 206/500 [00:17<00:25, 11.50it/s]2025-12-02 11:35:31,696 - ERROR - Error processing batch 824: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,807 - ERROR - Error processing batch 828: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  42%|████▏     | 208/500 [00:18<00:26, 10.94it/s]2025-12-02 11:35:31,893 - ERROR - Error processing batch 832: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:31,979 - ERROR - Error processing batch 836: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  42%|████▏     | 210/500 [00:18<00:26, 11.15it/s]2025-12-02 11:35:32,067 - ERROR - Error processing batch 840: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:32,154 - ERROR - Error processing batch 844: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  42%|████▏     | 212/500 [00:18<00:25, 11.23it/s]2025-12-02 11:35:32,238 - ERROR - Error processing batch 848: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:32,324 - ERROR - Error processing batch 852: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  43%|████▎     | 214/500 [00:18<00:25, 11.38it/s]2025-12-02 11:35:32,408 - ERROR - Error processing batch 856: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:32,494 - ERROR - Error processing batch 860: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  43%|████▎     | 216/500 [00:18<00:24, 11.49it/s]2025-12-02 11:35:32,578 - ERROR - Error processing batch 864: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:32,667 - ERROR - Error processing batch 868: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  44%|████▎     | 218/500 [00:18<00:24, 11.52it/s]2025-12-02 11:35:32,755 - ERROR - Error processing batch 872: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:32,841 - ERROR - Error processing batch 876: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  44%|████▍     | 220/500 [00:19<00:24, 11.51it/s]2025-12-02 11:35:32,928 - ERROR - Error processing batch 880: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,011 - ERROR - Error processing batch 884: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  44%|████▍     | 222/500 [00:19<00:23, 11.59it/s]2025-12-02 11:35:33,101 - ERROR - Error processing batch 888: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,187 - ERROR - Error processing batch 892: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  45%|████▍     | 224/500 [00:19<00:23, 11.51it/s]2025-12-02 11:35:33,272 - ERROR - Error processing batch 896: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,356 - ERROR - Error processing batch 900: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  45%|████▌     | 226/500 [00:19<00:23, 11.62it/s]2025-12-02 11:35:33,439 - ERROR - Error processing batch 904: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,526 - ERROR - Error processing batch 908: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  46%|████▌     | 228/500 [00:19<00:23, 11.65it/s]2025-12-02 11:35:33,609 - ERROR - Error processing batch 912: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,693 - ERROR - Error processing batch 916: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  46%|████▌     | 230/500 [00:19<00:22, 11.75it/s]2025-12-02 11:35:33,777 - ERROR - Error processing batch 920: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:33,861 - ERROR - Error processing batch 924: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  46%|████▋     | 232/500 [00:20<00:22, 11.79it/s]2025-12-02 11:35:33,948 - ERROR - Error processing batch 928: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,033 - ERROR - Error processing batch 932: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  47%|████▋     | 234/500 [00:20<00:22, 11.74it/s]2025-12-02 11:35:34,121 - ERROR - Error processing batch 936: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,205 - ERROR - Error processing batch 940: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  47%|████▋     | 236/500 [00:20<00:22, 11.71it/s]2025-12-02 11:35:34,290 - ERROR - Error processing batch 944: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,375 - ERROR - Error processing batch 948: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  48%|████▊     | 238/500 [00:20<00:22, 11.74it/s]2025-12-02 11:35:34,463 - ERROR - Error processing batch 952: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,549 - ERROR - Error processing batch 956: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  48%|████▊     | 240/500 [00:20<00:22, 11.66it/s]2025-12-02 11:35:34,638 - ERROR - Error processing batch 960: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,725 - ERROR - Error processing batch 964: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  48%|████▊     | 242/500 [00:21<00:22, 11.57it/s]2025-12-02 11:35:34,809 - ERROR - Error processing batch 968: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:34,906 - ERROR - Error processing batch 972: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  49%|████▉     | 244/500 [00:21<00:22, 11.40it/s]2025-12-02 11:35:35,012 - ERROR - Error processing batch 976: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,099 - ERROR - Error processing batch 980: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  49%|████▉     | 246/500 [00:21<00:22, 11.08it/s]2025-12-02 11:35:35,186 - ERROR - Error processing batch 984: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,271 - ERROR - Error processing batch 988: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  50%|████▉     | 248/500 [00:21<00:22, 11.22it/s]2025-12-02 11:35:35,356 - ERROR - Error processing batch 992: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,440 - ERROR - Error processing batch 996: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  50%|█████     | 250/500 [00:21<00:21, 11.41it/s]2025-12-02 11:35:35,530 - ERROR - Error processing batch 1000: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,616 - ERROR - Error processing batch 1004: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  50%|█████     | 252/500 [00:21<00:21, 11.39it/s]2025-12-02 11:35:35,706 - ERROR - Error processing batch 1008: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,796 - ERROR - Error processing batch 1012: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  51%|█████     | 254/500 [00:22<00:21, 11.31it/s]2025-12-02 11:35:35,884 - ERROR - Error processing batch 1016: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:35,971 - ERROR - Error processing batch 1020: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  51%|█████     | 256/500 [00:22<00:21, 11.33it/s]2025-12-02 11:35:36,063 - ERROR - Error processing batch 1024: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:36,152 - ERROR - Error processing batch 1028: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  52%|█████▏    | 258/500 [00:22<00:21, 11.26it/s]2025-12-02 11:35:36,238 - ERROR - Error processing batch 1032: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:36,323 - ERROR - Error processing batch 1036: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  52%|█████▏    | 260/500 [00:22<00:21, 11.37it/s]2025-12-02 11:35:36,410 - ERROR - Error processing batch 1040: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:36,497 - ERROR - Error processing batch 1044: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  52%|█████▏    | 262/500 [00:22<00:20, 11.41it/s]2025-12-02 11:35:36,584 - ERROR - Error processing batch 1048: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:36,672 - ERROR - Error processing batch 1052: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  53%|█████▎    | 264/500 [00:22<00:20, 11.42it/s]2025-12-02 11:35:36,760 - ERROR - Error processing batch 1056: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:36,846 - ERROR - Error processing batch 1060: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  53%|█████▎    | 266/500 [00:23<00:20, 11.45it/s]2025-12-02 11:35:36,932 - ERROR - Error processing batch 1064: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,019 - ERROR - Error processing batch 1068: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  54%|█████▎    | 268/500 [00:23<00:20, 11.47it/s]2025-12-02 11:35:37,105 - ERROR - Error processing batch 1072: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,188 - ERROR - Error processing batch 1076: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  54%|█████▍    | 270/500 [00:23<00:19, 11.59it/s]2025-12-02 11:35:37,274 - ERROR - Error processing batch 1080: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,361 - ERROR - Error processing batch 1084: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  54%|█████▍    | 272/500 [00:23<00:19, 11.57it/s]2025-12-02 11:35:37,446 - ERROR - Error processing batch 1088: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,536 - ERROR - Error processing batch 1092: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  55%|█████▍    | 274/500 [00:23<00:19, 11.53it/s]2025-12-02 11:35:37,623 - ERROR - Error processing batch 1096: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,707 - ERROR - Error processing batch 1100: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  55%|█████▌    | 276/500 [00:24<00:19, 11.57it/s]2025-12-02 11:35:37,795 - ERROR - Error processing batch 1104: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:37,881 - ERROR - Error processing batch 1108: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  56%|█████▌    | 278/500 [00:24<00:19, 11.57it/s]2025-12-02 11:35:37,965 - ERROR - Error processing batch 1112: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,056 - ERROR - Error processing batch 1116: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  56%|█████▌    | 280/500 [00:24<00:19, 11.52it/s]2025-12-02 11:35:38,144 - ERROR - Error processing batch 1120: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,229 - ERROR - Error processing batch 1124: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  56%|█████▋    | 282/500 [00:24<00:18, 11.52it/s]2025-12-02 11:35:38,318 - ERROR - Error processing batch 1128: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,404 - ERROR - Error processing batch 1132: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  57%|█████▋    | 284/500 [00:24<00:18, 11.50it/s]2025-12-02 11:35:38,491 - ERROR - Error processing batch 1136: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,580 - ERROR - Error processing batch 1140: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  57%|█████▋    | 286/500 [00:24<00:18, 11.47it/s]2025-12-02 11:35:38,675 - ERROR - Error processing batch 1144: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,801 - ERROR - Error processing batch 1148: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  58%|█████▊    | 288/500 [00:25<00:19, 10.60it/s]2025-12-02 11:35:38,893 - ERROR - Error processing batch 1152: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:38,984 - ERROR - Error processing batch 1156: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  58%|█████▊    | 290/500 [00:25<00:19, 10.71it/s]2025-12-02 11:35:39,072 - ERROR - Error processing batch 1160: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:39,156 - ERROR - Error processing batch 1164: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  58%|█████▊    | 292/500 [00:25<00:18, 10.96it/s]2025-12-02 11:35:39,240 - ERROR - Error processing batch 1168: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:39,323 - ERROR - Error processing batch 1172: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  59%|█████▉    | 294/500 [00:25<00:18, 11.25it/s]2025-12-02 11:35:39,406 - ERROR - Error processing batch 1176: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:39,494 - ERROR - Error processing batch 1180: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  59%|█████▉    | 296/500 [00:25<00:17, 11.37it/s]2025-12-02 11:35:39,586 - ERROR - Error processing batch 1184: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:39,673 - ERROR - Error processing batch 1188: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  60%|█████▉    | 298/500 [00:25<00:17, 11.32it/s]2025-12-02 11:35:39,757 - ERROR - Error processing batch 1192: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:39,841 - ERROR - Error processing batch 1196: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  60%|██████    | 300/500 [00:26<00:17, 11.50it/s]2025-12-02 11:35:39,927 - ERROR - Error processing batch 1200: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,013 - ERROR - Error processing batch 1204: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  60%|██████    | 302/500 [00:26<00:17, 11.53it/s]2025-12-02 11:35:40,102 - ERROR - Error processing batch 1208: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,187 - ERROR - Error processing batch 1212: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  61%|██████    | 304/500 [00:26<00:17, 11.52it/s]2025-12-02 11:35:40,273 - ERROR - Error processing batch 1216: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,361 - ERROR - Error processing batch 1220: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  61%|██████    | 306/500 [00:26<00:16, 11.52it/s]2025-12-02 11:35:40,452 - ERROR - Error processing batch 1224: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,538 - ERROR - Error processing batch 1228: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  62%|██████▏   | 308/500 [00:26<00:16, 11.45it/s]2025-12-02 11:35:40,624 - ERROR - Error processing batch 1232: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,710 - ERROR - Error processing batch 1236: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  62%|██████▏   | 310/500 [00:27<00:16, 11.50it/s]2025-12-02 11:35:40,796 - ERROR - Error processing batch 1240: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:40,882 - ERROR - Error processing batch 1244: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  62%|██████▏   | 312/500 [00:27<00:16, 11.54it/s]2025-12-02 11:35:40,971 - ERROR - Error processing batch 1248: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,057 - ERROR - Error processing batch 1252: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  63%|██████▎   | 314/500 [00:27<00:16, 11.50it/s]2025-12-02 11:35:41,145 - ERROR - Error processing batch 1256: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,232 - ERROR - Error processing batch 1260: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  63%|██████▎   | 316/500 [00:27<00:16, 11.49it/s]2025-12-02 11:35:41,319 - ERROR - Error processing batch 1264: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,406 - ERROR - Error processing batch 1268: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  64%|██████▎   | 318/500 [00:27<00:15, 11.48it/s]2025-12-02 11:35:41,499 - ERROR - Error processing batch 1272: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,592 - ERROR - Error processing batch 1276: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  64%|██████▍   | 320/500 [00:27<00:16, 11.25it/s]2025-12-02 11:35:41,683 - ERROR - Error processing batch 1280: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,770 - ERROR - Error processing batch 1284: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  64%|██████▍   | 322/500 [00:28<00:15, 11.26it/s]2025-12-02 11:35:41,857 - ERROR - Error processing batch 1288: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:41,944 - ERROR - Error processing batch 1292: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  65%|██████▍   | 324/500 [00:28<00:15, 11.32it/s]2025-12-02 11:35:42,032 - ERROR - Error processing batch 1296: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,118 - ERROR - Error processing batch 1300: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  65%|██████▌   | 326/500 [00:28<00:15, 11.36it/s]2025-12-02 11:35:42,206 - ERROR - Error processing batch 1304: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,292 - ERROR - Error processing batch 1308: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  66%|██████▌   | 328/500 [00:28<00:15, 11.40it/s]2025-12-02 11:35:42,378 - ERROR - Error processing batch 1312: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,466 - ERROR - Error processing batch 1316: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  66%|██████▌   | 330/500 [00:28<00:14, 11.43it/s]2025-12-02 11:35:42,555 - ERROR - Error processing batch 1320: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,640 - ERROR - Error processing batch 1324: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  66%|██████▋   | 332/500 [00:28<00:14, 11.46it/s]2025-12-02 11:35:42,726 - ERROR - Error processing batch 1328: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,813 - ERROR - Error processing batch 1332: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  67%|██████▋   | 334/500 [00:29<00:14, 11.48it/s]2025-12-02 11:35:42,898 - ERROR - Error processing batch 1336: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:42,984 - ERROR - Error processing batch 1340: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  67%|██████▋   | 336/500 [00:29<00:14, 11.56it/s]2025-12-02 11:35:43,071 - ERROR - Error processing batch 1344: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:43,157 - ERROR - Error processing batch 1348: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  68%|██████▊   | 338/500 [00:29<00:14, 11.55it/s]2025-12-02 11:35:43,245 - ERROR - Error processing batch 1352: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:43,330 - ERROR - Error processing batch 1356: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  68%|██████▊   | 340/500 [00:29<00:13, 11.55it/s]2025-12-02 11:35:43,417 - ERROR - Error processing batch 1360: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:43,506 - ERROR - Error processing batch 1364: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  68%|██████▊   | 342/500 [00:29<00:13, 11.51it/s]2025-12-02 11:35:43,591 - ERROR - Error processing batch 1368: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:43,676 - ERROR - Error processing batch 1372: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  69%|██████▉   | 344/500 [00:29<00:13, 11.57it/s]2025-12-02 11:35:43,762 - ERROR - Error processing batch 1376: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:43,844 - ERROR - Error processing batch 1380: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  69%|██████▉   | 346/500 [00:30<00:13, 11.67it/s]2025-12-02 11:35:43,930 - ERROR - Error processing batch 1384: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,022 - ERROR - Error processing batch 1388: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  70%|██████▉   | 348/500 [00:30<00:13, 11.54it/s]2025-12-02 11:35:44,110 - ERROR - Error processing batch 1392: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,201 - ERROR - Error processing batch 1396: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  70%|███████   | 350/500 [00:30<00:13, 11.44it/s]2025-12-02 11:35:44,288 - ERROR - Error processing batch 1400: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,374 - ERROR - Error processing batch 1404: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  70%|███████   | 352/500 [00:30<00:12, 11.46it/s]2025-12-02 11:35:44,463 - ERROR - Error processing batch 1408: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,550 - ERROR - Error processing batch 1412: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  71%|███████   | 354/500 [00:30<00:12, 11.44it/s]2025-12-02 11:35:44,636 - ERROR - Error processing batch 1416: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,722 - ERROR - Error processing batch 1420: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  71%|███████   | 356/500 [00:31<00:12, 11.50it/s]2025-12-02 11:35:44,810 - ERROR - Error processing batch 1424: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:44,895 - ERROR - Error processing batch 1428: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  72%|███████▏  | 358/500 [00:31<00:12, 11.52it/s]2025-12-02 11:35:44,980 - ERROR - Error processing batch 1432: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,065 - ERROR - Error processing batch 1436: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  72%|███████▏  | 360/500 [00:31<00:12, 11.58it/s]2025-12-02 11:35:45,151 - ERROR - Error processing batch 1440: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,239 - ERROR - Error processing batch 1444: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  72%|███████▏  | 362/500 [00:31<00:11, 11.55it/s]2025-12-02 11:35:45,328 - ERROR - Error processing batch 1448: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,421 - ERROR - Error processing batch 1452: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  73%|███████▎  | 364/500 [00:31<00:11, 11.38it/s]2025-12-02 11:35:45,507 - ERROR - Error processing batch 1456: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,596 - ERROR - Error processing batch 1460: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  73%|███████▎  | 366/500 [00:31<00:11, 11.41it/s]2025-12-02 11:35:45,682 - ERROR - Error processing batch 1464: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,768 - ERROR - Error processing batch 1468: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  74%|███████▎  | 368/500 [00:32<00:11, 11.46it/s]2025-12-02 11:35:45,855 - ERROR - Error processing batch 1472: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:45,941 - ERROR - Error processing batch 1476: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  74%|███████▍  | 370/500 [00:32<00:11, 11.50it/s]2025-12-02 11:35:46,027 - ERROR - Error processing batch 1480: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,113 - ERROR - Error processing batch 1484: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  74%|███████▍  | 372/500 [00:32<00:11, 11.54it/s]2025-12-02 11:35:46,198 - ERROR - Error processing batch 1488: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,287 - ERROR - Error processing batch 1492: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  75%|███████▍  | 374/500 [00:32<00:10, 11.52it/s]2025-12-02 11:35:46,374 - ERROR - Error processing batch 1496: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,461 - ERROR - Error processing batch 1500: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  75%|███████▌  | 376/500 [00:32<00:10, 11.51it/s]2025-12-02 11:35:46,548 - ERROR - Error processing batch 1504: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,636 - ERROR - Error processing batch 1508: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  76%|███████▌  | 378/500 [00:32<00:10, 11.48it/s]2025-12-02 11:35:46,724 - ERROR - Error processing batch 1512: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,813 - ERROR - Error processing batch 1516: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  76%|███████▌  | 380/500 [00:33<00:10, 11.43it/s]2025-12-02 11:35:46,901 - ERROR - Error processing batch 1520: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:46,988 - ERROR - Error processing batch 1524: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  76%|███████▋  | 382/500 [00:33<00:10, 11.43it/s]2025-12-02 11:35:47,071 - ERROR - Error processing batch 1528: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:47,155 - ERROR - Error processing batch 1532: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  77%|███████▋  | 384/500 [00:33<00:10, 11.59it/s]2025-12-02 11:35:47,238 - ERROR - Error processing batch 1536: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:47,324 - ERROR - Error processing batch 1540: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  77%|███████▋  | 386/500 [00:33<00:09, 11.66it/s]2025-12-02 11:35:47,409 - ERROR - Error processing batch 1544: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:47,495 - ERROR - Error processing batch 1548: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  78%|███████▊  | 388/500 [00:33<00:09, 11.67it/s]2025-12-02 11:35:47,581 - ERROR - Error processing batch 1552: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:47,671 - ERROR - Error processing batch 1556: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  78%|███████▊  | 390/500 [00:33<00:09, 11.59it/s]2025-12-02 11:35:47,759 - ERROR - Error processing batch 1560: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:47,845 - ERROR - Error processing batch 1564: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  78%|███████▊  | 392/500 [00:34<00:09, 11.55it/s]2025-12-02 11:35:47,933 - ERROR - Error processing batch 1568: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,020 - ERROR - Error processing batch 1572: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  79%|███████▉  | 394/500 [00:34<00:09, 11.51it/s]2025-12-02 11:35:48,107 - ERROR - Error processing batch 1576: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,191 - ERROR - Error processing batch 1580: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  79%|███████▉  | 396/500 [00:34<00:08, 11.58it/s]2025-12-02 11:35:48,279 - ERROR - Error processing batch 1584: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,370 - ERROR - Error processing batch 1588: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  80%|███████▉  | 398/500 [00:34<00:08, 11.45it/s]2025-12-02 11:35:48,456 - ERROR - Error processing batch 1592: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,545 - ERROR - Error processing batch 1596: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  80%|████████  | 400/500 [00:34<00:08, 11.44it/s]2025-12-02 11:35:48,632 - ERROR - Error processing batch 1600: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,723 - ERROR - Error processing batch 1604: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  80%|████████  | 402/500 [00:35<00:08, 11.37it/s]2025-12-02 11:35:48,816 - ERROR - Error processing batch 1608: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:48,906 - ERROR - Error processing batch 1612: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  81%|████████  | 404/500 [00:35<00:08, 11.25it/s]2025-12-02 11:35:48,993 - ERROR - Error processing batch 1616: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,078 - ERROR - Error processing batch 1620: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  81%|████████  | 406/500 [00:35<00:08, 11.35it/s]2025-12-02 11:35:49,167 - ERROR - Error processing batch 1624: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,256 - ERROR - Error processing batch 1628: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  82%|████████▏ | 408/500 [00:35<00:08, 11.31it/s]2025-12-02 11:35:49,343 - ERROR - Error processing batch 1632: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,431 - ERROR - Error processing batch 1636: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  82%|████████▏ | 410/500 [00:35<00:07, 11.35it/s]2025-12-02 11:35:49,521 - ERROR - Error processing batch 1640: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,610 - ERROR - Error processing batch 1644: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  82%|████████▏ | 412/500 [00:35<00:07, 11.29it/s]2025-12-02 11:35:49,703 - ERROR - Error processing batch 1648: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,789 - ERROR - Error processing batch 1652: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  83%|████████▎ | 414/500 [00:36<00:07, 11.27it/s]2025-12-02 11:35:49,874 - ERROR - Error processing batch 1656: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:49,960 - ERROR - Error processing batch 1660: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  83%|████████▎ | 416/500 [00:36<00:07, 11.39it/s]2025-12-02 11:35:50,045 - ERROR - Error processing batch 1664: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:50,135 - ERROR - Error processing batch 1668: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  84%|████████▎ | 418/500 [00:36<00:07, 11.40it/s]2025-12-02 11:35:50,223 - ERROR - Error processing batch 1672: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:50,312 - ERROR - Error processing batch 1676: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  84%|████████▍ | 420/500 [00:36<00:07, 11.37it/s]2025-12-02 11:35:50,402 - ERROR - Error processing batch 1680: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:50,491 - ERROR - Error processing batch 1684: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  84%|████████▍ | 422/500 [00:36<00:06, 11.31it/s]2025-12-02 11:35:50,579 - ERROR - Error processing batch 1688: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:50,671 - ERROR - Error processing batch 1692: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  85%|████████▍ | 424/500 [00:36<00:06, 11.26it/s]2025-12-02 11:35:50,757 - ERROR - Error processing batch 1696: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:50,843 - ERROR - Error processing batch 1700: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  85%|████████▌ | 426/500 [00:37<00:06, 11.37it/s]2025-12-02 11:35:50,929 - ERROR - Error processing batch 1704: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,018 - ERROR - Error processing batch 1708: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  86%|████████▌ | 428/500 [00:37<00:06, 11.38it/s]2025-12-02 11:35:51,106 - ERROR - Error processing batch 1712: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,194 - ERROR - Error processing batch 1716: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  86%|████████▌ | 430/500 [00:37<00:06, 11.37it/s]2025-12-02 11:35:51,281 - ERROR - Error processing batch 1720: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,368 - ERROR - Error processing batch 1724: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  86%|████████▋ | 432/500 [00:37<00:05, 11.42it/s]2025-12-02 11:35:51,456 - ERROR - Error processing batch 1728: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,547 - ERROR - Error processing batch 1732: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  87%|████████▋ | 434/500 [00:37<00:05, 11.34it/s]2025-12-02 11:35:51,641 - ERROR - Error processing batch 1736: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,733 - ERROR - Error processing batch 1740: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  87%|████████▋ | 436/500 [00:38<00:05, 11.15it/s]2025-12-02 11:35:51,822 - ERROR - Error processing batch 1744: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:51,909 - ERROR - Error processing batch 1748: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  88%|████████▊ | 438/500 [00:38<00:05, 11.21it/s]2025-12-02 11:35:51,996 - ERROR - Error processing batch 1752: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,085 - ERROR - Error processing batch 1756: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  88%|████████▊ | 440/500 [00:38<00:05, 11.27it/s]2025-12-02 11:35:52,173 - ERROR - Error processing batch 1760: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,260 - ERROR - Error processing batch 1764: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  88%|████████▊ | 442/500 [00:38<00:05, 11.31it/s]2025-12-02 11:35:52,349 - ERROR - Error processing batch 1768: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,438 - ERROR - Error processing batch 1772: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  89%|████████▉ | 444/500 [00:38<00:04, 11.28it/s]2025-12-02 11:35:52,525 - ERROR - Error processing batch 1776: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,609 - ERROR - Error processing batch 1780: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  89%|████████▉ | 446/500 [00:38<00:04, 11.40it/s]2025-12-02 11:35:52,697 - ERROR - Error processing batch 1784: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,785 - ERROR - Error processing batch 1788: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  90%|████████▉ | 448/500 [00:39<00:04, 11.40it/s]2025-12-02 11:35:52,874 - ERROR - Error processing batch 1792: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:52,962 - ERROR - Error processing batch 1796: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  90%|█████████ | 450/500 [00:39<00:04, 11.36it/s]2025-12-02 11:35:53,052 - ERROR - Error processing batch 1800: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:53,142 - ERROR - Error processing batch 1804: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  90%|█████████ | 452/500 [00:39<00:04, 11.29it/s]2025-12-02 11:35:53,231 - ERROR - Error processing batch 1808: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:53,323 - ERROR - Error processing batch 1812: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  91%|█████████ | 454/500 [00:39<00:04, 11.22it/s]2025-12-02 11:35:53,412 - ERROR - Error processing batch 1816: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:53,501 - ERROR - Error processing batch 1820: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  91%|█████████ | 456/500 [00:39<00:03, 11.23it/s]2025-12-02 11:35:53,589 - ERROR - Error processing batch 1824: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:53,675 - ERROR - Error processing batch 1828: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  92%|█████████▏| 458/500 [00:39<00:03, 11.29it/s]2025-12-02 11:35:53,763 - ERROR - Error processing batch 1832: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:53,850 - ERROR - Error processing batch 1836: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  92%|█████████▏| 460/500 [00:40<00:03, 11.34it/s]2025-12-02 11:35:53,938 - ERROR - Error processing batch 1840: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,026 - ERROR - Error processing batch 1844: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  92%|█████████▏| 462/500 [00:40<00:03, 11.35it/s]2025-12-02 11:35:54,112 - ERROR - Error processing batch 1848: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,198 - ERROR - Error processing batch 1852: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  93%|█████████▎| 464/500 [00:40<00:03, 11.43it/s]2025-12-02 11:35:54,286 - ERROR - Error processing batch 1856: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,371 - ERROR - Error processing batch 1860: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  93%|█████████▎| 466/500 [00:40<00:02, 11.48it/s]2025-12-02 11:35:54,463 - ERROR - Error processing batch 1864: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,552 - ERROR - Error processing batch 1868: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  94%|█████████▎| 468/500 [00:40<00:02, 11.33it/s]2025-12-02 11:35:54,639 - ERROR - Error processing batch 1872: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,725 - ERROR - Error processing batch 1876: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  94%|█████████▍| 470/500 [00:41<00:02, 11.40it/s]2025-12-02 11:35:54,812 - ERROR - Error processing batch 1880: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:54,897 - ERROR - Error processing batch 1884: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  94%|█████████▍| 472/500 [00:41<00:02, 11.48it/s]2025-12-02 11:35:54,983 - ERROR - Error processing batch 1888: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,068 - ERROR - Error processing batch 1892: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  95%|█████████▍| 474/500 [00:41<00:02, 11.53it/s]2025-12-02 11:35:55,154 - ERROR - Error processing batch 1896: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,241 - ERROR - Error processing batch 1900: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  95%|█████████▌| 476/500 [00:41<00:02, 11.56it/s]2025-12-02 11:35:55,329 - ERROR - Error processing batch 1904: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,414 - ERROR - Error processing batch 1908: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  96%|█████████▌| 478/500 [00:41<00:01, 11.54it/s]2025-12-02 11:35:55,504 - ERROR - Error processing batch 1912: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,591 - ERROR - Error processing batch 1916: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  96%|█████████▌| 480/500 [00:41<00:01, 11.48it/s]2025-12-02 11:35:55,678 - ERROR - Error processing batch 1920: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,765 - ERROR - Error processing batch 1924: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  96%|█████████▋| 482/500 [00:42<00:01, 11.49it/s]2025-12-02 11:35:55,853 - ERROR - Error processing batch 1928: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:55,941 - ERROR - Error processing batch 1932: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  97%|█████████▋| 484/500 [00:42<00:01, 11.45it/s]2025-12-02 11:35:56,026 - ERROR - Error processing batch 1936: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,112 - ERROR - Error processing batch 1940: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  97%|█████████▋| 486/500 [00:42<00:01, 11.51it/s]2025-12-02 11:35:56,197 - ERROR - Error processing batch 1944: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,288 - ERROR - Error processing batch 1948: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  98%|█████████▊| 488/500 [00:42<00:01, 11.47it/s]2025-12-02 11:35:56,373 - ERROR - Error processing batch 1952: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,460 - ERROR - Error processing batch 1956: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  98%|█████████▊| 490/500 [00:42<00:00, 11.52it/s]2025-12-02 11:35:56,547 - ERROR - Error processing batch 1960: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,634 - ERROR - Error processing batch 1964: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  98%|█████████▊| 492/500 [00:42<00:00, 11.51it/s]2025-12-02 11:35:56,721 - ERROR - Error processing batch 1968: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,805 - ERROR - Error processing batch 1972: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  99%|█████████▉| 494/500 [00:43<00:00, 11.57it/s]2025-12-02 11:35:56,892 - ERROR - Error processing batch 1976: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:56,981 - ERROR - Error processing batch 1980: Received inconsistently sized batches of images (1) and text (4).
+Processing english:  99%|█████████▉| 496/500 [00:43<00:00, 11.50it/s]2025-12-02 11:35:57,074 - ERROR - Error processing batch 1984: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:57,166 - ERROR - Error processing batch 1988: Received inconsistently sized batches of images (1) and text (4).
+Processing english: 100%|█████████▉| 498/500 [00:43<00:00, 11.29it/s]2025-12-02 11:35:57,254 - ERROR - Error processing batch 1992: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:57,341 - ERROR - Error processing batch 1996: Received inconsistently sized batches of images (1) and text (4).
+Processing english: 100%|██████████| 500/500 [00:43<00:00, 11.33it/s]Processing english: 100%|██████████| 500/500 [00:43<00:00, 11.46it/s]
+2025-12-02 11:35:57,341 - INFO - Saved english activations to checkpoints/activations_english.pt
+2025-12-02 11:35:57,504 - INFO - 
+==================================================
+2025-12-02 11:35:57,504 - INFO - Extracting activations for ARABIC
+2025-12-02 11:35:57,504 - INFO - ==================================================
+Processing arabic:   0%|          | 0/500 [00:00<?, ?it/s]2025-12-02 11:35:57,588 - ERROR - Error processing batch 0: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:57,673 - ERROR - Error processing batch 4: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   0%|          | 2/500 [00:00<00:42, 11.85it/s]2025-12-02 11:35:57,759 - ERROR - Error processing batch 8: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:57,847 - ERROR - Error processing batch 12: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   1%|          | 4/500 [00:00<00:42, 11.64it/s]2025-12-02 11:35:57,936 - ERROR - Error processing batch 16: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,023 - ERROR - Error processing batch 20: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   1%|          | 6/500 [00:00<00:42, 11.51it/s]2025-12-02 11:35:58,120 - ERROR - Error processing batch 24: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,210 - ERROR - Error processing batch 28: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   2%|▏         | 8/500 [00:00<00:44, 11.18it/s]2025-12-02 11:35:58,300 - ERROR - Error processing batch 32: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,390 - ERROR - Error processing batch 36: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   2%|▏         | 10/500 [00:00<00:43, 11.15it/s]2025-12-02 11:35:58,479 - ERROR - Error processing batch 40: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,563 - ERROR - Error processing batch 44: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   2%|▏         | 12/500 [00:01<00:43, 11.28it/s]2025-12-02 11:35:58,649 - ERROR - Error processing batch 48: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,735 - ERROR - Error processing batch 52: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   3%|▎         | 14/500 [00:01<00:42, 11.40it/s]2025-12-02 11:35:58,823 - ERROR - Error processing batch 56: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:58,911 - ERROR - Error processing batch 60: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   3%|▎         | 16/500 [00:01<00:42, 11.39it/s]2025-12-02 11:35:59,014 - ERROR - Error processing batch 64: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:59,100 - ERROR - Error processing batch 68: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   4%|▎         | 18/500 [00:01<00:43, 11.13it/s]2025-12-02 11:35:59,189 - ERROR - Error processing batch 72: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:59,284 - ERROR - Error processing batch 76: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   4%|▍         | 20/500 [00:01<00:43, 11.05it/s]2025-12-02 11:35:59,375 - ERROR - Error processing batch 80: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:59,471 - ERROR - Error processing batch 84: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   4%|▍         | 22/500 [00:01<00:43, 10.94it/s]2025-12-02 11:35:59,561 - ERROR - Error processing batch 88: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:59,652 - ERROR - Error processing batch 92: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   5%|▍         | 24/500 [00:02<00:43, 10.97it/s]2025-12-02 11:35:59,743 - ERROR - Error processing batch 96: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:35:59,833 - ERROR - Error processing batch 100: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   5%|▌         | 26/500 [00:02<00:43, 11.00it/s]2025-12-02 11:35:59,922 - ERROR - Error processing batch 104: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,008 - ERROR - Error processing batch 108: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   6%|▌         | 28/500 [00:02<00:42, 11.12it/s]2025-12-02 11:36:00,095 - ERROR - Error processing batch 112: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,182 - ERROR - Error processing batch 116: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   6%|▌         | 30/500 [00:02<00:41, 11.23it/s]2025-12-02 11:36:00,271 - ERROR - Error processing batch 120: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,356 - ERROR - Error processing batch 124: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   6%|▋         | 32/500 [00:02<00:41, 11.30it/s]2025-12-02 11:36:00,441 - ERROR - Error processing batch 128: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,524 - ERROR - Error processing batch 132: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   7%|▋         | 34/500 [00:03<00:40, 11.49it/s]2025-12-02 11:36:00,610 - ERROR - Error processing batch 136: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,693 - ERROR - Error processing batch 140: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   7%|▋         | 36/500 [00:03<00:40, 11.58it/s]2025-12-02 11:36:00,779 - ERROR - Error processing batch 144: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:00,865 - ERROR - Error processing batch 148: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   8%|▊         | 38/500 [00:03<00:39, 11.59it/s]2025-12-02 11:36:00,955 - ERROR - Error processing batch 152: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,042 - ERROR - Error processing batch 156: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   8%|▊         | 40/500 [00:03<00:39, 11.51it/s]2025-12-02 11:36:01,129 - ERROR - Error processing batch 160: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,215 - ERROR - Error processing batch 164: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   8%|▊         | 42/500 [00:03<00:39, 11.52it/s]2025-12-02 11:36:01,302 - ERROR - Error processing batch 168: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,389 - ERROR - Error processing batch 172: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   9%|▉         | 44/500 [00:03<00:39, 11.52it/s]2025-12-02 11:36:01,473 - ERROR - Error processing batch 176: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,556 - ERROR - Error processing batch 180: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:   9%|▉         | 46/500 [00:04<00:38, 11.66it/s]2025-12-02 11:36:01,641 - ERROR - Error processing batch 184: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,724 - ERROR - Error processing batch 188: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  10%|▉         | 48/500 [00:04<00:38, 11.72it/s]2025-12-02 11:36:01,807 - ERROR - Error processing batch 192: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:01,890 - ERROR - Error processing batch 196: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  10%|█         | 50/500 [00:04<00:38, 11.82it/s]2025-12-02 11:36:01,974 - ERROR - Error processing batch 200: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,059 - ERROR - Error processing batch 204: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  10%|█         | 52/500 [00:04<00:37, 11.83it/s]2025-12-02 11:36:02,146 - ERROR - Error processing batch 208: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,236 - ERROR - Error processing batch 212: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  11%|█         | 54/500 [00:04<00:38, 11.67it/s]2025-12-02 11:36:02,322 - ERROR - Error processing batch 216: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,409 - ERROR - Error processing batch 220: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  11%|█         | 56/500 [00:04<00:38, 11.62it/s]2025-12-02 11:36:02,507 - ERROR - Error processing batch 224: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,592 - ERROR - Error processing batch 228: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  12%|█▏        | 58/500 [00:05<00:38, 11.41it/s]2025-12-02 11:36:02,678 - ERROR - Error processing batch 232: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,764 - ERROR - Error processing batch 236: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  12%|█▏        | 60/500 [00:05<00:38, 11.47it/s]2025-12-02 11:36:02,848 - ERROR - Error processing batch 240: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:02,934 - ERROR - Error processing batch 244: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  12%|█▏        | 62/500 [00:05<00:37, 11.56it/s]2025-12-02 11:36:03,021 - ERROR - Error processing batch 248: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,106 - ERROR - Error processing batch 252: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  13%|█▎        | 64/500 [00:05<00:37, 11.57it/s]2025-12-02 11:36:03,193 - ERROR - Error processing batch 256: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,278 - ERROR - Error processing batch 260: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  13%|█▎        | 66/500 [00:05<00:37, 11.59it/s]2025-12-02 11:36:03,364 - ERROR - Error processing batch 264: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,452 - ERROR - Error processing batch 268: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  14%|█▎        | 68/500 [00:05<00:37, 11.58it/s]2025-12-02 11:36:03,541 - ERROR - Error processing batch 272: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,628 - ERROR - Error processing batch 276: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  14%|█▍        | 70/500 [00:06<00:37, 11.51it/s]2025-12-02 11:36:03,712 - ERROR - Error processing batch 280: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,800 - ERROR - Error processing batch 284: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  14%|█▍        | 72/500 [00:06<00:37, 11.54it/s]2025-12-02 11:36:03,888 - ERROR - Error processing batch 288: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:03,973 - ERROR - Error processing batch 292: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  15%|█▍        | 74/500 [00:06<00:36, 11.54it/s]2025-12-02 11:36:04,057 - ERROR - Error processing batch 296: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:04,142 - ERROR - Error processing batch 300: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  15%|█▌        | 76/500 [00:06<00:36, 11.64it/s]2025-12-02 11:36:04,228 - ERROR - Error processing batch 304: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:04,316 - ERROR - Error processing batch 308: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  16%|█▌        | 78/500 [00:06<00:36, 11.60it/s]2025-12-02 11:36:04,404 - ERROR - Error processing batch 312: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:04,490 - ERROR - Error processing batch 316: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  16%|█▌        | 80/500 [00:06<00:36, 11.57it/s]2025-12-02 11:36:04,579 - ERROR - Error processing batch 320: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:04,670 - ERROR - Error processing batch 324: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  16%|█▋        | 82/500 [00:07<00:36, 11.42it/s]2025-12-02 11:36:04,758 - ERROR - Error processing batch 328: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:04,843 - ERROR - Error processing batch 332: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  17%|█▋        | 84/500 [00:07<00:36, 11.45it/s]2025-12-02 11:36:04,929 - ERROR - Error processing batch 336: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,013 - ERROR - Error processing batch 340: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  17%|█▋        | 86/500 [00:07<00:35, 11.56it/s]2025-12-02 11:36:05,099 - ERROR - Error processing batch 344: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,185 - ERROR - Error processing batch 348: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  18%|█▊        | 88/500 [00:07<00:35, 11.58it/s]2025-12-02 11:36:05,271 - ERROR - Error processing batch 352: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,358 - ERROR - Error processing batch 356: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  18%|█▊        | 90/500 [00:07<00:35, 11.56it/s]2025-12-02 11:36:05,448 - ERROR - Error processing batch 360: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,539 - ERROR - Error processing batch 364: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  18%|█▊        | 92/500 [00:08<00:35, 11.42it/s]2025-12-02 11:36:05,626 - ERROR - Error processing batch 368: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,713 - ERROR - Error processing batch 372: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  19%|█▉        | 94/500 [00:08<00:35, 11.43it/s]2025-12-02 11:36:05,811 - ERROR - Error processing batch 376: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:05,897 - ERROR - Error processing batch 380: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  19%|█▉        | 96/500 [00:08<00:35, 11.26it/s]2025-12-02 11:36:05,981 - ERROR - Error processing batch 384: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,068 - ERROR - Error processing batch 388: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  20%|█▉        | 98/500 [00:08<00:35, 11.38it/s]2025-12-02 11:36:06,157 - ERROR - Error processing batch 392: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,242 - ERROR - Error processing batch 396: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  20%|██        | 100/500 [00:08<00:35, 11.41it/s]2025-12-02 11:36:06,323 - ERROR - Error processing batch 400: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,406 - ERROR - Error processing batch 404: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  20%|██        | 102/500 [00:08<00:34, 11.64it/s]2025-12-02 11:36:06,489 - ERROR - Error processing batch 408: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,574 - ERROR - Error processing batch 412: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  21%|██        | 104/500 [00:09<00:33, 11.72it/s]2025-12-02 11:36:06,654 - ERROR - Error processing batch 416: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,739 - ERROR - Error processing batch 420: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  21%|██        | 106/500 [00:09<00:33, 11.84it/s]2025-12-02 11:36:06,822 - ERROR - Error processing batch 424: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:06,907 - ERROR - Error processing batch 428: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  22%|██▏       | 108/500 [00:09<00:33, 11.85it/s]2025-12-02 11:36:06,991 - ERROR - Error processing batch 432: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,075 - ERROR - Error processing batch 436: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  22%|██▏       | 110/500 [00:09<00:32, 11.87it/s]2025-12-02 11:36:07,160 - ERROR - Error processing batch 440: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,245 - ERROR - Error processing batch 444: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  22%|██▏       | 112/500 [00:09<00:32, 11.85it/s]2025-12-02 11:36:07,328 - ERROR - Error processing batch 448: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,411 - ERROR - Error processing batch 452: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  23%|██▎       | 114/500 [00:09<00:32, 11.91it/s]2025-12-02 11:36:07,500 - ERROR - Error processing batch 456: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,588 - ERROR - Error processing batch 460: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  23%|██▎       | 116/500 [00:10<00:32, 11.71it/s]2025-12-02 11:36:07,672 - ERROR - Error processing batch 464: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,755 - ERROR - Error processing batch 468: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  24%|██▎       | 118/500 [00:10<00:32, 11.79it/s]2025-12-02 11:36:07,840 - ERROR - Error processing batch 472: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:07,920 - ERROR - Error processing batch 476: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  24%|██▍       | 120/500 [00:10<00:31, 11.88it/s]2025-12-02 11:36:08,005 - ERROR - Error processing batch 480: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,089 - ERROR - Error processing batch 484: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  24%|██▍       | 122/500 [00:10<00:31, 11.88it/s]2025-12-02 11:36:08,171 - ERROR - Error processing batch 488: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,254 - ERROR - Error processing batch 492: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  25%|██▍       | 124/500 [00:10<00:31, 11.95it/s]2025-12-02 11:36:08,337 - ERROR - Error processing batch 496: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,421 - ERROR - Error processing batch 500: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  25%|██▌       | 126/500 [00:10<00:31, 11.96it/s]2025-12-02 11:36:08,504 - ERROR - Error processing batch 504: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,589 - ERROR - Error processing batch 508: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  26%|██▌       | 128/500 [00:11<00:31, 11.94it/s]2025-12-02 11:36:08,675 - ERROR - Error processing batch 512: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,757 - ERROR - Error processing batch 516: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  26%|██▌       | 130/500 [00:11<00:31, 11.92it/s]2025-12-02 11:36:08,841 - ERROR - Error processing batch 520: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:08,924 - ERROR - Error processing batch 524: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  26%|██▋       | 132/500 [00:11<00:30, 11.95it/s]2025-12-02 11:36:09,007 - ERROR - Error processing batch 528: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,094 - ERROR - Error processing batch 532: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  27%|██▋       | 134/500 [00:11<00:30, 11.89it/s]2025-12-02 11:36:09,179 - ERROR - Error processing batch 536: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,266 - ERROR - Error processing batch 540: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  27%|██▋       | 136/500 [00:11<00:30, 11.81it/s]2025-12-02 11:36:09,354 - ERROR - Error processing batch 544: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,439 - ERROR - Error processing batch 548: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  28%|██▊       | 138/500 [00:11<00:30, 11.73it/s]2025-12-02 11:36:09,525 - ERROR - Error processing batch 552: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,611 - ERROR - Error processing batch 556: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  28%|██▊       | 140/500 [00:12<00:30, 11.69it/s]2025-12-02 11:36:09,699 - ERROR - Error processing batch 560: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,786 - ERROR - Error processing batch 564: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  28%|██▊       | 142/500 [00:12<00:30, 11.63it/s]2025-12-02 11:36:09,875 - ERROR - Error processing batch 568: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:09,961 - ERROR - Error processing batch 572: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  29%|██▉       | 144/500 [00:12<00:30, 11.56it/s]2025-12-02 11:36:10,047 - ERROR - Error processing batch 576: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,135 - ERROR - Error processing batch 580: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  29%|██▉       | 146/500 [00:12<00:30, 11.54it/s]2025-12-02 11:36:10,223 - ERROR - Error processing batch 584: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,310 - ERROR - Error processing batch 588: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  30%|██▉       | 148/500 [00:12<00:30, 11.51it/s]2025-12-02 11:36:10,396 - ERROR - Error processing batch 592: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,481 - ERROR - Error processing batch 596: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  30%|███       | 150/500 [00:12<00:30, 11.57it/s]2025-12-02 11:36:10,565 - ERROR - Error processing batch 600: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,653 - ERROR - Error processing batch 604: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  30%|███       | 152/500 [00:13<00:30, 11.58it/s]2025-12-02 11:36:10,737 - ERROR - Error processing batch 608: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,821 - ERROR - Error processing batch 612: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  31%|███       | 154/500 [00:13<00:29, 11.67it/s]2025-12-02 11:36:10,905 - ERROR - Error processing batch 616: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:10,990 - ERROR - Error processing batch 620: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  31%|███       | 156/500 [00:13<00:29, 11.73it/s]2025-12-02 11:36:11,072 - ERROR - Error processing batch 624: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,157 - ERROR - Error processing batch 628: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  32%|███▏      | 158/500 [00:13<00:28, 11.80it/s]2025-12-02 11:36:11,240 - ERROR - Error processing batch 632: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,326 - ERROR - Error processing batch 636: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  32%|███▏      | 160/500 [00:13<00:28, 11.79it/s]2025-12-02 11:36:11,410 - ERROR - Error processing batch 640: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,493 - ERROR - Error processing batch 644: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  32%|███▏      | 162/500 [00:13<00:28, 11.87it/s]2025-12-02 11:36:11,578 - ERROR - Error processing batch 648: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,661 - ERROR - Error processing batch 652: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  33%|███▎      | 164/500 [00:14<00:28, 11.87it/s]2025-12-02 11:36:11,744 - ERROR - Error processing batch 656: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,827 - ERROR - Error processing batch 660: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  33%|███▎      | 166/500 [00:14<00:28, 11.91it/s]2025-12-02 11:36:11,912 - ERROR - Error processing batch 664: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:11,996 - ERROR - Error processing batch 668: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  34%|███▎      | 168/500 [00:14<00:27, 11.90it/s]2025-12-02 11:36:12,079 - ERROR - Error processing batch 672: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:12,162 - ERROR - Error processing batch 676: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  34%|███▍      | 170/500 [00:14<00:27, 11.94it/s]2025-12-02 11:36:12,246 - ERROR - Error processing batch 680: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:12,330 - ERROR - Error processing batch 684: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  34%|███▍      | 172/500 [00:14<00:27, 11.93it/s]2025-12-02 11:36:12,415 - ERROR - Error processing batch 688: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:12,497 - ERROR - Error processing batch 692: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  35%|███▍      | 174/500 [00:14<00:27, 11.94it/s]2025-12-02 11:36:12,586 - ERROR - Error processing batch 696: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:12,670 - ERROR - Error processing batch 700: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  35%|███▌      | 176/500 [00:15<00:27, 11.84it/s]2025-12-02 11:36:12,754 - ERROR - Error processing batch 704: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:12,839 - ERROR - Error processing batch 708: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  36%|███▌      | 178/500 [00:15<00:27, 11.84it/s]2025-12-02 11:36:12,923 - ERROR - Error processing batch 712: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,006 - ERROR - Error processing batch 716: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  36%|███▌      | 180/500 [00:15<00:26, 11.86it/s]2025-12-02 11:36:13,089 - ERROR - Error processing batch 720: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,173 - ERROR - Error processing batch 724: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  36%|███▋      | 182/500 [00:15<00:26, 11.90it/s]2025-12-02 11:36:13,255 - ERROR - Error processing batch 728: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,340 - ERROR - Error processing batch 732: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  37%|███▋      | 184/500 [00:15<00:26, 11.92it/s]2025-12-02 11:36:13,434 - ERROR - Error processing batch 736: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,527 - ERROR - Error processing batch 740: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  37%|███▋      | 186/500 [00:16<00:27, 11.54it/s]2025-12-02 11:36:13,613 - ERROR - Error processing batch 744: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,698 - ERROR - Error processing batch 748: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  38%|███▊      | 188/500 [00:16<00:26, 11.57it/s]2025-12-02 11:36:13,784 - ERROR - Error processing batch 752: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:13,871 - ERROR - Error processing batch 756: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  38%|███▊      | 190/500 [00:16<00:26, 11.57it/s]2025-12-02 11:36:13,957 - ERROR - Error processing batch 760: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,043 - ERROR - Error processing batch 764: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  38%|███▊      | 192/500 [00:16<00:26, 11.59it/s]2025-12-02 11:36:14,126 - ERROR - Error processing batch 768: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,211 - ERROR - Error processing batch 772: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  39%|███▉      | 194/500 [00:16<00:26, 11.68it/s]2025-12-02 11:36:14,298 - ERROR - Error processing batch 776: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,384 - ERROR - Error processing batch 780: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  39%|███▉      | 196/500 [00:16<00:26, 11.64it/s]2025-12-02 11:36:14,470 - ERROR - Error processing batch 784: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,555 - ERROR - Error processing batch 788: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  40%|███▉      | 198/500 [00:17<00:25, 11.67it/s]2025-12-02 11:36:14,637 - ERROR - Error processing batch 792: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,720 - ERROR - Error processing batch 796: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  40%|████      | 200/500 [00:17<00:25, 11.80it/s]2025-12-02 11:36:14,805 - ERROR - Error processing batch 800: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:14,888 - ERROR - Error processing batch 804: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  40%|████      | 202/500 [00:17<00:25, 11.83it/s]2025-12-02 11:36:14,970 - ERROR - Error processing batch 808: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,055 - ERROR - Error processing batch 812: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  41%|████      | 204/500 [00:17<00:24, 11.87it/s]2025-12-02 11:36:15,141 - ERROR - Error processing batch 816: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,224 - ERROR - Error processing batch 820: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  41%|████      | 206/500 [00:17<00:24, 11.86it/s]2025-12-02 11:36:15,308 - ERROR - Error processing batch 824: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,389 - ERROR - Error processing batch 828: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  42%|████▏     | 208/500 [00:17<00:24, 11.93it/s]2025-12-02 11:36:15,473 - ERROR - Error processing batch 832: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,557 - ERROR - Error processing batch 836: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  42%|████▏     | 210/500 [00:18<00:24, 11.92it/s]2025-12-02 11:36:15,642 - ERROR - Error processing batch 840: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,724 - ERROR - Error processing batch 844: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  42%|████▏     | 212/500 [00:18<00:24, 11.93it/s]2025-12-02 11:36:15,811 - ERROR - Error processing batch 848: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:15,901 - ERROR - Error processing batch 852: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  43%|████▎     | 214/500 [00:18<00:24, 11.74it/s]2025-12-02 11:36:15,988 - ERROR - Error processing batch 856: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,074 - ERROR - Error processing batch 860: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  43%|████▎     | 216/500 [00:18<00:24, 11.68it/s]2025-12-02 11:36:16,159 - ERROR - Error processing batch 864: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,245 - ERROR - Error processing batch 868: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  44%|████▎     | 218/500 [00:18<00:24, 11.69it/s]2025-12-02 11:36:16,334 - ERROR - Error processing batch 872: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,421 - ERROR - Error processing batch 876: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  44%|████▍     | 220/500 [00:18<00:24, 11.59it/s]2025-12-02 11:36:16,507 - ERROR - Error processing batch 880: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,592 - ERROR - Error processing batch 884: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  44%|████▍     | 222/500 [00:19<00:23, 11.64it/s]2025-12-02 11:36:16,676 - ERROR - Error processing batch 888: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,764 - ERROR - Error processing batch 892: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  45%|████▍     | 224/500 [00:19<00:23, 11.63it/s]2025-12-02 11:36:16,854 - ERROR - Error processing batch 896: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:16,942 - ERROR - Error processing batch 900: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  45%|████▌     | 226/500 [00:19<00:23, 11.50it/s]2025-12-02 11:36:17,026 - ERROR - Error processing batch 904: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,112 - ERROR - Error processing batch 908: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  46%|████▌     | 228/500 [00:19<00:23, 11.58it/s]2025-12-02 11:36:17,196 - ERROR - Error processing batch 912: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,282 - ERROR - Error processing batch 916: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  46%|████▌     | 230/500 [00:19<00:23, 11.63it/s]2025-12-02 11:36:17,373 - ERROR - Error processing batch 920: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,458 - ERROR - Error processing batch 924: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  46%|████▋     | 232/500 [00:19<00:23, 11.55it/s]2025-12-02 11:36:17,544 - ERROR - Error processing batch 928: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,629 - ERROR - Error processing batch 932: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  47%|████▋     | 234/500 [00:20<00:22, 11.60it/s]2025-12-02 11:36:17,714 - ERROR - Error processing batch 936: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,800 - ERROR - Error processing batch 940: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  47%|████▋     | 236/500 [00:20<00:22, 11.63it/s]2025-12-02 11:36:17,888 - ERROR - Error processing batch 944: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:17,973 - ERROR - Error processing batch 948: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  48%|████▊     | 238/500 [00:20<00:22, 11.60it/s]2025-12-02 11:36:18,059 - ERROR - Error processing batch 952: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,144 - ERROR - Error processing batch 956: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  48%|████▊     | 240/500 [00:20<00:22, 11.64it/s]2025-12-02 11:36:18,232 - ERROR - Error processing batch 960: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,319 - ERROR - Error processing batch 964: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  48%|████▊     | 242/500 [00:20<00:22, 11.57it/s]2025-12-02 11:36:18,405 - ERROR - Error processing batch 968: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,491 - ERROR - Error processing batch 972: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  49%|████▉     | 244/500 [00:20<00:22, 11.60it/s]2025-12-02 11:36:18,576 - ERROR - Error processing batch 976: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,663 - ERROR - Error processing batch 980: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  49%|████▉     | 246/500 [00:21<00:21, 11.61it/s]2025-12-02 11:36:18,748 - ERROR - Error processing batch 984: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,831 - ERROR - Error processing batch 988: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  50%|████▉     | 248/500 [00:21<00:21, 11.69it/s]2025-12-02 11:36:18,914 - ERROR - Error processing batch 992: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:18,995 - ERROR - Error processing batch 996: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  50%|█████     | 250/500 [00:21<00:21, 11.84it/s]2025-12-02 11:36:19,078 - ERROR - Error processing batch 1000: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:19,161 - ERROR - Error processing batch 1004: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  50%|█████     | 252/500 [00:21<00:20, 11.89it/s]2025-12-02 11:36:19,246 - ERROR - Error processing batch 1008: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:19,330 - ERROR - Error processing batch 1012: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  51%|█████     | 254/500 [00:21<00:20, 11.88it/s]2025-12-02 11:36:19,416 - ERROR - Error processing batch 1016: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:19,500 - ERROR - Error processing batch 1020: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  51%|█████     | 256/500 [00:21<00:20, 11.84it/s]2025-12-02 11:36:19,586 - ERROR - Error processing batch 1024: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:19,670 - ERROR - Error processing batch 1028: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  52%|█████▏    | 258/500 [00:22<00:20, 11.82it/s]2025-12-02 11:36:19,756 - ERROR - Error processing batch 1032: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:19,839 - ERROR - Error processing batch 1036: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  52%|█████▏    | 260/500 [00:22<00:20, 11.84it/s]2025-12-02 11:36:19,923 - ERROR - Error processing batch 1040: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,007 - ERROR - Error processing batch 1044: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  52%|█████▏    | 262/500 [00:22<00:20, 11.85it/s]2025-12-02 11:36:20,089 - ERROR - Error processing batch 1048: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,172 - ERROR - Error processing batch 1052: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  53%|█████▎    | 264/500 [00:22<00:19, 11.93it/s]2025-12-02 11:36:20,258 - ERROR - Error processing batch 1056: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,342 - ERROR - Error processing batch 1060: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  53%|█████▎    | 266/500 [00:22<00:19, 11.89it/s]2025-12-02 11:36:20,426 - ERROR - Error processing batch 1064: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,510 - ERROR - Error processing batch 1068: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  54%|█████▎    | 268/500 [00:23<00:19, 11.88it/s]2025-12-02 11:36:20,596 - ERROR - Error processing batch 1072: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,679 - ERROR - Error processing batch 1076: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  54%|█████▍    | 270/500 [00:23<00:19, 11.87it/s]2025-12-02 11:36:20,767 - ERROR - Error processing batch 1080: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:20,856 - ERROR - Error processing batch 1084: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  54%|█████▍    | 272/500 [00:23<00:19, 11.69it/s]2025-12-02 11:36:20,940 - ERROR - Error processing batch 1088: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,025 - ERROR - Error processing batch 1092: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  55%|█████▍    | 274/500 [00:23<00:19, 11.74it/s]2025-12-02 11:36:21,111 - ERROR - Error processing batch 1096: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,194 - ERROR - Error processing batch 1100: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  55%|█████▌    | 276/500 [00:23<00:19, 11.77it/s]2025-12-02 11:36:21,280 - ERROR - Error processing batch 1104: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,362 - ERROR - Error processing batch 1108: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  56%|█████▌    | 278/500 [00:23<00:18, 11.81it/s]2025-12-02 11:36:21,445 - ERROR - Error processing batch 1112: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,528 - ERROR - Error processing batch 1116: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  56%|█████▌    | 280/500 [00:24<00:18, 11.88it/s]2025-12-02 11:36:21,615 - ERROR - Error processing batch 1120: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,700 - ERROR - Error processing batch 1124: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  56%|█████▋    | 282/500 [00:24<00:18, 11.80it/s]2025-12-02 11:36:21,785 - ERROR - Error processing batch 1128: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:21,871 - ERROR - Error processing batch 1132: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  57%|█████▋    | 284/500 [00:24<00:18, 11.76it/s]2025-12-02 11:36:21,955 - ERROR - Error processing batch 1136: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,041 - ERROR - Error processing batch 1140: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  57%|█████▋    | 286/500 [00:24<00:18, 11.78it/s]2025-12-02 11:36:22,125 - ERROR - Error processing batch 1144: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,208 - ERROR - Error processing batch 1148: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  58%|█████▊    | 288/500 [00:24<00:17, 11.82it/s]2025-12-02 11:36:22,291 - ERROR - Error processing batch 1152: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,375 - ERROR - Error processing batch 1156: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  58%|█████▊    | 290/500 [00:24<00:17, 11.87it/s]2025-12-02 11:36:22,459 - ERROR - Error processing batch 1160: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,542 - ERROR - Error processing batch 1164: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  58%|█████▊    | 292/500 [00:25<00:17, 11.91it/s]2025-12-02 11:36:22,624 - ERROR - Error processing batch 1168: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,713 - ERROR - Error processing batch 1172: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  59%|█████▉    | 294/500 [00:25<00:17, 11.85it/s]2025-12-02 11:36:22,813 - ERROR - Error processing batch 1176: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:22,898 - ERROR - Error processing batch 1180: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  59%|█████▉    | 296/500 [00:25<00:17, 11.51it/s]2025-12-02 11:36:22,984 - ERROR - Error processing batch 1184: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,069 - ERROR - Error processing batch 1188: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  60%|█████▉    | 298/500 [00:25<00:17, 11.56it/s]2025-12-02 11:36:23,152 - ERROR - Error processing batch 1192: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,237 - ERROR - Error processing batch 1196: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  60%|██████    | 300/500 [00:25<00:17, 11.67it/s]2025-12-02 11:36:23,324 - ERROR - Error processing batch 1200: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,409 - ERROR - Error processing batch 1204: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  60%|██████    | 302/500 [00:25<00:16, 11.65it/s]2025-12-02 11:36:23,494 - ERROR - Error processing batch 1208: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,579 - ERROR - Error processing batch 1212: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  61%|██████    | 304/500 [00:26<00:16, 11.70it/s]2025-12-02 11:36:23,665 - ERROR - Error processing batch 1216: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,751 - ERROR - Error processing batch 1220: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  61%|██████    | 306/500 [00:26<00:16, 11.66it/s]2025-12-02 11:36:23,839 - ERROR - Error processing batch 1224: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:23,921 - ERROR - Error processing batch 1228: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  62%|██████▏   | 308/500 [00:26<00:16, 11.71it/s]2025-12-02 11:36:24,005 - ERROR - Error processing batch 1232: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,090 - ERROR - Error processing batch 1236: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  62%|██████▏   | 310/500 [00:26<00:16, 11.74it/s]2025-12-02 11:36:24,175 - ERROR - Error processing batch 1240: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,261 - ERROR - Error processing batch 1244: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  62%|██████▏   | 312/500 [00:26<00:16, 11.72it/s]2025-12-02 11:36:24,346 - ERROR - Error processing batch 1248: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,433 - ERROR - Error processing batch 1252: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  63%|██████▎   | 314/500 [00:26<00:15, 11.70it/s]2025-12-02 11:36:24,518 - ERROR - Error processing batch 1256: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,605 - ERROR - Error processing batch 1260: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  63%|██████▎   | 316/500 [00:27<00:15, 11.68it/s]2025-12-02 11:36:24,688 - ERROR - Error processing batch 1264: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,773 - ERROR - Error processing batch 1268: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  64%|██████▎   | 318/500 [00:27<00:15, 11.75it/s]2025-12-02 11:36:24,858 - ERROR - Error processing batch 1272: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:24,943 - ERROR - Error processing batch 1276: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  64%|██████▍   | 320/500 [00:27<00:15, 11.76it/s]2025-12-02 11:36:25,026 - ERROR - Error processing batch 1280: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,109 - ERROR - Error processing batch 1284: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  64%|██████▍   | 322/500 [00:27<00:15, 11.84it/s]2025-12-02 11:36:25,193 - ERROR - Error processing batch 1288: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,277 - ERROR - Error processing batch 1292: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  65%|██████▍   | 324/500 [00:27<00:14, 11.86it/s]2025-12-02 11:36:25,362 - ERROR - Error processing batch 1296: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,446 - ERROR - Error processing batch 1300: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  65%|██████▌   | 326/500 [00:27<00:14, 11.84it/s]2025-12-02 11:36:25,530 - ERROR - Error processing batch 1304: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,614 - ERROR - Error processing batch 1308: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  66%|██████▌   | 328/500 [00:28<00:14, 11.86it/s]2025-12-02 11:36:25,698 - ERROR - Error processing batch 1312: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,783 - ERROR - Error processing batch 1316: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  66%|██████▌   | 330/500 [00:28<00:14, 11.86it/s]2025-12-02 11:36:25,870 - ERROR - Error processing batch 1320: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:25,956 - ERROR - Error processing batch 1324: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  66%|██████▋   | 332/500 [00:28<00:14, 11.76it/s]2025-12-02 11:36:26,040 - ERROR - Error processing batch 1328: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,125 - ERROR - Error processing batch 1332: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  67%|██████▋   | 334/500 [00:28<00:14, 11.79it/s]2025-12-02 11:36:26,208 - ERROR - Error processing batch 1336: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,291 - ERROR - Error processing batch 1340: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  67%|██████▋   | 336/500 [00:28<00:13, 11.86it/s]2025-12-02 11:36:26,375 - ERROR - Error processing batch 1344: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,458 - ERROR - Error processing batch 1348: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  68%|██████▊   | 338/500 [00:28<00:13, 11.89it/s]2025-12-02 11:36:26,543 - ERROR - Error processing batch 1352: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,629 - ERROR - Error processing batch 1356: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  68%|██████▊   | 340/500 [00:29<00:13, 11.83it/s]2025-12-02 11:36:26,713 - ERROR - Error processing batch 1360: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,797 - ERROR - Error processing batch 1364: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  68%|██████▊   | 342/500 [00:29<00:13, 11.86it/s]2025-12-02 11:36:26,880 - ERROR - Error processing batch 1368: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:26,963 - ERROR - Error processing batch 1372: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  69%|██████▉   | 344/500 [00:29<00:13, 11.90it/s]2025-12-02 11:36:27,049 - ERROR - Error processing batch 1376: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,131 - ERROR - Error processing batch 1380: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  69%|██████▉   | 346/500 [00:29<00:12, 11.91it/s]2025-12-02 11:36:27,213 - ERROR - Error processing batch 1384: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,297 - ERROR - Error processing batch 1388: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  70%|██████▉   | 348/500 [00:29<00:12, 11.96it/s]2025-12-02 11:36:27,380 - ERROR - Error processing batch 1392: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,468 - ERROR - Error processing batch 1396: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  70%|███████   | 350/500 [00:29<00:12, 11.87it/s]2025-12-02 11:36:27,553 - ERROR - Error processing batch 1400: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,640 - ERROR - Error processing batch 1404: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  70%|███████   | 352/500 [00:30<00:12, 11.81it/s]2025-12-02 11:36:27,725 - ERROR - Error processing batch 1408: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,809 - ERROR - Error processing batch 1412: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  71%|███████   | 354/500 [00:30<00:12, 11.80it/s]2025-12-02 11:36:27,895 - ERROR - Error processing batch 1416: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:27,978 - ERROR - Error processing batch 1420: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  71%|███████   | 356/500 [00:30<00:12, 11.82it/s]2025-12-02 11:36:28,063 - ERROR - Error processing batch 1424: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,148 - ERROR - Error processing batch 1428: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  72%|███████▏  | 358/500 [00:30<00:12, 11.80it/s]2025-12-02 11:36:28,234 - ERROR - Error processing batch 1432: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,318 - ERROR - Error processing batch 1436: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  72%|███████▏  | 360/500 [00:30<00:11, 11.80it/s]2025-12-02 11:36:28,402 - ERROR - Error processing batch 1440: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,486 - ERROR - Error processing batch 1444: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  72%|███████▏  | 362/500 [00:30<00:11, 11.81it/s]2025-12-02 11:36:28,570 - ERROR - Error processing batch 1448: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,654 - ERROR - Error processing batch 1452: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  73%|███████▎  | 364/500 [00:31<00:11, 11.86it/s]2025-12-02 11:36:28,737 - ERROR - Error processing batch 1456: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,821 - ERROR - Error processing batch 1460: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  73%|███████▎  | 366/500 [00:31<00:11, 11.89it/s]2025-12-02 11:36:28,904 - ERROR - Error processing batch 1464: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:28,986 - ERROR - Error processing batch 1468: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  74%|███████▎  | 368/500 [00:31<00:11, 11.94it/s]2025-12-02 11:36:29,070 - ERROR - Error processing batch 1472: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,153 - ERROR - Error processing batch 1476: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  74%|███████▍  | 370/500 [00:31<00:10, 11.96it/s]2025-12-02 11:36:29,239 - ERROR - Error processing batch 1480: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,323 - ERROR - Error processing batch 1484: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  74%|███████▍  | 372/500 [00:31<00:10, 11.90it/s]2025-12-02 11:36:29,407 - ERROR - Error processing batch 1488: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,492 - ERROR - Error processing batch 1492: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  75%|███████▍  | 374/500 [00:31<00:10, 11.89it/s]2025-12-02 11:36:29,576 - ERROR - Error processing batch 1496: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,659 - ERROR - Error processing batch 1500: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  75%|███████▌  | 376/500 [00:32<00:10, 11.91it/s]2025-12-02 11:36:29,742 - ERROR - Error processing batch 1504: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,827 - ERROR - Error processing batch 1508: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  76%|███████▌  | 378/500 [00:32<00:10, 11.92it/s]2025-12-02 11:36:29,912 - ERROR - Error processing batch 1512: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:29,996 - ERROR - Error processing batch 1516: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  76%|███████▌  | 380/500 [00:32<00:10, 11.89it/s]2025-12-02 11:36:30,079 - ERROR - Error processing batch 1520: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,162 - ERROR - Error processing batch 1524: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  76%|███████▋  | 382/500 [00:32<00:09, 11.93it/s]2025-12-02 11:36:30,244 - ERROR - Error processing batch 1528: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,328 - ERROR - Error processing batch 1532: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  77%|███████▋  | 384/500 [00:32<00:09, 11.96it/s]2025-12-02 11:36:30,411 - ERROR - Error processing batch 1536: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,495 - ERROR - Error processing batch 1540: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  77%|███████▋  | 386/500 [00:32<00:09, 11.96it/s]2025-12-02 11:36:30,578 - ERROR - Error processing batch 1544: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,661 - ERROR - Error processing batch 1548: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  78%|███████▊  | 388/500 [00:33<00:09, 12.00it/s]2025-12-02 11:36:30,743 - ERROR - Error processing batch 1552: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,826 - ERROR - Error processing batch 1556: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  78%|███████▊  | 390/500 [00:33<00:09, 12.03it/s]2025-12-02 11:36:30,911 - ERROR - Error processing batch 1560: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:30,994 - ERROR - Error processing batch 1564: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  78%|███████▊  | 392/500 [00:33<00:08, 12.00it/s]2025-12-02 11:36:31,077 - ERROR - Error processing batch 1568: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:31,160 - ERROR - Error processing batch 1572: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  79%|███████▉  | 394/500 [00:33<00:08, 12.01it/s]2025-12-02 11:36:31,245 - ERROR - Error processing batch 1576: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:31,328 - ERROR - Error processing batch 1580: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  79%|███████▉  | 396/500 [00:33<00:08, 11.98it/s]2025-12-02 11:36:31,412 - ERROR - Error processing batch 1584: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:31,497 - ERROR - Error processing batch 1588: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  80%|███████▉  | 398/500 [00:33<00:08, 11.93it/s]2025-12-02 11:36:31,581 - ERROR - Error processing batch 1592: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:31,671 - ERROR - Error processing batch 1596: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  80%|████████  | 400/500 [00:34<00:08, 11.81it/s]2025-12-02 11:36:31,770 - ERROR - Error processing batch 1600: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:31,864 - ERROR - Error processing batch 1604: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  80%|████████  | 402/500 [00:34<00:08, 11.32it/s]2025-12-02 11:36:31,951 - ERROR - Error processing batch 1608: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,035 - ERROR - Error processing batch 1612: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  81%|████████  | 404/500 [00:34<00:08, 11.43it/s]2025-12-02 11:36:32,120 - ERROR - Error processing batch 1616: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,204 - ERROR - Error processing batch 1620: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  81%|████████  | 406/500 [00:34<00:08, 11.56it/s]2025-12-02 11:36:32,288 - ERROR - Error processing batch 1624: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,371 - ERROR - Error processing batch 1628: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  82%|████████▏ | 408/500 [00:34<00:07, 11.68it/s]2025-12-02 11:36:32,455 - ERROR - Error processing batch 1632: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,538 - ERROR - Error processing batch 1636: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  82%|████████▏ | 410/500 [00:35<00:07, 11.76it/s]2025-12-02 11:36:32,623 - ERROR - Error processing batch 1640: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,708 - ERROR - Error processing batch 1644: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  82%|████████▏ | 412/500 [00:35<00:07, 11.77it/s]2025-12-02 11:36:32,793 - ERROR - Error processing batch 1648: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:32,877 - ERROR - Error processing batch 1652: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  83%|████████▎ | 414/500 [00:35<00:07, 11.80it/s]2025-12-02 11:36:32,961 - ERROR - Error processing batch 1656: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,046 - ERROR - Error processing batch 1660: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  83%|████████▎ | 416/500 [00:35<00:07, 11.81it/s]2025-12-02 11:36:33,128 - ERROR - Error processing batch 1664: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,213 - ERROR - Error processing batch 1668: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  84%|████████▎ | 418/500 [00:35<00:06, 11.85it/s]2025-12-02 11:36:33,297 - ERROR - Error processing batch 1672: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,381 - ERROR - Error processing batch 1676: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  84%|████████▍ | 420/500 [00:35<00:06, 11.86it/s]2025-12-02 11:36:33,467 - ERROR - Error processing batch 1680: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,551 - ERROR - Error processing batch 1684: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  84%|████████▍ | 422/500 [00:36<00:06, 11.83it/s]2025-12-02 11:36:33,641 - ERROR - Error processing batch 1688: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,728 - ERROR - Error processing batch 1692: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  85%|████████▍ | 424/500 [00:36<00:06, 11.68it/s]2025-12-02 11:36:33,813 - ERROR - Error processing batch 1696: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:33,901 - ERROR - Error processing batch 1700: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  85%|████████▌ | 426/500 [00:36<00:06, 11.64it/s]2025-12-02 11:36:33,988 - ERROR - Error processing batch 1704: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,075 - ERROR - Error processing batch 1708: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  86%|████████▌ | 428/500 [00:36<00:06, 11.59it/s]2025-12-02 11:36:34,166 - ERROR - Error processing batch 1712: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,255 - ERROR - Error processing batch 1716: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  86%|████████▌ | 430/500 [00:36<00:06, 11.44it/s]2025-12-02 11:36:34,342 - ERROR - Error processing batch 1720: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,428 - ERROR - Error processing batch 1724: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  86%|████████▋ | 432/500 [00:36<00:05, 11.48it/s]2025-12-02 11:36:34,513 - ERROR - Error processing batch 1728: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,601 - ERROR - Error processing batch 1732: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  87%|████████▋ | 434/500 [00:37<00:05, 11.51it/s]2025-12-02 11:36:34,689 - ERROR - Error processing batch 1736: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,774 - ERROR - Error processing batch 1740: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  87%|████████▋ | 436/500 [00:37<00:05, 11.51it/s]2025-12-02 11:36:34,861 - ERROR - Error processing batch 1744: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:34,944 - ERROR - Error processing batch 1748: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  88%|████████▊ | 438/500 [00:37<00:05, 11.58it/s]2025-12-02 11:36:35,029 - ERROR - Error processing batch 1752: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,112 - ERROR - Error processing batch 1756: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  88%|████████▊ | 440/500 [00:37<00:05, 11.68it/s]2025-12-02 11:36:35,197 - ERROR - Error processing batch 1760: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,287 - ERROR - Error processing batch 1764: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  88%|████████▊ | 442/500 [00:37<00:04, 11.61it/s]2025-12-02 11:36:35,378 - ERROR - Error processing batch 1768: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,464 - ERROR - Error processing batch 1772: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  89%|████████▉ | 444/500 [00:37<00:04, 11.51it/s]2025-12-02 11:36:35,553 - ERROR - Error processing batch 1776: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,639 - ERROR - Error processing batch 1780: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  89%|████████▉ | 446/500 [00:38<00:04, 11.49it/s]2025-12-02 11:36:35,725 - ERROR - Error processing batch 1784: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,811 - ERROR - Error processing batch 1788: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  90%|████████▉ | 448/500 [00:38<00:04, 11.54it/s]2025-12-02 11:36:35,895 - ERROR - Error processing batch 1792: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:35,981 - ERROR - Error processing batch 1796: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  90%|█████████ | 450/500 [00:38<00:04, 11.60it/s]2025-12-02 11:36:36,070 - ERROR - Error processing batch 1800: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:36,154 - ERROR - Error processing batch 1804: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  90%|█████████ | 452/500 [00:38<00:04, 11.58it/s]2025-12-02 11:36:36,238 - ERROR - Error processing batch 1808: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:36,324 - ERROR - Error processing batch 1812: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  91%|█████████ | 454/500 [00:38<00:03, 11.64it/s]2025-12-02 11:36:36,409 - ERROR - Error processing batch 1816: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:36,494 - ERROR - Error processing batch 1820: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  91%|█████████ | 456/500 [00:38<00:03, 11.67it/s]2025-12-02 11:36:36,579 - ERROR - Error processing batch 1824: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:36,666 - ERROR - Error processing batch 1828: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  92%|█████████▏| 458/500 [00:39<00:03, 11.68it/s]2025-12-02 11:36:36,751 - ERROR - Error processing batch 1832: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:36,837 - ERROR - Error processing batch 1836: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  92%|█████████▏| 460/500 [00:39<00:03, 11.67it/s]2025-12-02 11:36:36,922 - ERROR - Error processing batch 1840: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,009 - ERROR - Error processing batch 1844: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  92%|█████████▏| 462/500 [00:39<00:03, 11.67it/s]2025-12-02 11:36:37,094 - ERROR - Error processing batch 1848: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,177 - ERROR - Error processing batch 1852: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  93%|█████████▎| 464/500 [00:39<00:03, 11.72it/s]2025-12-02 11:36:37,264 - ERROR - Error processing batch 1856: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,351 - ERROR - Error processing batch 1860: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  93%|█████████▎| 466/500 [00:39<00:02, 11.66it/s]2025-12-02 11:36:37,437 - ERROR - Error processing batch 1864: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,522 - ERROR - Error processing batch 1868: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  94%|█████████▎| 468/500 [00:40<00:02, 11.67it/s]2025-12-02 11:36:37,607 - ERROR - Error processing batch 1872: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,691 - ERROR - Error processing batch 1876: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  94%|█████████▍| 470/500 [00:40<00:02, 11.72it/s]2025-12-02 11:36:37,775 - ERROR - Error processing batch 1880: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:37,860 - ERROR - Error processing batch 1884: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  94%|█████████▍| 472/500 [00:40<00:02, 11.76it/s]2025-12-02 11:36:37,944 - ERROR - Error processing batch 1888: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,028 - ERROR - Error processing batch 1892: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  95%|█████████▍| 474/500 [00:40<00:02, 11.80it/s]2025-12-02 11:36:38,113 - ERROR - Error processing batch 1896: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,211 - ERROR - Error processing batch 1900: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  95%|█████████▌| 476/500 [00:40<00:02, 11.53it/s]2025-12-02 11:36:38,302 - ERROR - Error processing batch 1904: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,389 - ERROR - Error processing batch 1908: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  96%|█████████▌| 478/500 [00:40<00:01, 11.43it/s]2025-12-02 11:36:38,479 - ERROR - Error processing batch 1912: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,565 - ERROR - Error processing batch 1916: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  96%|█████████▌| 480/500 [00:41<00:01, 11.42it/s]2025-12-02 11:36:38,655 - ERROR - Error processing batch 1920: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,743 - ERROR - Error processing batch 1924: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  96%|█████████▋| 482/500 [00:41<00:01, 11.35it/s]2025-12-02 11:36:38,831 - ERROR - Error processing batch 1928: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:38,921 - ERROR - Error processing batch 1932: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  97%|█████████▋| 484/500 [00:41<00:01, 11.33it/s]2025-12-02 11:36:39,008 - ERROR - Error processing batch 1936: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,094 - ERROR - Error processing batch 1940: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  97%|█████████▋| 486/500 [00:41<00:01, 11.39it/s]2025-12-02 11:36:39,178 - ERROR - Error processing batch 1944: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,268 - ERROR - Error processing batch 1948: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  98%|█████████▊| 488/500 [00:41<00:01, 11.43it/s]2025-12-02 11:36:39,353 - ERROR - Error processing batch 1952: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,440 - ERROR - Error processing batch 1956: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  98%|█████████▊| 490/500 [00:41<00:00, 11.47it/s]2025-12-02 11:36:39,525 - ERROR - Error processing batch 1960: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,610 - ERROR - Error processing batch 1964: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  98%|█████████▊| 492/500 [00:42<00:00, 11.56it/s]2025-12-02 11:36:39,696 - ERROR - Error processing batch 1968: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,778 - ERROR - Error processing batch 1972: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  99%|█████████▉| 494/500 [00:42<00:00, 11.66it/s]2025-12-02 11:36:39,864 - ERROR - Error processing batch 1976: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:39,949 - ERROR - Error processing batch 1980: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic:  99%|█████████▉| 496/500 [00:42<00:00, 11.69it/s]2025-12-02 11:36:40,037 - ERROR - Error processing batch 1984: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:40,122 - ERROR - Error processing batch 1988: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic: 100%|█████████▉| 498/500 [00:42<00:00, 11.63it/s]2025-12-02 11:36:40,206 - ERROR - Error processing batch 1992: Received inconsistently sized batches of images (1) and text (4).
+2025-12-02 11:36:40,290 - ERROR - Error processing batch 1996: Received inconsistently sized batches of images (1) and text (4).
+Processing arabic: 100%|██████████| 500/500 [00:42<00:00, 11.72it/s]Processing arabic: 100%|██████████| 500/500 [00:42<00:00, 11.69it/s]
+2025-12-02 11:36:40,291 - INFO - Saved arabic activations to checkpoints/activations_arabic.pt
+2025-12-02 11:36:40,444 - INFO - 
+Activation extraction complete!

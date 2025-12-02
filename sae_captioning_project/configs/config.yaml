@@ -29,7 +29,7 @@ layers:
 data:
   num_samples: 2000  # Total image-prompt pairs to analyze
   val_split: 0.1
-  batch_size: 8
+  batch_size: 1  # Gemma-3 processor issue - process one at a time
   num_workers: 4
   
   # Image settings
@@ -47,10 +47,10 @@ sae:
   # Architecture
   expansion_factor: 8  # d_hidden = d_model * expansion_factor
   l1_coefficient: 5e-4
-  
+
   # Training
   epochs: 50
-  batch_size: 2048
+  batch_size: 1024  # Reduced for 24GB GPU
   learning_rate: 1e-4
   warmup_steps: 1000
   weight_decay: 0.0
@@ -109,9 +109,9 @@ visualization:
 # Logging and experiment tracking
 logging:
   level: "INFO"
-  use_wandb: false
+  use_wandb: true
   wandb_project: "sae-captioning-bias"
-  wandb_entity: null
+  wandb_entity: "nourmubarak"
   log_interval: 100
   save_interval: 1000
 
