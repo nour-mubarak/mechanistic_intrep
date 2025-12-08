@@ -24,5 +24,6 @@ mech_test/
 
 sae_captioning_project/data/raw/
 sae_captioning_project/checkpoints/
-
+sae_captioning_project/checkpoints/activations_arabic.pt/
+sae_captioning_project/checkpoints/activations_english.pt/
 *.hf_cache/
