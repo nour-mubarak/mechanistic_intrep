@@ -13,3 +13,5 @@ from . import models
 from . import data
 from . import analysis
 from . import visualization
+from . import mechanistic
+

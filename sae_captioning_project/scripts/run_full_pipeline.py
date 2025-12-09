@@ -41,6 +41,7 @@ STAGES = {
     4: ("Feature Analysis", "04_analyze_features.py"),
     5: ("Steering Experiments", "05_steering_experiments.py"),
     6: ("Visualization Generation", "06_generate_visualizations.py"),
+    7: ("Integrated Mechanistic Analysis", "07_integrated_mechanistic_analysis.py"),
 }
 
 
