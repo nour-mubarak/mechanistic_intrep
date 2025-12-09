@@ -44,7 +44,7 @@ def load_config(config_path: str) -> dict:
 
 def load_sae(checkpoint_path: Path, device: str = "cuda") -> SparseAutoencoder:
     """Load trained SAE from checkpoint."""
-    checkpoint = torch.load(checkpoint_path, map_location=device)
+    checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
     
     config = checkpoint['config']
     sae = SparseAutoencoder(config)
@@ -60,7 +60,7 @@ def load_activations(checkpoint_dir: Path, language: str) -> dict:
     path = checkpoint_dir / f'activations_{language}.pt'
     if not path.exists():
         raise FileNotFoundError(f"Activations not found: {path}")
-    return torch.load(path)
+    return torch.load(path, weights_only=False)
 
 
 def analyze_layer(
