@@ -26,4 +26,8 @@ sae_captioning_project/data/raw/
 sae_captioning_project/checkpoints/
 sae_captioning_project/checkpoints/activations_arabic.pt/
 sae_captioning_project/checkpoints/activations_english.pt/
+sae_captioning_project/results/
+sae_captioning_project/logs/
+sae_captioning_project/wandb/
+sae_captioning_project/visualizations/
 *.hf_cache/
