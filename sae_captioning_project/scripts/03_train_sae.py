@@ -61,49 +61,62 @@ def prepare_training_data(
     english_data: dict,
     arabic_data: dict,
     layer: int,
-    val_split: float = 0.1
+    val_split: float = 0.1,
+    max_tokens_per_sample: int = 50
 ) -> tuple:
-    """Prepare training and validation data for SAE."""
-    
-    # Get activations for the layer
+    """Prepare training and validation data for SAE with token sampling."""
+
+    # Get activations for the layer (keep in float16)
     en_acts = english_data['activations'][layer]
     ar_acts = arabic_data['activations'][layer]
-    
-    logger.info(f"English activations shape: {en_acts.shape}")
-    logger.info(f"Arabic activations shape: {ar_acts.shape}")
-    
-    # Combine activations
-    # Flatten sequence dimension: (batch, seq, hidden) -> (batch*seq, hidden)
+
+    logger.info(f"English activations shape: {en_acts.shape}, dtype: {en_acts.dtype}")
+    logger.info(f"Arabic activations shape: {ar_acts.shape}, dtype: {ar_acts.dtype}")
+
+    # Sample tokens from sequence to reduce memory usage
+    # Instead of using all 278 tokens, sample max_tokens_per_sample tokens per image
     if len(en_acts.shape) == 3:
-        en_flat = en_acts.view(-1, en_acts.shape[-1])
-        ar_flat = ar_acts.view(-1, ar_acts.shape[-1])
+        batch_size, seq_len, hidden = en_acts.shape
+        # Randomly sample token positions (same for all samples)
+        if seq_len > max_tokens_per_sample:
+            token_indices = torch.randperm(seq_len)[:max_tokens_per_sample]
+            en_acts = en_acts[:, token_indices, :]
+            ar_acts = ar_acts[:, token_indices, :]
+            logger.info(f"Sampled {max_tokens_per_sample} tokens from {seq_len} to reduce memory")
+
+        # Flatten: (batch, seq, hidden) -> (batch*seq, hidden)
+        en_flat = en_acts.reshape(-1, en_acts.shape[-1])
+        ar_flat = ar_acts.reshape(-1, ar_acts.shape[-1])
     else:
         en_flat = en_acts
         ar_flat = ar_acts
-    
-    combined = torch.cat([en_flat, ar_flat], dim=0)
-    logger.info(f"Combined activations: {combined.shape}")
-    
-    # Shuffle
-    perm = torch.randperm(combined.shape[0])
-    combined = combined[perm]
-    
-    # Split into train/val
-    n_val = int(len(combined) * val_split)
-    n_train = len(combined) - n_val
-    
-    train_data = combined[:n_train]
-    val_data = combined[n_train:]
-    
-    logger.info(f"Training samples: {len(train_data)}")
-    logger.info(f"Validation samples: {len(val_data)}")
-    
-    return train_data, val_data
+
+    logger.info(f"After sampling - English: {en_flat.shape}, Arabic: {ar_flat.shape}")
+
+    # Calculate split sizes
+    en_samples = en_flat.shape[0]
+    ar_samples = ar_flat.shape[0]
+
+    # Take validation from end of each dataset
+    en_val_size = int(en_samples * val_split)
+    ar_val_size = int(ar_samples * val_split)
+
+    # Split without creating full combined tensor
+    en_train = en_flat[:-en_val_size]
+    en_val = en_flat[-en_val_size:]
+    ar_train = ar_flat[:-ar_val_size]
+    ar_val = ar_flat[-ar_val_size:]
+
+    logger.info(f"Training samples: {en_train.shape[0] + ar_train.shape[0]}")
+    logger.info(f"Validation samples: {en_val.shape[0] + ar_val.shape[0]}")
+
+    # Return as separate tensors - will be combined in dataloader
+    return (en_train, ar_train), (en_val, ar_val)
 
 
 def train_sae_for_layer(
-    train_data: torch.Tensor,
-    val_data: torch.Tensor,
+    train_data: tuple,
+    val_data: tuple,
     config: dict,
     layer: int,
     device: str = "cuda",
@@ -112,14 +125,29 @@ def train_sae_for_layer(
     """Train SAE for a specific layer."""
 
     sae_config = config['sae']
-    d_model = train_data.shape[-1]
 
-    # Create SAE
+    # Handle tuple input (en_data, ar_data)
+    if isinstance(train_data, tuple):
+        d_model = train_data[0].shape[-1]
+        # Combine for dataloaders
+        train_combined = torch.cat([train_data[0], train_data[1]], dim=0)
+        val_combined = torch.cat([val_data[0], val_data[1]], dim=0)
+    else:
+        d_model = train_data.shape[-1]
+        train_combined = train_data
+        val_combined = val_data
+
+    # Log input statistics
+    logger.info(f"Training data stats - mean: {train_combined.float().mean():.6f}, std: {train_combined.float().std():.6f}")
+    logger.info(f"Training data range - min: {train_combined.float().min():.6f}, max: {train_combined.float().max():.6f}")
+
+    # Create SAE (keep float32 for training stability)
     sae = create_sae(
         d_model=d_model,
-        expansion_factor=sae_config.get('expansion_factor', 8),
-        l1_coefficient=sae_config.get('l1_coefficient', 5e-4),
-        sae_type="standard"
+        expansion_factor=int(sae_config.get('expansion_factor', 8)),
+        l1_coefficient=float(sae_config.get('l1_coefficient', 5e-4)),
+        sae_type="standard",
+        dtype=torch.float32
     )
 
     logger.info(f"Created SAE: d_model={d_model}, d_hidden={sae.d_hidden}")
@@ -132,7 +160,7 @@ def train_sae_for_layer(
             f'layer_{layer}_expansion_factor': sae_config.get('expansion_factor', 8),
             f'layer_{layer}_l1_coefficient': sae_config.get('l1_coefficient', 5e-4),
         })
-    
+
     # Create trainer
     trainer = SAETrainer(
         sae=sae,
@@ -140,17 +168,17 @@ def train_sae_for_layer(
         warmup_steps=int(sae_config.get('warmup_steps', 1000)),
         device=device
     )
-    
-    # Create dataloaders
+
+    # Create dataloaders - convert to float32 here
     batch_size = sae_config.get('batch_size', 2048)
     train_loader = DataLoader(
-        TensorDataset(train_data),
+        TensorDataset(train_combined.float()),
         batch_size=batch_size,
         shuffle=True,
         num_workers=0
     )
     val_loader = DataLoader(
-        TensorDataset(val_data),
+        TensorDataset(val_combined.float()),
         batch_size=batch_size,
         shuffle=False,
         num_workers=0
@@ -159,7 +187,7 @@ def train_sae_for_layer(
     # Training loop
     epochs = sae_config.get('epochs', 50)
     patience = sae_config.get('patience', 10)
-    min_delta = sae_config.get('min_delta', 1e-5)
+    min_delta = float(sae_config.get('min_delta', 1e-5))
     
     history = {
         'loss': [],
@@ -178,6 +206,13 @@ def train_sae_for_layer(
         epoch_metrics = []
         for batch, in tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
             metrics = trainer.train_step(batch)
+
+            # Check for NaN
+            if torch.isnan(torch.tensor(metrics['loss'])):
+                logger.error(f"NaN detected in loss at epoch {epoch+1}")
+                logger.error(f"Metrics: {metrics}")
+                break
+
             epoch_metrics.append(metrics)
         
         # Average training metrics

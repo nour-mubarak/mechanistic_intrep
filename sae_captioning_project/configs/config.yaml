@@ -15,7 +15,7 @@ paths:
 # Model configuration
 model:
   name: "google/gemma-3-4b-it"
-  dtype: "float16"  # float16, bfloat16, float32
+  dtype: "float32"  # float16, bfloat16, float32 (using float32 to avoid NaN)
   device: "cuda"
   max_new_tokens: 100
   
@@ -50,7 +50,7 @@ sae:
 
   # Training
   epochs: 50
-  batch_size: 1024  # Reduced for 24GB GPU
+  batch_size: 256  # Further reduced for memory constraints
   learning_rate: 1e-4
   warmup_steps: 1000
   weight_decay: 0.0

@@ -45,21 +45,27 @@ def load_config(config_path: str) -> dict:
 def load_model(config: dict):
     """Load the vision-language model and processor."""
     model_name = config['model']['name']
-    dtype_str = config['model'].get('dtype', 'float16')
-    
+    # Force float32 to avoid NaN issues with float16
+    dtype_str = config['model'].get('dtype', 'float32')
+
     dtype_map = {
         'float16': torch.float16,
         'bfloat16': torch.bfloat16,
         'float32': torch.float32,
     }
-    dtype = dtype_map.get(dtype_str, torch.float16)
-    
+    dtype = dtype_map.get(dtype_str, torch.float32)
+
+    # Override to float32 for stability
+    if dtype != torch.float32:
+        logger.warning(f"Overriding dtype from {dtype} to float32 for numerical stability")
+        dtype = torch.float32
+
     logger.info(f"Loading model: {model_name}")
-    
+
     # Load processor
     processor = AutoProcessor.from_pretrained(model_name, trust_remote_code=True)
-    
-    # Load model
+
+    # Load model in float32
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         torch_dtype=dtype,
@@ -67,7 +73,7 @@ def load_model(config: dict):
         trust_remote_code=True,
     )
     model.eval()
-    
+
     logger.info(f"Model loaded with dtype {dtype}")
     return model, processor
 
@@ -150,7 +156,19 @@ def extract_activations_batch(
                 act = output[0]
             else:
                 act = output
-            activations[layer_idx].append(act.detach().cpu())
+
+            # Detach, move to CPU, and convert to float32
+            act = act.detach().cpu().float()
+
+            # Check for NaN values
+            if torch.isnan(act).any():
+                logger.error(f"NaN detected in layer {layer_idx} activations!")
+                logger.error(f"NaN count: {torch.isnan(act).sum().item()} / {act.numel()}")
+                # Replace NaN with zeros to prevent corruption
+                act = torch.nan_to_num(act, nan=0.0)
+                logger.warning("Replaced NaN values with zeros")
+
+            activations[layer_idx].append(act)
         return hook
     
     # Register hooks
@@ -307,17 +325,42 @@ def main():
                         if chunk_activations[layer]:
                             stacked_chunk[layer] = torch.cat(chunk_activations[layer], dim=0)
 
+                    # Validate activations before saving
+                    has_nan = False
+                    for layer, act in stacked_chunk.items():
+                        if torch.isnan(act).any():
+                            nan_count = torch.isnan(act).sum().item()
+                            logger.error(f"Checkpoint {len(all_checkpoint_files)} layer {layer} contains {nan_count} NaN values!")
+                            has_nan = True
+
+                    if has_nan:
+                        logger.error("Skipping checkpoint due to NaN values")
+                        # Clear chunk and continue
+                        chunk_activations = {layer: [] for layer in layers}
+                        chunk_genders = []
+                        chunk_image_ids = []
+                        samples_processed = 0
+                        continue
+
                     # Save checkpoint
                     checkpoint_idx = len(all_checkpoint_files)
                     checkpoint_path = checkpoints_dir / f'activations_{language}_chunk_{checkpoint_idx}.pt'
+
+                    # Save with metadata
                     torch.save({
                         'activations': stacked_chunk,
                         'genders': chunk_genders,
                         'image_ids': chunk_image_ids,
+                        'hidden_size': hidden_size,
+                        'model': config['model']['name'],
                     }, checkpoint_path)
 
                     all_checkpoint_files.append(checkpoint_path)
                     logger.info(f"Saved checkpoint {checkpoint_idx} with {len(chunk_image_ids)} samples")
+
+                    # Log activation statistics
+                    for layer, act in stacked_chunk.items():
+                        logger.info(f"  Layer {layer}: shape={act.shape}, mean={act.mean():.6f}, std={act.std():.6f}, min={act.min():.6f}, max={act.max():.6f}")
 
                     # Clear chunk data
                     chunk_activations = {layer: [] for layer in layers}
