@@ -41,20 +41,51 @@ def load_config(config_path: str) -> dict:
 
 
 def load_activations(checkpoint_dir: Path, language: str, layer: int = None) -> dict:
-    """Load extracted activations."""
-    path = checkpoint_dir / f'activations_{language}.pt'
-    if not path.exists():
-        raise FileNotFoundError(f"Activations not found: {path}")
-
-    data = torch.load(path, weights_only=False)
-    logger.info(f"Loaded {language} activations")
-
-    # If layer specified, keep only that layer's activations to save memory
-    if layer is not None and 'activations' in data:
-        layer_act = data['activations'].get(layer)
-        data['activations'] = {layer: layer_act} if layer_act is not None else {}
-
-    return data
+    """Load extracted activations from checkpoints or merged file."""
+    # First try to load merged file
+    merged_path = checkpoint_dir / f'activations_{language}.pt'
+    if merged_path.exists():
+        data = torch.load(merged_path, weights_only=False)
+        logger.info(f"Loaded {language} activations from merged file")
+        
+        # If layer specified, keep only that layer's activations to save memory
+        if layer is not None and 'activations' in data:
+            layer_act = data['activations'].get(layer)
+            data['activations'] = {layer: layer_act} if layer_act is not None else {}
+        
+        return data
+    
+    # If merged file doesn't exist, load from checkpoint chunks
+    logger.info(f"Merged file not found, loading {language} checkpoints...")
+    chunk_files = sorted(checkpoint_dir.glob(f'activations_{language}_chunk_*.pt'))
+    
+    if not chunk_files:
+        raise FileNotFoundError(f"No activations found for {language} in {checkpoint_dir}")
+    
+    logger.info(f"Found {len(chunk_files)} checkpoint files for {language}")
+    
+    # Load and merge all chunks
+    all_activations = {}
+    for chunk_file in tqdm(chunk_files, desc=f"Loading {language} chunks"):
+        chunk_data = torch.load(chunk_file, map_location='cpu', weights_only=False)
+        
+        if 'activations' in chunk_data:
+            for layer_idx, acts in chunk_data['activations'].items():
+                # Only load the specified layer if provided
+                if layer is not None and layer_idx != layer:
+                    continue
+                    
+                if layer_idx not in all_activations:
+                    all_activations[layer_idx] = []
+                all_activations[layer_idx].append(acts)
+    
+    # Concatenate all chunks for each layer
+    merged_activations = {}
+    for layer_idx, acts_list in all_activations.items():
+        merged_activations[layer_idx] = torch.cat(acts_list, dim=0)
+        logger.info(f"Layer {layer_idx}: {merged_activations[layer_idx].shape}")
+    
+    return {'activations': merged_activations}
 
 
 def prepare_training_data(
@@ -269,19 +300,39 @@ def train_sae_for_layer(
     return sae, history
 
 
-def evaluate_sae(sae, val_data: torch.Tensor, device: str = "cuda") -> dict:
+def evaluate_sae(sae, val_data, device: str = "cuda") -> dict:
     """Evaluate trained SAE."""
     sae.eval()
-    val_data = val_data.to(device)
+    
+    # Handle tuple input (en_data, ar_data)
+    if isinstance(val_data, tuple):
+        en_val, ar_val = val_data
+        en_val = en_val.to(device)
+        ar_val = ar_val.to(device)
+        val_tensors = [en_val, ar_val]
+    else:
+        val_tensors = [val_data.to(device)]
+    
+    all_reconstruction = []
+    all_features = []
+    all_input = []
     
     with torch.no_grad():
-        reconstruction, features, _ = sae(val_data)
+        for val_tensor in val_tensors:
+            reconstruction, features, _ = sae(val_tensor)
+            all_reconstruction.append(reconstruction.cpu())
+            all_features.append(features.cpu())
+            all_input.append(val_tensor.cpu())
+    
+    val_data_combined = torch.cat(all_input, dim=0)
+    reconstruction_combined = torch.cat(all_reconstruction, dim=0)
+    features_combined = torch.cat(all_features, dim=0)
     
     # Reconstruction metrics
-    recon_metrics = compute_reconstruction_metrics(val_data.cpu(), reconstruction.cpu())
+    recon_metrics = compute_reconstruction_metrics(val_data_combined, reconstruction_combined)
     
     # Sparsity metrics
-    sparsity_metrics = compute_sparsity_metrics(features.cpu())
+    sparsity_metrics = compute_sparsity_metrics(features_combined)
     
     return {**recon_metrics, **sparsity_metrics}
 
@@ -323,13 +374,27 @@ def main():
 
     # Determine layers first (need to peek at activations file)
     try:
-        temp_data = torch.load(checkpoint_dir / 'activations_english.pt', weights_only=False)
-        available_layers = list(temp_data['activations'].keys())
-        del temp_data
-        import gc
-        gc.collect()
-    except FileNotFoundError:
-        logger.error("Activations not found. Run 02_extract_activations.py first.")
+        # Try merged file first
+        merged_path = checkpoint_dir / 'activations_english.pt'
+        if merged_path.exists():
+            temp_data = torch.load(merged_path, weights_only=False)
+            available_layers = list(temp_data['activations'].keys())
+            del temp_data
+            import gc
+            gc.collect()
+        else:
+            # Load from first checkpoint to get available layers
+            chunk_files = sorted(checkpoint_dir.glob('activations_english_chunk_*.pt'))
+            if not chunk_files:
+                raise FileNotFoundError("No English activation files found")
+            
+            temp_data = torch.load(chunk_files[0], map_location='cpu', weights_only=False)
+            available_layers = list(temp_data['activations'].keys())
+            del temp_data
+            import gc
+            gc.collect()
+    except (FileNotFoundError, IndexError) as e:
+        logger.error(f"Activations not found: {e}. Run 02_extract_activations.py first.")
         return 1
 
     layers = args.layers or config['layers'].get('primary_analysis', available_layers)
