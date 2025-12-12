@@ -10,12 +10,9 @@ from pathlib import Path
 import logging
 from datetime import datetime
 from tqdm import tqdm
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from src.data.dataset import CrossLingualCaptionDataset
-from src.models.vlm import load_model, get_model_hidden_size
+from transformers import AutoModelForCausalLM, AutoProcessor
+from PIL import Image
+import pandas as pd
 import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,6 +21,59 @@ logger = logging.getLogger(__name__)
 def load_config(config_path):
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
+
+def load_model(config):
+    """Load the vision-language model."""
+    model_name = config['model']['name']
+    logger.info(f"Loading model: {model_name}")
+
+    processor = AutoProcessor.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map=config['model'].get('device_map', 'auto'),
+        torch_dtype=getattr(torch, config['model'].get('dtype', 'float16'))
+    )
+
+    logger.info(f"Model loaded with dtype {model.dtype}")
+    return model, processor
+
+def get_model_hidden_size(model):
+    """Get the hidden size of the model."""
+    if hasattr(model, 'language_model'):
+        return model.language_model.config.hidden_size
+    elif hasattr(model, 'model'):
+        return model.model.config.hidden_size
+    elif hasattr(model, 'config'):
+        return model.config.hidden_size
+    else:
+        raise ValueError("Could not determine model hidden size")
+
+def load_dataset(data_dir, csv_path, max_samples=None):
+    """Load dataset from CSV."""
+    df = pd.read_csv(csv_path)
+    if max_samples:
+        df = df.head(max_samples)
+
+    data = []
+    for _, row in df.iterrows():
+        image_filename = row['image']
+        image_path = Path(data_dir) / 'images' / image_filename
+        if not image_path.exists():
+            logger.warning(f"Image not found: {image_path}")
+            continue
+
+        # Extract image ID from filename (remove .jpg extension)
+        image_id = image_filename.replace('.jpg', '')
+
+        data.append({
+            'image': Image.open(image_path).convert('RGB'),
+            'image_id': image_id,
+            'english_caption': row['arabic_prompt'],  # Use the prompt, not caption
+            'arabic_caption': row['arabic_prompt'],
+            'gender': row['ground_truth_gender']
+        })
+
+    return data
 
 def extract_activations_single(model, processor, image, prompt, layers, device):
     """Extract activations for a single image."""
@@ -113,7 +163,7 @@ def main():
 
     # Load dataset
     csv_path = processed_dir / 'samples.csv'
-    dataset = CrossLingualCaptionDataset(
+    dataset = load_dataset(
         data_dir=processed_dir,
         csv_path=csv_path,
         max_samples=config['data'].get('num_samples')

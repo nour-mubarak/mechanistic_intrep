@@ -83,19 +83,38 @@ def merge_checkpoints(checkpoints_dir, language, layers):
     return True
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--language', type=str, default='both',
+                       choices=['english', 'arabic', 'both'],
+                       help='Which language to merge')
+    args = parser.parse_args()
+
     checkpoints_dir = Path('checkpoints')
     layers = [2, 6, 10, 14, 18, 22, 26, 30]
 
-    # Merge English checkpoints
-    logger.info("="*50)
-    logger.info("Merging English checkpoints...")
-    logger.info("="*50)
-    success_en = merge_checkpoints(checkpoints_dir, 'english', layers)
+    if args.language in ['english', 'both']:
+        # Merge English checkpoints
+        logger.info("="*50)
+        logger.info("Merging English checkpoints...")
+        logger.info("="*50)
+        success_en = merge_checkpoints(checkpoints_dir, 'english', layers)
 
-    if success_en:
-        logger.info("English merge completed successfully!")
-    else:
-        logger.error("English merge failed!")
+        if success_en:
+            logger.info("English merge completed successfully!")
+        else:
+            logger.error("English merge failed!")
 
-    # Note: Arabic will be done when those checkpoints exist
+    if args.language in ['arabic', 'both']:
+        # Merge Arabic checkpoints
+        logger.info("\n" + "="*50)
+        logger.info("Merging Arabic checkpoints...")
+        logger.info("="*50)
+        success_ar = merge_checkpoints(checkpoints_dir, 'arabic', layers)
+
+        if success_ar:
+            logger.info("Arabic merge completed successfully!")
+        else:
+            logger.error("Arabic merge failed!")
+
     logger.info("\nMerge process completed!")
