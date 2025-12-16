@@ -44,8 +44,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_checkpoint_batch(checkpoint_dir: Path, language: str, layer: int,
-                          max_samples: int = 500) -> dict:
+def load_checkpoint_batch(checkpoint_dir, language, layer, max_samples=500):
     """Load a subset of activation checkpoints for analysis."""
     chunk_files = sorted(checkpoint_dir.glob(f'activations_{language}_chunk_*.pt'))
     
