@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=final_report
-#SBATCH --partition=standard
+#SBATCH --partition=cpu
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
 #SBATCH --time=1:00:00
 #SBATCH --output=logs/step_final_report_%j.out
 #SBATCH --error=logs/step_final_report_%j.err
 #SBATCH --mail-type=END
-#SBATCH --mail-user=your.email@durham.ac.uk
+#SBATCH --mail-user=jmsk62@durham.ac.uk
 
 # Final Step: Generate Comprehensive Report
 # ==========================================
@@ -20,7 +20,6 @@ echo "Start: $(date)"
 echo "=========================================="
 
 module purge
-module load python/3.10
 source venv/bin/activate
 
 # Create final report directory

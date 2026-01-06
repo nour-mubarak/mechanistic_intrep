@@ -12,7 +12,7 @@ echo "=========================================="
 sbatch << 'EOF'
 #!/bin/bash
 #SBATCH --job-name=02_extract_00_08
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -21,7 +21,6 @@ sbatch << 'EOF'
 #SBATCH --error=logs/step2_extract_00_08_%j.err
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 python scripts/18_extract_full_activations_ncc.py \
@@ -35,7 +34,7 @@ EOF
 sbatch << 'EOF'
 #!/bin/bash
 #SBATCH --job-name=02_extract_09_16
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -44,7 +43,6 @@ sbatch << 'EOF'
 #SBATCH --error=logs/step2_extract_09_16_%j.err
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 python scripts/18_extract_full_activations_ncc.py \
@@ -58,7 +56,7 @@ EOF
 sbatch << 'EOF'
 #!/bin/bash
 #SBATCH --job-name=02_extract_17_24
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -67,7 +65,6 @@ sbatch << 'EOF'
 #SBATCH --error=logs/step2_extract_17_24_%j.err
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 python scripts/18_extract_full_activations_ncc.py \
@@ -81,7 +78,7 @@ EOF
 sbatch << 'EOF'
 #!/bin/bash
 #SBATCH --job-name=02_extract_25_33
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -90,7 +87,6 @@ sbatch << 'EOF'
 #SBATCH --error=logs/step2_extract_25_33_%j.err
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 python scripts/18_extract_full_activations_ncc.py \

@@ -24,8 +24,8 @@ echo "Start time: $(date)"
 echo ""
 
 # Configuration
-EMAIL="your.email@durham.ac.uk"  # MODIFY THIS
-PROJECT_DIR="/path/to/mechanistic_intrep/sae_captioning_project"  # MODIFY THIS
+EMAIL="jmsk62@durham.ac.uk"
+PROJECT_DIR="/home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project"
 CONFIG_FILE="configs/config.yaml"
 
 # Job dependency tracking

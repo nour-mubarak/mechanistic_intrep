@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=09_comprehensive_analysis
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -8,7 +8,7 @@
 #SBATCH --output=logs/step4_comprehensive_analysis_%j.out
 #SBATCH --error=logs/step4_comprehensive_analysis_%j.err
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=your.email@durham.ac.uk
+#SBATCH --mail-user=jmsk62@durham.ac.uk
 
 # Step 4-9: Comprehensive Analysis
 # =================================
@@ -23,7 +23,6 @@ echo "=========================================="
 
 # Load modules
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 # Run comprehensive analysis for all layers

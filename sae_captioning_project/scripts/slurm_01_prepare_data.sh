@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=01_prepare_data
-#SBATCH --partition=standard
+#SBATCH --partition=cpu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
@@ -9,7 +9,7 @@
 #SBATCH --output=logs/step1_prepare_data_%j.out
 #SBATCH --error=logs/step1_prepare_data_%j.err
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=your.email@durham.ac.uk
+#SBATCH --mail-user=jmsk62@durham.ac.uk
 
 # Step 1: Data Preparation
 # =========================
@@ -23,7 +23,6 @@ echo "=========================================="
 
 # Load modules
 module purge
-module load python/3.10
 
 # Activate environment
 source venv/bin/activate

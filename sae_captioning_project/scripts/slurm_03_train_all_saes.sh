@@ -13,7 +13,7 @@ for layer in {0..33}; do
     sbatch << EOF
 #!/bin/bash
 #SBATCH --job-name=03_train_sae_${layer}
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
@@ -22,7 +22,6 @@ for layer in {0..33}; do
 #SBATCH --error=logs/step3_train_sae_layer${layer}_%j.err
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 echo "Training SAE for layer ${layer}"

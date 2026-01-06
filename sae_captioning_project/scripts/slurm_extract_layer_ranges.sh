@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=extract_layer_ranges
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
@@ -10,7 +10,7 @@
 #SBATCH --output=logs/slurm_extraction_ranges_%j.out
 #SBATCH --error=logs/slurm_extraction_ranges_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=your.email@durham.ac.uk
+#SBATCH --mail-user=jmsk62@durham.ac.uk
 
 # SLURM Job Script for Layer Range Extraction on Durham NCC
 # ===========================================================
@@ -34,7 +34,6 @@ mkdir -p logs
 
 # Load required modules (adjust based on NCC configuration)
 module purge
-module load python/3.10
 module load cuda/12.1
 module load gcc/11.2.0
 

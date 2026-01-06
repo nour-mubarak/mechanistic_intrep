@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=16_cross_layer
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -20,7 +20,6 @@ echo "Start: $(date)"
 echo "=========================================="
 
 module purge
-module load python/3.10 cuda/12.1
 source venv/bin/activate
 
 # Run cross-layer analysis with fine granularity

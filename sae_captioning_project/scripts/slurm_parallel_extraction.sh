@@ -28,7 +28,7 @@ MEMORY="64G"
 CPUS=16
 
 # Email notification (MODIFY THIS)
-EMAIL="your.email@durham.ac.uk"
+EMAIL="jmsk62@durham.ac.uk"
 
 # Function to submit extraction job for a layer range
 submit_job() {
@@ -40,7 +40,7 @@ submit_job() {
     sbatch <<EOF
 #!/bin/bash
 #SBATCH --job-name=$job_name
-#SBATCH --partition=gpu
+#SBATCH --partition=res-gpu-small
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=$CPUS
@@ -54,7 +54,6 @@ submit_job() {
 
 # Load modules
 module purge
-module load python/3.10
 module load cuda/12.1
 module load gcc/11.2.0
 
