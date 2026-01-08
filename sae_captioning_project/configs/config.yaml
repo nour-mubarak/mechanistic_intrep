@@ -14,20 +14,20 @@ paths:
 
 # Model configuration
 model:
-  name: "google/gemma-3-4b-it"
+  name: "google/paligemma-3b-pt-224"  # Multimodal vision-language model
   dtype: "float32"  # float16, bfloat16, float32 (using float32 to avoid NaN)
   device: "cuda"
   max_new_tokens: 100
   
 # Layers to analyze (adjust based on model architecture)
-# Gemma-3-4B has 34 layers (0-33)
+# PaLiGemma-3B has 18 layers (0-17)
 layers:
-  extraction: [2, 6, 10, 14, 18, 22, 26, 30]  # 8 layers spread across model
-  primary_analysis: [10, 14, 18, 22]  # Middle layers for main analysis
+  extraction: [0, 2, 4, 6, 8, 10, 12, 14, 16, 17]  # 10 layers spread across model
+  primary_analysis: [6, 9, 12, 15]  # Middle layers for main analysis
 
 # Dataset configuration
 data:
-  num_samples: 2000  # Total image-prompt pairs to analyze
+  num_samples: 10000  # Use 10k samples from full dataset (40k available)
   val_split: 0.1
   batch_size: 1  # Gemma-3 processor issue - process one at a time
   num_workers: 4

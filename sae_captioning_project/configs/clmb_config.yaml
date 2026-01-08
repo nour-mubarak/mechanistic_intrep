@@ -1,0 +1,78 @@
+# CLMB (Cross-Lingual Multimodal Bias) Analysis Configuration
+# =============================================================
+
+# Models to analyze (small VLMs for memory efficiency)
+models:
+  - google/paligemma-3b-pt-224  # Primary model (currently extracting)
+  # Uncomment to add more models:
+  # - llava-hf/llava-1.5-7b-hf
+  # - Qwen/Qwen-VL-Chat
+  # - OpenGVLab/InternVL-Chat-V1-5
+
+# Paths
+data_dir: data/processed
+output_dir: results/clmb
+activations_dir: data/processed/activations
+sae_dir: checkpoints
+
+# Device configuration
+device: cuda
+
+# Analysis parameters
+max_samples: 2000  # Max samples per language
+batch_size: 4
+
+# HBL (Hierarchical Bias Localization)
+hbl:
+  vision_layer_samples: 6  # Number of vision layers to analyze
+  language_layer_samples: 6  # Number of language layers to analyze
+  include_projection: true
+
+# CLFA (Cross-Lingual Feature Alignment)
+clfa:
+  alignment_threshold: 0.7  # Minimum similarity for alignment
+  use_optimal_transport: true  # Use OT for alignment
+  ot_regularization: 0.1
+
+# SBI (Surgical Bias Intervention)
+sbi:
+  max_intervention_features: 20
+  min_bias_reduction: 0.1
+  max_semantic_drift: 0.2
+  intervention_types:
+    - ablate
+    - neutralize
+
+# CLBAS (Cross-Lingual Bias Alignment Score)
+clbas:
+  compute_per_layer: true
+  aggregate_method: weighted_mean
+
+# Wandb configuration
+use_wandb: true
+wandb_project: clmb-bias-analysis
+wandb_entity: null  # Set your entity if needed
+
+# Gender analysis
+gender_analysis:
+  male_keywords:
+    english: ['he', 'his', 'him', 'man', 'boy', 'men', 'boys', 'male']
+    arabic: ['هو', 'الرجل', 'ولد', 'رجال', 'أولاد', 'ذكر']
+  female_keywords:
+    english: ['she', 'her', 'hers', 'woman', 'girl', 'women', 'girls', 'female']
+    arabic: ['هي', 'المرأة', 'بنت', 'نساء', 'بنات', 'أنثى']
+
+# SAE configuration (for training new SAEs if needed)
+sae:
+  expansion_factor: 8
+  l1_coefficient: 5e-4
+  learning_rate: 1e-4
+  num_epochs: 10
+  batch_size: 32
+  checkpoint_interval: 100
+
+# Evaluation
+evaluation:
+  compute_faithfulness: true
+  compute_fluency: true
+  compute_bias_metrics: true

@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=01_prepare_data
 #SBATCH --partition=cpu
+#SBATCH --qos=short
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
@@ -27,7 +28,7 @@ module purge
 # Activate environment
 source venv/bin/activate
 
-# Run data preparation
+# Run data preparation on full dataset
 python scripts/01_prepare_data.py \
     --config configs/config.yaml
 

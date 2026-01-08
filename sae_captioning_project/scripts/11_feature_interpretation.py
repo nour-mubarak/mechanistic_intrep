@@ -26,6 +26,8 @@ import pandas as pd
 from PIL import Image
 from typing import Dict, List, Tuple, Optional
 import yaml
+import wandb
+from datetime import datetime
 
 # Add project root to path
 import sys
@@ -459,11 +461,28 @@ def main():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
 
+    # Initialize WandB
+    wandb.init(
+        project=config.get('wandb', {}).get('project', 'sae-captioning-bias'),
+        name=f"feature-interpretation-layer{args.layer}-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+        config={
+            'stage': 'feature_interpretation',
+            'layer': args.layer,
+            'num_features': args.num_features,
+        },
+        tags=['feature-interpretation', f'layer-{args.layer}']
+    )
+    logger.info(f"WandB initialized: {wandb.run.url}")
+
     # Create interpreter
     interpreter = FeatureInterpreter(config, args.layer)
 
     # Run analysis
     interpreter.analyze_top_biased_features(num_features=args.num_features)
+
+    # Log completion to WandB
+    wandb.log({'status': 'complete', 'layer': args.layer})
+    wandb.finish()
 
     logger.info("\n" + "="*60)
     logger.info("Feature interpretation complete!")

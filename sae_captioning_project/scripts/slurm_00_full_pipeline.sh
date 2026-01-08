@@ -47,7 +47,7 @@ submit_step() {
     local dependency=$3
     local job_id
 
-    echo "Submitting: $name"
+    echo "Submitting: $name" >&2
 
     if [ -z "$dependency" ]; then
         # No dependency
@@ -57,7 +57,7 @@ submit_step() {
         job_id=$(sbatch --parsable --dependency=afterok:$dependency "$script")
     fi
 
-    echo "  Job ID: $job_id"
+    echo "  Job ID: $job_id" >&2
     echo "$job_id" >> "pipeline_status/${name}.jobid"
 
     JOB_IDS+=($job_id)

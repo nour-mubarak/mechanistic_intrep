@@ -1,0 +1,9 @@
+#!/bin/sh
+'''exec' /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project/venv/bin/python3.10 "$0" "$@"
+' '''
+import sys
+from jupyter_client.kernelapp import main
+if __name__ == '__main__':
+    if sys.argv[0].endswith('.exe'):
+        sys.argv[0] = sys.argv[0][:-4]
+    sys.exit(main())

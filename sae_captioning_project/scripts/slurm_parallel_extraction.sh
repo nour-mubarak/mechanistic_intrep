@@ -44,7 +44,7 @@ submit_job() {
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=$CPUS
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:turing:1
 #SBATCH --mem=$MEMORY
 #SBATCH --time=$TIME_LIMIT
 #SBATCH --output=logs/${job_name}_%j.out

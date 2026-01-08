@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:turing:1
 #SBATCH --mem=64G
 #SBATCH --time=8:00:00
 #SBATCH --output=logs/slurm_extraction_ranges_%j.out

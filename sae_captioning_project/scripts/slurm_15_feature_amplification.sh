@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=15_feature_amplification
 #SBATCH --partition=res-gpu-small
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=64G
+#SBATCH --qos=long-high-prio
+#SBATCH --gres=gpu:turing:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=28G
 #SBATCH --time=4:00:00
 #SBATCH --output=logs/step8_feature_amplification_%j.out
 #SBATCH --error=logs/step8_feature_amplification_%j.err

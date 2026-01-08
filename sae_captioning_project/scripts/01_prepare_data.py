@@ -274,11 +274,12 @@ def main():
     df.to_csv(output_csv, index=False)
     logger.info(f"Saved processed data to {output_csv}")
     
-    # Create symlink to images
+    # Create symlink to images (remove if exists)
     processed_images = processed_dir / 'images'
-    if not processed_images.exists():
-        processed_images.symlink_to(image_dir.absolute())
-        logger.info(f"Created symlink to images: {processed_images}")
+    if processed_images.is_symlink() or processed_images.exists():
+        processed_images.unlink(missing_ok=True)
+    processed_images.symlink_to(image_dir.absolute())
+    logger.info(f"Created symlink to images: {processed_images}")
     
     # Save summary statistics
     summary = {

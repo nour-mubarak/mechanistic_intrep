@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=14_visual_patterns
 #SBATCH --partition=res-gpu-small
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=32G
+#SBATCH --qos=long-high-prio
+#SBATCH --gres=gpu:turing:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=28G
 #SBATCH --time=3:00:00
 #SBATCH --output=logs/step7_visual_patterns_%j.out
 #SBATCH --error=logs/step7_visual_patterns_%j.err

@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=11_feature_interpretation
 #SBATCH --partition=res-gpu-small
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=64G
+#SBATCH --qos=long-high-prio
+#SBATCH --gres=gpu:turing:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=28G
 #SBATCH --time=6:00:00
 #SBATCH --output=logs/step5_feature_interpretation_%j.out
 #SBATCH --error=logs/step5_feature_interpretation_%j.err
