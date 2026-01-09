@@ -43,48 +43,73 @@ def load_ncc_activations(checkpoint_dir: Path, layer: int, language: str = 'engl
         sample_ratio: Fraction of tokens to sample from each chunk (0.1 = 10%)
     """
     
-    # Find all chunk files for this layer and language
+    # Try to find chunk files first
     chunk_pattern = f'layer_{layer}_{language}_chunk_*.pt'
     chunk_files = sorted(checkpoint_dir.glob(chunk_pattern))
     
-    if not chunk_files:
-        raise FileNotFoundError(f"No chunks found for layer {layer} in {checkpoint_dir}")
+    # If no chunk files, check for merged single file
+    merged_file = checkpoint_dir / f'layer_{layer}_{language}.pt'
     
-    if max_chunks:
-        chunk_files = chunk_files[:max_chunks]
-    
-    logger.info(f"Loading {len(chunk_files)} chunks for layer {layer} (sampling {sample_ratio*100:.0f}% of tokens)")
-    
-    all_activations = []
-    all_genders = []
-    
-    for chunk_file in tqdm(chunk_files, desc=f"Loading layer {layer}"):
-        data = torch.load(chunk_file, map_location='cpu', weights_only=False)
+    if chunk_files:
+        # Load from chunk files
+        if max_chunks:
+            chunk_files = chunk_files[:max_chunks]
         
-        # Shape: [batch, seq_len, hidden_dim]
+        logger.info(f"Loading {len(chunk_files)} chunks for layer {layer} {language} (sampling {sample_ratio*100:.0f}% of tokens)")
+        
+        all_activations = []
+        all_genders = []
+        
+        for chunk_file in tqdm(chunk_files, desc=f"Loading layer {layer}"):
+            data = torch.load(chunk_file, map_location='cpu', weights_only=False)
+            
+            # Shape: [batch, seq_len, hidden_dim]
+            acts = data['activations']
+            
+            # Flatten to [batch * seq_len, hidden_dim] for SAE training
+            batch_size, seq_len, hidden_dim = acts.shape
+            acts_flat = acts.reshape(-1, hidden_dim)
+            
+            # Subsample to reduce memory
+            n_samples = acts_flat.shape[0]
+            n_keep = max(1, int(n_samples * sample_ratio))
+            indices = torch.randperm(n_samples)[:n_keep]
+            acts_sampled = acts_flat[indices]
+            
+            all_activations.append(acts_sampled)
+            all_genders.extend(data.get('genders', []))
+            
+            # Free memory
+            del data, acts, acts_flat
+        
+        # Concatenate all chunks
+        activations = torch.cat(all_activations, dim=0)
+        del all_activations
+        all_genders_final = all_genders
+        
+    elif merged_file.exists():
+        # Load from merged single file
+        logger.info(f"Loading merged file for layer {layer} {language} (sampling {sample_ratio*100:.0f}% of tokens)")
+        
+        data = torch.load(merged_file, map_location='cpu', weights_only=False)
         acts = data['activations']
         
-        # Flatten to [batch * seq_len, hidden_dim] for SAE training
-        batch_size, seq_len, hidden_dim = acts.shape
+        # Shape: [num_samples, seq_len, hidden_dim]
+        num_samples, seq_len, hidden_dim = acts.shape
         acts_flat = acts.reshape(-1, hidden_dim)
         
         # Subsample to reduce memory
         n_samples = acts_flat.shape[0]
         n_keep = max(1, int(n_samples * sample_ratio))
         indices = torch.randperm(n_samples)[:n_keep]
-        acts_sampled = acts_flat[indices]
+        activations = acts_flat[indices]
         
-        all_activations.append(acts_sampled)
-        all_genders.extend(data.get('genders', []))
+        all_genders_final = data.get('genders', [])
         
-        # Free memory
         del data, acts, acts_flat
-    
-    # Concatenate all chunks
-    activations = torch.cat(all_activations, dim=0)
-    
-    # Free intermediate storage
-    del all_activations
+        
+    else:
+        raise FileNotFoundError(f"No chunks or merged file found for layer {layer} {language} in {checkpoint_dir}")
     import gc
     gc.collect()
     
@@ -93,7 +118,7 @@ def load_ncc_activations(checkpoint_dir: Path, layer: int, language: str = 'engl
     
     return {
         'activations': activations,
-        'genders': all_genders,
+        'genders': all_genders_final,
         'd_model': activations.shape[1]
     }
 
