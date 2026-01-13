@@ -26,12 +26,21 @@ source venv/bin/activate 2>/dev/null || echo "Using system Python"
 
 nvidia-smi --query-gpu=name,memory.total --format=csv
 
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+export TRANSFORMERS_CACHE="/home2/jmsk62/.cache/huggingface"
+export HF_HOME="/home2/jmsk62/.cache/huggingface"
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+
 # Backup old SAE
 mv checkpoints/saes/sae_english_layer_6.pt checkpoints/saes/sae_english_layer_6_old.pt 2>/dev/null
 
-python3 scripts/03_train_sae.py \
-    --config configs/config.yaml \
+python3 scripts/train_sae_ncc.py \
     --layer 6 \
-    --language english
+    --language english \
+    --config configs/config.yaml \
+    --checkpoint-dir checkpoints/full_layers_ncc/layer_checkpoints \
+    --output-dir checkpoints/saes \
+    --sample-ratio 0.15 \
+    --device cuda
 
 echo "Completed at: $(date)"

@@ -94,9 +94,17 @@ def load_ncc_activations(checkpoint_dir: Path, layer: int, language: str = 'engl
         data = torch.load(merged_file, map_location='cpu', weights_only=False)
         acts = data['activations']
         
-        # Shape: [num_samples, seq_len, hidden_dim]
-        num_samples, seq_len, hidden_dim = acts.shape
-        acts_flat = acts.reshape(-1, hidden_dim)
+        # Handle both 2D [num_samples, hidden_dim] and 3D [num_samples, seq_len, hidden_dim] formats
+        if len(acts.shape) == 2:
+            # Already flattened: [num_samples, hidden_dim]
+            acts_flat = acts
+            hidden_dim = acts.shape[-1]
+            logger.info(f"Activations already flattened: {acts.shape}")
+        else:
+            # 3D format: [num_samples, seq_len, hidden_dim]
+            num_samples, seq_len, hidden_dim = acts.shape
+            acts_flat = acts.reshape(-1, hidden_dim)
+            logger.info(f"Flattened activations from {acts.shape} to {acts_flat.shape}")
         
         # Subsample to reduce memory
         n_samples = acts_flat.shape[0]
