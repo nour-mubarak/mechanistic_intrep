@@ -1,0 +1,47 @@
+# Layer 6 Only Config - for re-extraction
+# ========================================
+
+# Inherit most settings from main config
+paths:
+  project_root: "."
+  data_dir: "./data"
+  raw_data: "./data/raw"
+  processed_data: "./data/processed"
+  checkpoints: "./checkpoints"
+  results: "./results"
+  visualizations: "./visualizations"
+  logs: "./logs"
+
+model:
+  name: "google/paligemma-3b-pt-224"
+  dtype: "float32"
+  device: "cuda"
+  max_new_tokens: 100
+
+# Only Layer 6
+layers:
+  extraction: [6]
+  primary_analysis: [6]
+
+data:
+  num_samples: 10000
+  val_split: 0.1
+  batch_size: 1
+  num_workers: 4
+  image_size: 448
+  english_prompt: "Describe the person in this image in detail."
+  arabic_prompt: "صف الشخص في هذه الصورة بالتفصيل."
+  gender_labels: ["male", "female", "unknown"]
+
+sae:
+  expansion_factor: 8
+  l1_coefficient: 5e-4
+  epochs: 50
+  batch_size: 256
+  learning_rate: 1e-4
+  warmup_steps: 1000
+  weight_decay: 0.0
+  normalize_decoder: true
+  tied_weights: false
+  patience: 10
+  min_delta: 1e-5
