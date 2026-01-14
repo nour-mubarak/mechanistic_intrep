@@ -70,7 +70,7 @@ if [ $? -eq 0 ]; then
     echo "Analysis completed successfully!"
     echo "Finished: $(date)"
     echo "=========================================="
-    
+
     # List generated outputs
     echo ""
     echo "Generated files:"
@@ -80,7 +80,7 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "Visualizations:"
     ls -la visualizations/ 2>/dev/null | head -20
-    
+
     # Show report summary
     echo ""
     echo "Report preview:"
