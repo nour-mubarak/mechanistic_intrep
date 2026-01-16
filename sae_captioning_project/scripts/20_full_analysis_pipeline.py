@@ -101,6 +101,9 @@ class AnalysisPipeline:
         # Layers to analyze
         self.layers = [0, 3, 6, 9, 12, 15, 17]
 
+        # Languages to analyze
+        self.languages = ['arabic', 'english']
+
         # W&B setup
         self.use_wandb = config['logging'].get('use_wandb', False) and WANDB_AVAILABLE
         if self.use_wandb:
@@ -316,8 +319,9 @@ class AnalysisPipeline:
         X = features.numpy()[valid_mask]
         y = np.array([1 if g == 'male' else 0 for g in genders])[valid_mask]
 
-        if len(np.unique(y)) < 2:
-            return {'accuracy': np.nan, 'cv_scores': []}
+        if len(np.unique(y)) < 2 or len(X) < 10:
+            logger.warning(f"Insufficient valid gender samples: {len(X)} samples, {len(np.unique(y))} classes")
+            return {'accuracy': np.nan, 'accuracy_std': np.nan, 'cv_scores': []}
 
         # Train logistic regression with cross-validation
         clf = LogisticRegression(max_iter=1000, random_state=42)
@@ -338,19 +342,19 @@ class AnalysisPipeline:
             'feature_importances': importances,
         }
 
-    def analyze_layer(self, layer: int) -> dict:
-        """Perform complete analysis for a single layer."""
-        logger.info(f"\n{'='*60}\nAnalyzing Layer {layer}\n{'='*60}")
+    def analyze_layer(self, layer: int, language: str = 'arabic') -> dict:
+        """Perform complete analysis for a single layer and language."""
+        logger.info(f"\n{'='*60}\nAnalyzing Layer {layer} - {language.upper()}\n{'='*60}")
 
-        results = {'layer': layer}
+        results = {'layer': layer, 'language': language}
 
         try:
             # Load SAE
-            sae, history = self.load_sae(layer, 'arabic')
+            sae, history = self.load_sae(layer, language)
             results['sae_history'] = history
 
             # Load activations
-            act_data = self.load_activations(layer, 'arabic', max_samples=2000)
+            act_data = self.load_activations(layer, language, max_samples=2000)
             activations = act_data['activations']
             genders = act_data['genders']
 
@@ -364,7 +368,7 @@ class AnalysisPipeline:
             results['feature_stats'] = stats_df.describe().to_dict()
 
             # Save stats to CSV
-            stats_df.to_csv(self.results_dir / f'feature_stats_layer_{layer}.csv', index=False)
+            stats_df.to_csv(self.results_dir / f'feature_stats_layer_{layer}_{language}.csv', index=False)
 
             # Identify gender features
             gender_features = self.identify_gender_features(stats_df)
@@ -379,18 +383,18 @@ class AnalysisPipeline:
             }
 
             # Generate visualizations for this layer
-            self._create_layer_visualizations(layer, features, genders, stats_df)
+            self._create_layer_visualizations(layer, features, genders, stats_df, language)
 
             # Log to W&B
             if self.use_wandb:
                 wandb.log({
-                    f'layer_{layer}/probe_accuracy': probe_results['accuracy'],
-                    f'layer_{layer}/significant_features': gender_features['total_significant'],
-                    f'layer_{layer}/percent_significant': gender_features['percent_significant'],
-                    f'layer_{layer}/sparsity_mean': stats_df['sparsity'].mean(),
+                    f'{language}/layer_{layer}/probe_accuracy': probe_results['accuracy'],
+                    f'{language}/layer_{layer}/significant_features': gender_features['total_significant'],
+                    f'{language}/layer_{layer}/percent_significant': gender_features['percent_significant'],
+                    f'{language}/layer_{layer}/sparsity_mean': stats_df['sparsity'].mean(),
                 })
 
-            logger.info(f"Layer {layer} analysis complete:")
+            logger.info(f"Layer {layer} ({language}) analysis complete:")
             logger.info(f"  - Probe accuracy: {probe_results['accuracy']:.3f}")
             logger.info(f"  - Significant features: {gender_features['total_significant']}")
             logger.info(f"  - Mean sparsity: {stats_df['sparsity'].mean():.3f}")
@@ -401,7 +405,7 @@ class AnalysisPipeline:
             torch.cuda.empty_cache() if torch.cuda.is_available() else None
 
         except Exception as e:
-            logger.error(f"Error analyzing layer {layer}: {e}")
+            logger.error(f"Error analyzing layer {layer} ({language}): {e}")
             import traceback
             traceback.print_exc()
             results['error'] = str(e)
@@ -409,9 +413,10 @@ class AnalysisPipeline:
         return results
 
     def _create_layer_visualizations(self, layer: int, features: torch.Tensor,
-                                     genders: list, stats_df: pd.DataFrame):
-        """Create visualizations for a specific layer."""
-        viz_dir = self.viz_dir / f'layer_{layer}'
+                                     genders: list, stats_df: pd.DataFrame,
+                                     language: str = 'arabic'):
+        """Create visualizations for a specific layer and language."""
+        viz_dir = self.viz_dir / f'layer_{layer}_{language}'
         viz_dir.mkdir(exist_ok=True)
 
         features_np = features.numpy()
@@ -518,101 +523,124 @@ class AnalysisPipeline:
         plt.close()
 
     def create_summary_visualizations(self):
-        """Create cross-layer summary visualizations."""
+        """Create cross-layer summary visualizations for each language."""
         logger.info("Creating summary visualizations...")
 
-        # Collect metrics across layers
-        layers = []
-        probe_accuracies = []
-        significant_percents = []
-        sparsities = []
+        # Process each language separately
+        for language in self.languages:
+            # Collect metrics for this language
+            layers = []
+            probe_accuracies = []
+            significant_percents = []
+            sparsities = []
 
-        for layer, result in self.results.items():
-            if 'error' not in result:
-                layers.append(layer)
-                probe_accuracies.append(result.get('probe_results', {}).get('accuracy', np.nan))
-                significant_percents.append(
-                    result.get('gender_features', {}).get('percent_significant', np.nan)
-                )
-                # Get sparsity from saved CSV
-                try:
-                    stats_df = pd.read_csv(self.results_dir / f'feature_stats_layer_{layer}.csv')
-                    sparsities.append(stats_df['sparsity'].mean())
-                except:
-                    sparsities.append(np.nan)
+            for key, result in self.results.items():
+                lang, layer = key
+                if lang != language:
+                    continue
+                if 'error' not in result:
+                    layers.append(layer)
+                    probe_accuracies.append(result.get('probe_results', {}).get('accuracy', np.nan))
+                    significant_percents.append(
+                        result.get('gender_features', {}).get('percent_significant', np.nan)
+                    )
+                    # Get sparsity from saved CSV
+                    try:
+                        stats_df = pd.read_csv(self.results_dir / f'feature_stats_layer_{layer}_{language}.csv')
+                        sparsities.append(stats_df['sparsity'].mean())
+                    except:
+                        sparsities.append(np.nan)
 
-        if not layers:
-            logger.warning("No layers to summarize")
-            return
+            if not layers:
+                logger.warning(f"No layers to summarize for {language}")
+                continue
 
-        # Sort by layer
-        sorted_indices = np.argsort(layers)
-        layers = [layers[i] for i in sorted_indices]
-        probe_accuracies = [probe_accuracies[i] for i in sorted_indices]
-        significant_percents = [significant_percents[i] for i in sorted_indices]
-        sparsities = [sparsities[i] for i in sorted_indices]
+            # Sort by layer
+            sorted_indices = np.argsort(layers)
+            layers = [layers[i] for i in sorted_indices]
+            probe_accuracies = [probe_accuracies[i] for i in sorted_indices]
+            significant_percents = [significant_percents[i] for i in sorted_indices]
+            sparsities = [sparsities[i] for i in sorted_indices]
 
-        # 1. Layer-wise comparison
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+            # 1. Layer-wise comparison
+            fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-        # Probe accuracy
-        axes[0].bar(range(len(layers)), probe_accuracies, color='steelblue', edgecolor='black')
-        axes[0].axhline(0.5, color='red', linestyle='--', label='Chance')
-        axes[0].set_xticks(range(len(layers)))
-        axes[0].set_xticklabels(layers)
-        axes[0].set_xlabel('Layer')
-        axes[0].set_ylabel('Accuracy')
-        axes[0].set_title('Gender Probe Accuracy by Layer')
-        axes[0].legend()
-        axes[0].set_ylim(0.4, 1.0)
+            # Probe accuracy
+            axes[0].bar(range(len(layers)), probe_accuracies, color='steelblue', edgecolor='black')
+            axes[0].axhline(0.5, color='red', linestyle='--', label='Chance')
+            axes[0].set_xticks(range(len(layers)))
+            axes[0].set_xticklabels(layers)
+            axes[0].set_xlabel('Layer')
+            axes[0].set_ylabel('Accuracy')
+            axes[0].set_title(f'{language.title()}: Gender Probe Accuracy by Layer')
+            axes[0].legend()
+            axes[0].set_ylim(0.4, 1.0)
 
-        # Significant features
-        axes[1].bar(range(len(layers)), significant_percents, color='coral', edgecolor='black')
-        axes[1].set_xticks(range(len(layers)))
-        axes[1].set_xticklabels(layers)
-        axes[1].set_xlabel('Layer')
-        axes[1].set_ylabel('% Significant')
-        axes[1].set_title('Gender-Significant Features by Layer')
+            # Significant features
+            axes[1].bar(range(len(layers)), significant_percents, color='coral', edgecolor='black')
+            axes[1].set_xticks(range(len(layers)))
+            axes[1].set_xticklabels(layers)
+            axes[1].set_xlabel('Layer')
+            axes[1].set_ylabel('% Significant')
+            axes[1].set_title(f'{language.title()}: Gender-Significant Features by Layer')
 
-        # Sparsity
-        axes[2].bar(range(len(layers)), sparsities, color='green', edgecolor='black')
-        axes[2].set_xticks(range(len(layers)))
-        axes[2].set_xticklabels(layers)
-        axes[2].set_xlabel('Layer')
-        axes[2].set_ylabel('Mean Sparsity')
-        axes[2].set_title('Feature Sparsity by Layer')
+            # Sparsity
+            axes[2].bar(range(len(layers)), sparsities, color='green', edgecolor='black')
+            axes[2].set_xticks(range(len(layers)))
+            axes[2].set_xticklabels(layers)
+            axes[2].set_xlabel('Layer')
+            axes[2].set_ylabel('Mean Sparsity')
+            axes[2].set_title(f'{language.title()}: Feature Sparsity by Layer')
 
-        plt.tight_layout()
-        plt.savefig(self.viz_dir / 'layer_comparison.png', dpi=150, bbox_inches='tight')
-        if self.use_wandb:
-            wandb.log({'summary/layer_comparison': wandb.Image(fig)})
-        plt.close()
+            plt.tight_layout()
+            plt.savefig(self.viz_dir / f'layer_comparison_{language}.png', dpi=150, bbox_inches='tight')
+            if self.use_wandb:
+                wandb.log({f'{language}/layer_comparison': wandb.Image(fig)})
+            plt.close()
 
-        # 2. Heatmap of gender encoding across layers
+            # 2. Heatmap of gender encoding across layers
+            fig, ax = plt.subplots(figsize=(12, 6))
+
+            # Normalize metrics for heatmap
+            data_matrix = np.array([probe_accuracies, significant_percents, sparsities])
+            row_labels = ['Probe Accuracy', '% Significant Features', 'Mean Sparsity']
+
+            sns.heatmap(data_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',
+                       xticklabels=layers, yticklabels=row_labels, ax=ax)
+            ax.set_xlabel('Layer')
+            ax.set_title(f'{language.title()}: Gender Encoding Metrics Across Layers')
+
+            plt.tight_layout()
+            plt.savefig(self.viz_dir / f'layer_heatmap_{language}.png', dpi=150, bbox_inches='tight')
+            if self.use_wandb:
+                wandb.log({f'{language}/layer_heatmap': wandb.Image(fig)})
+            plt.close()
+
+        # 3. Cross-lingual comparison plot
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # Normalize metrics for heatmap
-        data_matrix = np.array([probe_accuracies, significant_percents, sparsities])
-        row_labels = ['Probe Accuracy', '% Significant Features', 'Mean Sparsity']
+        for language in self.languages:
+            lang_layers = []
+            lang_accuracies = []
+            for key, result in self.results.items():
+                lang, layer = key
+                if lang == language and 'error' not in result:
+                    lang_layers.append(layer)
+                    lang_accuracies.append(result.get('probe_results', {}).get('accuracy', np.nan))
 
-        sns.heatmap(data_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',
-                   xticklabels=layers, yticklabels=row_labels, ax=ax)
-        ax.set_xlabel('Layer')
-        ax.set_title('Gender Encoding Metrics Across Layers')
+            if lang_layers:
+                sorted_idx = np.argsort(lang_layers)
+                lang_layers = [lang_layers[i] for i in sorted_idx]
+                lang_accuracies = [lang_accuracies[i] for i in sorted_idx]
 
-        plt.tight_layout()
-        plt.savefig(self.viz_dir / 'layer_heatmap.png', dpi=150, bbox_inches='tight')
-        if self.use_wandb:
-            wandb.log({'summary/layer_heatmap': wandb.Image(fig)})
-        plt.close()
+                color = self.colors.get(language, 'gray')
+                ax.plot(lang_layers, lang_accuracies, 'o-', color=color,
+                       label=language.title(), linewidth=2, markersize=8)
 
-        # 3. Line plot showing progression
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(layers, probe_accuracies, 'o-', color='steelblue', label='Probe Accuracy', linewidth=2, markersize=8)
-        ax.axhline(0.5, color='gray', linestyle='--', alpha=0.5)
+        ax.axhline(0.5, color='gray', linestyle='--', alpha=0.5, label='Chance')
         ax.set_xlabel('Layer')
         ax.set_ylabel('Accuracy')
-        ax.set_title('Gender Probe Accuracy Across Layers')
+        ax.set_title('Gender Probe Accuracy: Cross-Lingual Comparison')
         ax.legend()
         ax.grid(True, alpha=0.3)
 
@@ -627,13 +655,17 @@ class AnalysisPipeline:
         report = {
             'timestamp': datetime.now().isoformat(),
             'config': {k: v for k, v in self.config.items() if k != 'paths'},
-            'layers_analyzed': list(self.results.keys()),
+            'languages': self.languages,
+            'layers': self.layers,
             'results': {},
         }
 
-        # Add per-layer results
-        for layer, result in self.results.items():
-            report['results'][f'layer_{layer}'] = {
+        # Add per-language, per-layer results
+        for key, result in self.results.items():
+            language, layer = key
+            report['results'][f'{language}_layer_{layer}'] = {
+                'language': language,
+                'layer': layer,
                 'probe_accuracy': result.get('probe_results', {}).get('accuracy'),
                 'probe_accuracy_std': result.get('probe_results', {}).get('accuracy_std'),
                 'gender_features': result.get('gender_features', {}),
@@ -641,23 +673,38 @@ class AnalysisPipeline:
                 'error': result.get('error', None),
             }
 
-        # Summary statistics
-        accuracies = [r.get('probe_results', {}).get('accuracy', np.nan)
-                     for r in self.results.values() if 'error' not in r]
-        valid_accuracies = [a for a in accuracies if not np.isnan(a)]
+        # Per-language summary statistics
+        report['per_language_summary'] = {}
+        for language in self.languages:
+            lang_results = {k: v for k, v in self.results.items() if k[0] == language}
+            accuracies = [r.get('probe_results', {}).get('accuracy', np.nan)
+                         for r in lang_results.values() if 'error' not in r]
+            valid_accuracies = [a for a in accuracies if not np.isnan(a)]
 
-        if valid_accuracies:
-            best_layer_idx = np.argmax(accuracies)
-            best_layer = list(self.results.keys())[best_layer_idx]
-        else:
-            best_layer = None
+            if valid_accuracies:
+                best_idx = np.argmax(accuracies)
+                best_layer = list(lang_results.keys())[best_idx][1]
+            else:
+                best_layer = None
+
+            report['per_language_summary'][language] = {
+                'total_layers': len(lang_results),
+                'successful_layers': len([r for r in lang_results.values() if 'error' not in r]),
+                'mean_probe_accuracy': np.mean(valid_accuracies) if valid_accuracies else None,
+                'max_probe_accuracy': max(valid_accuracies) if valid_accuracies else None,
+                'best_layer': best_layer,
+            }
+
+        # Overall summary
+        all_accuracies = [r.get('probe_results', {}).get('accuracy', np.nan)
+                        for r in self.results.values() if 'error' not in r]
+        valid_all = [a for a in all_accuracies if not np.isnan(a)]
 
         report['summary'] = {
-            'total_layers': len(self.results),
-            'successful_layers': len([r for r in self.results.values() if 'error' not in r]),
-            'mean_probe_accuracy': np.mean(valid_accuracies) if valid_accuracies else None,
-            'max_probe_accuracy': max(valid_accuracies) if valid_accuracies else None,
-            'best_layer': best_layer,
+            'total_analyses': len(self.results),
+            'successful_analyses': len([r for r in self.results.values() if 'error' not in r]),
+            'mean_probe_accuracy': np.mean(valid_all) if valid_all else None,
+            'max_probe_accuracy': max(valid_all) if valid_all else None,
         }
 
         # Save report
@@ -673,7 +720,6 @@ class AnalysisPipeline:
         if self.use_wandb:
             wandb.log({'summary/mean_accuracy': report['summary']['mean_probe_accuracy']})
             wandb.log({'summary/max_accuracy': report['summary']['max_probe_accuracy']})
-            wandb.log({'summary/best_layer': report['summary']['best_layer']})
 
         return report
 
@@ -691,18 +737,33 @@ for gender bias in a multilingual vision-language model (PaLiGemma-3B).
 
 | Metric | Value |
 |--------|-------|
-| Layers Analyzed | {summary['total_layers']} |
-| Successful Analyses | {summary['successful_layers']} |
+| Total Analyses | {summary['total_analyses']} |
+| Successful Analyses | {summary['successful_analyses']} |
 | Mean Probe Accuracy | {format(summary['mean_probe_accuracy'], '.3f') if summary['mean_probe_accuracy'] is not None else 'N/A'} |
-| Best Layer | Layer {summary['best_layer']} |
 | Max Accuracy | {format(summary['max_probe_accuracy'], '.3f') if summary['max_probe_accuracy'] is not None else 'N/A'} |
 
-## Key Findings
+## Per-Language Summary
 
 """
+        # Add per-language summaries
+        for language, lang_summary in report.get('per_language_summary', {}).items():
+            md_content += f"""### {language.title()}
+
+| Metric | Value |
+|--------|-------|
+| Layers Analyzed | {lang_summary['total_layers']} |
+| Successful | {lang_summary['successful_layers']} |
+| Mean Accuracy | {format(lang_summary['mean_probe_accuracy'], '.3f') if lang_summary['mean_probe_accuracy'] is not None else 'N/A'} |
+| Best Layer | {lang_summary['best_layer']} |
+| Max Accuracy | {format(lang_summary['max_probe_accuracy'], '.3f') if lang_summary['max_probe_accuracy'] is not None else 'N/A'} |
+
+"""
+
         # Add findings based on results
         if summary['mean_probe_accuracy'] and summary['mean_probe_accuracy'] > 0.6:
-            md_content += """### Gender Information is Encoded in SAE Features
+            md_content += """## Key Findings
+
+### Gender Information is Encoded in SAE Features
 The linear probe achieves above-chance accuracy in predicting gender from SAE features,
 indicating that gender information is linearly separable in the learned representations.
 
@@ -711,17 +772,22 @@ indicating that gender information is linearly separable in the learned represen
         md_content += """## Layer-by-Layer Results
 
 """
-        for layer in sorted(self.results.keys()):
-            result = self.results[layer]
-            if 'error' in result:
-                md_content += f"### Layer {layer}\n**Error**: {result['error']}\n\n"
-                continue
+        for language in self.languages:
+            md_content += f"### {language.title()}\n\n"
+            for key in sorted(self.results.keys()):
+                lang, layer = key
+                if lang != language:
+                    continue
+                result = self.results[key]
+                if 'error' in result:
+                    md_content += f"#### Layer {layer}\n**Error**: {result['error']}\n\n"
+                    continue
 
-            acc = result.get('probe_results', {}).get('accuracy', 'N/A')
-            acc_std = result.get('probe_results', {}).get('accuracy_std', 0)
-            gender_feats = result.get('gender_features', {})
+                acc = result.get('probe_results', {}).get('accuracy', 'N/A')
+                acc_std = result.get('probe_results', {}).get('accuracy_std', 0)
+                gender_feats = result.get('gender_features', {})
 
-            md_content += f"""### Layer {layer}
+                md_content += f"""#### Layer {layer}
 
 | Metric | Value |
 |--------|-------|
@@ -737,15 +803,17 @@ indicating that gender information is linearly separable in the learned represen
 The following visualizations have been generated:
 
 ### Summary Plots
-- `visualizations/layer_comparison.png` - Bar charts comparing metrics across layers
-- `visualizations/layer_heatmap.png` - Heatmap of all metrics
-- `visualizations/accuracy_progression.png` - Line plot of accuracy by layer
+- `visualizations/layer_comparison_arabic.png` - Arabic metrics across layers
+- `visualizations/layer_comparison_english.png` - English metrics across layers
+- `visualizations/layer_heatmap_arabic.png` - Arabic heatmap
+- `visualizations/layer_heatmap_english.png` - English heatmap
+- `visualizations/accuracy_progression.png` - Cross-lingual comparison
 
 ### Per-Layer Plots
-For each layer `X`:
-- `visualizations/layer_X/feature_distributions.png` - Activation and effect size distributions
-- `visualizations/layer_X/tsne_gender.png` - t-SNE embedding colored by gender
-- `visualizations/layer_X/top_gender_features.png` - Top gender-associated features
+For each layer `X` and language `LANG`:
+- `visualizations/layer_X_LANG/feature_distributions.png` - Activation and effect size distributions
+- `visualizations/layer_X_LANG/tsne_gender.png` - t-SNE embedding colored by gender
+- `visualizations/layer_X_LANG/top_gender_features.png` - Top gender-associated features
 
 ## Methodology
 
@@ -785,18 +853,26 @@ For each layer `X`:
         """Run the complete analysis pipeline."""
         logger.info("="*60)
         logger.info("Starting Full Analysis Pipeline")
+        logger.info(f"Languages: {self.languages}")
+        logger.info(f"Layers: {self.layers}")
         logger.info("="*60)
 
         start_time = datetime.now()
 
-        # Analyze each layer
-        for layer in self.layers:
-            try:
-                result = self.analyze_layer(layer)
-                self.results[layer] = result
-            except FileNotFoundError as e:
-                logger.warning(f"Skipping layer {layer}: {e}")
-                continue
+        # Analyze each language and layer
+        for language in self.languages:
+            logger.info(f"\n{'#'*60}")
+            logger.info(f"# Analyzing {language.upper()}")
+            logger.info(f"{'#'*60}")
+
+            for layer in self.layers:
+                try:
+                    result = self.analyze_layer(layer, language)
+                    # Use tuple key (language, layer) for results
+                    self.results[(language, layer)] = result
+                except FileNotFoundError as e:
+                    logger.warning(f"Skipping {language} layer {layer}: {e}")
+                    continue
 
         if not self.results:
             logger.error("No layers could be analyzed!")
@@ -821,9 +897,17 @@ For each layer `X`:
         print("\n" + "="*60)
         print("ANALYSIS SUMMARY")
         print("="*60)
-        print(f"Layers analyzed: {list(self.results.keys())}")
-        print(f"Mean probe accuracy: {report['summary']['mean_probe_accuracy']:.3f}")
-        print(f"Best layer: {report['summary']['best_layer']} (acc={report['summary']['max_probe_accuracy']:.3f})")
+        for language in self.languages:
+            lang_results = {k: v for k, v in self.results.items() if k[0] == language}
+            if lang_results:
+                accuracies = [v.get('probe_results', {}).get('accuracy', np.nan)
+                             for v in lang_results.values() if 'error' not in v]
+                valid_acc = [a for a in accuracies if not np.isnan(a)]
+                if valid_acc:
+                    print(f"\n{language.upper()}:")
+                    print(f"  Layers analyzed: {[k[1] for k in lang_results.keys()]}")
+                    print(f"  Mean probe accuracy: {np.mean(valid_acc):.3f}")
+                    print(f"  Max probe accuracy: {max(valid_acc):.3f}")
         print("="*60)
 
         if self.use_wandb:

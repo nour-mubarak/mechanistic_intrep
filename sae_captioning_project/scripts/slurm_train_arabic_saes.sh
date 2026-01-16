@@ -10,6 +10,7 @@
 #SBATCH --array=0-2
 
 # Train Arabic SAEs for layers that have data: 0, 3, 6
+# (9, 12, 15, 17 need extraction to complete first)
 
 echo "=========================================="
 echo "Training Arabic SAE for Target Layer"
@@ -19,18 +20,38 @@ echo "=========================================="
 
 cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
 
+# Activate virtual environment with Python 3.10
 source venv/bin/activate
 
 export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+
+echo "Python: $(which python) - $(python --version)"
 export TRANSFORMERS_CACHE="/home2/jmsk62/.cache/huggingface"
 export HF_HOME="/home2/jmsk62/.cache/huggingface"
 export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
 
+# Map array index to layer
 LAYERS=(0 3 6)
 LAYER=${LAYERS[$SLURM_ARRAY_TASK_ID]}
 
 echo "Training Arabic SAE for Layer $LAYER"
 
+# Check if layer checkpoints exist for Arabic (chunk files OR merged file)
+CHUNK_COUNT=$(ls checkpoints/full_layers_ncc/layer_checkpoints/layer_${LAYER}_arabic_chunk_*.pt 2>/dev/null | wc -l)
+MERGED_FILE="checkpoints/full_layers_ncc/layer_checkpoints/layer_${LAYER}_arabic.pt"
+echo "Found $CHUNK_COUNT Arabic chunks for layer $LAYER"
+
+if [ $CHUNK_COUNT -lt 50 ] && [ ! -f "$MERGED_FILE" ]; then
+    echo "ERROR: Not enough Arabic data for layer $LAYER (need at least 50 chunks or merged file)"
+    exit 1
+fi
+
+if [ -f "$MERGED_FILE" ]; then
+    echo "Found merged file: $MERGED_FILE"
+fi
+
+# Train SAE for this layer using NCC format (Arabic)
+# Using 15% sampling with 48GB memory on Ampere GPU (~4M tokens per layer)
 python scripts/train_sae_ncc.py \
     --layer $LAYER \
     --language arabic \

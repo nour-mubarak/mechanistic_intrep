@@ -1,136 +1,127 @@
 # Cross-Lingual SAE Analysis for Vision-Language Model Gender Bias
 
-## Project Overview
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This project uses **Sparse Autoencoders (SAEs)** to perform mechanistic interpretability analysis on **Gemma-3-4B** for understanding cross-lingual gender bias in Arabic-English image captioning.
+## Overview
 
-### Research Questions
+This project uses **Sparse Autoencoders (SAEs)** to perform mechanistic interpretability analysis on **PaLiGemma-3B** for understanding cross-lingual gender bias in Arabic-English image captioning.
 
-1. **Where do gender representations diverge?** Identify layers where Arabic and English gender feature overlap changes
-2. **Are there language-specific gender features?** Find features unique to each language's gender encoding
-3. **Can we steer to reduce bias?** Test whether suppressing features reduces gendered outputs
-4. **Grammatical vs semantic gender:** How does Arabic morphological gender differ from semantic associations?
+### Key Findings
+
+| Metric | Value | Interpretation |
+|--------|-------|----------------|
+| **Feature Overlap** | 0.4% | Arabic and English use almost entirely separate gender features |
+| **CLBAS Score** | 0.025 | Very low cross-lingual bias alignment |
+| **Arabic Probe Accuracy** | 88.5% | Gender is linearly encoded in SAE features |
+| **English Probe Accuracy** | 85.3% | Slightly lower than Arabic |
+
+**Novel Finding**: The model develops **language-specific gender circuits** rather than a shared universal gender representation.
+
+## Research Questions
+
+| # | Question | Status |
+|---|----------|--------|
+| RQ1 | Where do gender representations diverge between Arabic and English? | ✅ All layers show near-complete divergence |
+| RQ2 | Are there language-specific gender features? | ✅ 99.6% of features are language-specific |
+| RQ3 | Can we steer the model to reduce bias? | 🔄 SBI experiments in progress |
+| RQ4 | Grammatical vs semantic gender differences? | ✅ Arabic shows stronger encoding (88.5% vs 85.3%) |
 
 ## Project Structure
 
-```
+\`\`\`
 sae_captioning_project/
-├── README.md                    # This file
-├── requirements.txt             # Python dependencies
-├── setup.py                     # Package installation
-├── configs/
-│   ├── config.yaml             # Main configuration
-│   └── slurm_config.yaml       # SLURM job parameters
-├── scripts/
-│   ├── 01_prepare_data.py      # Dataset preparation
-│   ├── 02_extract_activations.py # Activation extraction
-│   ├── 03_train_sae.py         # SAE training
-│   ├── 04_analyze_features.py  # Feature analysis
-│   ├── 05_steering_experiments.py # Intervention experiments
-│   ├── 06_generate_visualizations.py # Create plots
-│   └── run_full_pipeline.py    # End-to-end pipeline
-├── src/
-│   ├── __init__.py
+├── README.md                 # This file
+├── RESEARCH_PLAN.md          # Detailed research methodology
+├── requirements.txt          # Python dependencies
+├── setup.py                  # Package installation
+│
+├── configs/                  # Configuration files
+│   ├── config.yaml          # Main configuration
+│   └── clmb_config.yaml     # CLMB framework settings
+│
+├── scripts/                  # Pipeline scripts (numbered)
+│   ├── 01_prepare_data.py   # Dataset preparation
+│   ├── 02_extract_activations.py
+│   ├── 03_train_sae.py      # SAE training
+│   ├── 24_cross_lingual_overlap.py    # Feature overlap analysis
+│   ├── 25_cross_lingual_feature_interpretation.py
+│   ├── 26_surgical_bias_intervention.py  # SBI experiments
+│   └── slurm_*.sh           # SLURM job scripts
+│
+├── src/                      # Source code
 │   ├── models/
-│   │   ├── __init__.py
-│   │   ├── sae.py              # SAE architecture
-│   │   └── hooks.py            # Activation hooks
-│   ├── data/
-│   │   ├── __init__.py
-│   │   └── dataset.py          # Data loading utilities
-│   ├── analysis/
-│   │   ├── __init__.py
-│   │   ├── features.py         # Feature analysis
-│   │   └── metrics.py          # Evaluation metrics
-│   └── visualization/
-│       ├── __init__.py
-│       └── plots.py            # Visualization functions
-├── slurm/
-│   ├── submit_extraction.sh    # SLURM job for activation extraction
-│   ├── submit_training.sh      # SLURM job for SAE training
-│   └── submit_analysis.sh      # SLURM job for analysis
-├── data/                       # Data directory (gitignored)
-├── checkpoints/                # Model checkpoints
-├── results/                    # Analysis results
-├── visualizations/             # Generated plots
-└── logs/                       # Log files
-```
+│   │   ├── sae.py           # SAE architecture (2048 → 16384)
+│   │   └── hooks.py         # Activation hooks
+│   ├── clmb/                # Novel CLMB framework
+│   │   ├── hbl.py           # Hierarchical Bias Localization
+│   │   ├── clfa.py          # Cross-Lingual Feature Alignment
+│   │   └── sbi.py           # Surgical Bias Intervention
+│   └── analysis/            # Analysis utilities
+│
+├── docs/                     # Documentation
+│   ├── guides/              # User guides
+│   ├── status/              # Pipeline status reports
+│   └── CLMB_FRAMEWORK.md    # Framework documentation
+│
+├── results/                  # Analysis outputs
+│   ├── cross_lingual_overlap/
+│   ├── feature_interpretation/
+│   └── sbi_analysis/
+│
+└── visualizations/           # Generated plots
+\`\`\`
 
 ## Installation
 
-```bash
-# Clone and setup
-cd sae_captioning_project
-pip install -e . --break-system-packages
+\`\`\`bash
+# Clone the repository
+git clone https://github.com/nour-mubarak/mechanistic_intrep.git
+cd mechanistic_intrep/sae_captioning_project
 
-# Or install requirements directly
-pip install -r requirements.txt --break-system-packages
-```
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -e .
+\`\`\`
 
 ## Quick Start
 
-### 1. Prepare your data
+### On NCC Cluster (Durham)
 
-Place your image-caption dataset in `data/raw/` with the following structure:
-- `images/`: Directory containing images
-- `captions.csv`: CSV with columns `image_id`, `english_prompt`, `arabic_prompt`, `ground_truth_gender`
+\`\`\`bash
+# Full pipeline with SLURM
+sbatch scripts/slurm_00_full_pipeline.sh
 
-```bash
-python scripts/01_prepare_data.py --config configs/config.yaml
-```
+# Or run individual analysis
+sbatch scripts/slurm_24_cross_lingual_overlap.sh
+\`\`\`
 
-### 2. Run the full pipeline
+## Key Results
 
-```bash
-python scripts/run_full_pipeline.py --config configs/config.yaml
-```
+### Cross-Lingual Feature Overlap
 
-### 3. Or run steps individually
+| Layer | Overlap % | CLBAS Score |
+|-------|-----------|-------------|
+| 0 | 0.0% | 0.013 |
+| 3 | 0.0% | 0.011 |
+| 6 | 0.0% | 0.015 |
+| 9 | 2.0% | 0.028 |
+| 12 | 1.0% | 0.039 |
+| 15 | 0.0% | 0.028 |
+| 17 | 0.0% | 0.041 |
 
-```bash
-# Extract activations
-python scripts/02_extract_activations.py --config configs/config.yaml
+## CLMB Framework
 
-# Train SAEs
-python scripts/03_train_sae.py --config configs/config.yaml
+Our novel **Cross-Lingual Mechanistic Bias (CLMB)** framework:
 
-# Analyze features
-python scripts/04_analyze_features.py --config configs/config.yaml
-
-# Run steering experiments
-python scripts/05_steering_experiments.py --config configs/config.yaml
-
-# Generate visualizations
-python scripts/06_generate_visualizations.py --config configs/config.yaml
-```
-
-## SLURM Submission (NCC/HPC)
-
-```bash
-# Submit all jobs in sequence
-sbatch slurm/submit_extraction.sh
-sbatch --dependency=afterok:$EXTRACTION_JOB_ID slurm/submit_training.sh
-sbatch --dependency=afterok:$TRAINING_JOB_ID slurm/submit_analysis.sh
-```
-
-## Key Outputs
-
-1. **Trained SAEs**: `checkpoints/sae_layer_{N}.pt`
-2. **Feature Analysis**: `results/feature_analysis.json`
-3. **Cross-lingual Comparison**: `results/cross_lingual_analysis.json`
-4. **Steering Results**: `results/steering_experiments.json`
-5. **Visualizations**: `visualizations/*.png` and `visualizations/*.html`
-
-## Citation
-
-If you use this code, please cite:
-```bibtex
-@misc{sae_captioning_2025,
-  title={Cross-Lingual SAE Analysis for Vision-Language Gender Bias},
-  author={Your Name},
-  year={2025}
-}
-```
+1. **HBL**: Hierarchical Bias Localization
+2. **CLFA**: Cross-Lingual Feature Alignment
+3. **SBI**: Surgical Bias Intervention
+4. **CLBAS**: Cross-Lingual Bias Alignment Score
 
 ## License
 
