@@ -29,29 +29,33 @@ from datetime import datetime
 from typing import Dict, List, Optional
 import wandb
 
-# Qwen2-VL specific imports
-from transformers import Qwen2VLForConditionalGeneration, Qwen2VLProcessor
-from qwen_vl_utils import process_vision_info  # May need to install
+# Qwen2-VL specific imports - use Auto classes for compatibility
+from transformers import AutoModelForVision2Seq, AutoProcessor
 
 
 def load_qwen2vl_model(device: str = "cuda", dtype: torch.dtype = torch.bfloat16):
     """Load Qwen2-VL model and processor."""
     print("Loading Qwen2-VL-7B-Instruct...")
     
-    model = Qwen2VLForConditionalGeneration.from_pretrained(
+    model = AutoModelForVision2Seq.from_pretrained(
         "Qwen/Qwen2-VL-7B-Instruct",
         torch_dtype=dtype,
         device_map="auto",
-        trust_remote_code=True
+        trust_remote_code=True,
+        attn_implementation="eager"  # Use eager attention for hook compatibility
     )
     
-    processor = Qwen2VLProcessor.from_pretrained(
+    processor = AutoProcessor.from_pretrained(
         "Qwen/Qwen2-VL-7B-Instruct",
         trust_remote_code=True
     )
     
     model.eval()
     print(f"Model loaded on {device} with dtype {dtype}")
+    print(f"Model type: {type(model).__name__}")
+    # Qwen2-VL has layers at model.model.language_model.layers
+    num_layers = len(model.model.language_model.layers)
+    print(f"Number of language model layers: {num_layers}")
     
     return model, processor
 
@@ -76,9 +80,9 @@ class Qwen2VLActivationHook:
     def register_hooks(self):
         """Register hooks on specified layers."""
         for layer_idx in self.layers:
-            # Qwen2-VL uses model.model.layers[i]
+            # Qwen2-VL uses model.model.language_model.layers[i]
             try:
-                layer = self.model.model.layers[layer_idx]
+                layer = self.model.model.language_model.layers[layer_idx]
                 hook = layer.register_forward_hook(self._get_hook_fn(layer_idx))
                 self.hooks.append(hook)
                 print(f"  Registered hook for layer {layer_idx}")
@@ -172,17 +176,53 @@ def extract_activations_qwen2vl(
     
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Filter samples with valid gender
-    caption_col = f"{language}_caption" if f"{language}_caption" in samples_df.columns else "caption"
+    # Filter samples with valid gender - handle different column naming conventions
+    if language == "arabic":
+        caption_col_options = ["ar_caption", "arabic_caption", "caption"]
+    else:
+        caption_col_options = ["en_caption", "english_caption", "caption"]
+    
+    caption_col = None
+    for col in caption_col_options:
+        if col in samples_df.columns:
+            caption_col = col
+            break
+    
+    if caption_col is None:
+        print(f"ERROR: No caption column found for {language}")
+        print(f"Available columns: {list(samples_df.columns)}")
+        return
+    
+    print(f"Using caption column: {caption_col}")
+    
+    # Also check for image column
+    image_col = None
+    for col in ["image", "image_id", "filename"]:
+        if col in samples_df.columns:
+            image_col = col
+            break
+    
+    print(f"Using image column: {image_col}")
+    
+    # Check if ground truth gender is available
+    use_ground_truth = "ground_truth_gender" in samples_df.columns
+    if use_ground_truth:
+        print("Using ground truth gender labels")
     
     valid_samples = []
     for idx, row in samples_df.iterrows():
-        caption = row.get(caption_col, row.get('caption', ''))
-        gender = extract_gender_from_caption(caption, language)
+        caption = row.get(caption_col, '')
+        
+        # Get gender - prefer ground truth if available
+        if use_ground_truth and row.get('ground_truth_gender') in ['male', 'female']:
+            gender = row['ground_truth_gender']
+        else:
+            gender = extract_gender_from_caption(caption, language)
+        
         if gender:
             valid_samples.append({
                 'idx': idx,
-                'image_id': row.get('image_id', row.get('filename', f'img_{idx}')),
+                'image_id': row.get(image_col, f'img_{idx}'),
                 'caption': caption,
                 'gender': gender
             })

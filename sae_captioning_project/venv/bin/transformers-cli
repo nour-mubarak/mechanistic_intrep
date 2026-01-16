@@ -2,8 +2,8 @@
 '''exec' /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project/venv/bin/python3.10 "$0" "$@"
 ' '''
 import sys
-from transformers.commands.transformers_cli import main
+from transformers.commands.transformers_cli import main_cli
 if __name__ == '__main__':
     if sys.argv[0].endswith('.exe'):
         sys.argv[0] = sys.argv[0][:-4]
-    sys.exit(main())
+    sys.exit(main_cli())
