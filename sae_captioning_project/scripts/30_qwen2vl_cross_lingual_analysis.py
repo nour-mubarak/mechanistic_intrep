@@ -25,6 +25,7 @@ import argparse
 from typing import Dict, List, Tuple
 from datetime import datetime
 import warnings
+import wandb
 warnings.filterwarnings('ignore')
 
 
@@ -354,11 +355,27 @@ def main():
     parser.add_argument("--output_dir", type=str, default="results/qwen2vl_analysis")
     parser.add_argument("--paligemma_results", type=str, default="results/cross_lingual_overlap/cross_lingual_overlap_results.json")
     parser.add_argument("--device", type=str, default="cpu")
+    parser.add_argument("--wandb", action="store_true", help="Enable W&B logging")
+    parser.add_argument("--wandb_project", type=str, default="qwen2vl-sae-analysis")
     args = parser.parse_args()
     
     layers = [int(l) for l in args.layers.split(',')]
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Initialize W&B
+    if args.wandb:
+        wandb.init(
+            project=args.wandb_project,
+            name="qwen2vl_cross_lingual_analysis",
+            config={
+                "model": "Qwen/Qwen2-VL-7B-Instruct",
+                "layers": layers,
+                "stage": "cross_lingual_analysis"
+            },
+            tags=["qwen2vl", "cross-lingual", "analysis"]
+        )
+        print("W&B logging enabled")
     
     print("="*60)
     print("Qwen2-VL Cross-Lingual Analysis")
@@ -426,6 +443,51 @@ def main():
         print("  ✓ FINDING: Minimal feature overlap (language-specific features)")
     else:
         print("  ~ FINDING: Some feature overlap between languages")
+    
+    # Log final results to W&B
+    if args.wandb:
+        # Log summary metrics
+        wandb.log({
+            "mean_clbas": mean_clbas,
+            "mean_overlap_pct": mean_overlap,
+            "n_layers_analyzed": len(all_results)
+        })
+        
+        # Log per-layer metrics
+        for r in all_results:
+            layer = r['layer']
+            wandb.log({
+                f"layer_{layer}/clbas": r['clbas']['clbas_score'],
+                f"layer_{layer}/overlap_pct": r['overlap']['overlap_pct'],
+                f"layer_{layer}/ar_probe_acc": r['probe_accuracy']['arabic']['mean'],
+                f"layer_{layer}/en_probe_acc": r['probe_accuracy']['english']['mean'],
+                f"layer_{layer}/ar_same_lang_drop": r['ablation']['arabic_same_lang_drop'],
+                f"layer_{layer}/en_same_lang_drop": r['ablation']['english_same_lang_drop']
+            })
+        
+        # Log comparison table
+        table = wandb.Table(columns=["Layer", "CLBAS", "Overlap%", "AR_Acc", "EN_Acc", "AR_Drop", "EN_Drop"])
+        for r in all_results:
+            table.add_data(
+                r['layer'],
+                r['clbas']['clbas_score'],
+                r['overlap']['overlap_pct'],
+                r['probe_accuracy']['arabic']['mean'],
+                r['probe_accuracy']['english']['mean'],
+                r['ablation']['arabic_same_lang_drop'],
+                r['ablation']['english_same_lang_drop']
+            )
+        wandb.log({"results_table": table})
+        
+        # Log visualizations as artifacts
+        viz_dir = output_dir / "visualizations"
+        if viz_dir.exists():
+            artifact = wandb.Artifact("qwen2vl_analysis_plots", type="visualizations")
+            for img_file in viz_dir.glob("*.png"):
+                artifact.add_file(str(img_file))
+            wandb.log_artifact(artifact)
+        
+        wandb.finish()
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ from tqdm import tqdm
 import argparse
 from datetime import datetime
 import gc
+import wandb
 
 # Add project root to path
 import sys
@@ -99,7 +100,8 @@ def train_sae(
     learning_rate: float = 3e-4,
     batch_size: int = 256,
     epochs: int = 50,
-    device: str = "cuda"
+    device: str = "cuda",
+    use_wandb: bool = False
 ) -> tuple:
     """Train SAE on activations."""
     
@@ -146,6 +148,17 @@ def train_sae(
             avg = epoch_losses[k] / n_batches
             history[k].append(avg)
         
+        # Log to W&B
+        if use_wandb:
+            wandb.log({
+                "epoch": epoch + 1,
+                "train/total_loss": history['total_loss'][-1],
+                "train/recon_loss": history['recon_loss'][-1],
+                "train/l1_loss": history['l1_loss'][-1],
+                "train/sparsity": history['sparsity'][-1],
+                "train/learning_rate": scheduler.get_last_lr()[0]
+            })
+        
         if (epoch + 1) % 10 == 0 or epoch == 0:
             print(f"  Epoch {epoch+1:3d}: loss={history['total_loss'][-1]:.4f}, "
                   f"recon={history['recon_loss'][-1]:.4f}, "
@@ -166,7 +179,29 @@ def main():
     parser.add_argument("--batch_size", type=int, default=256)
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
+    parser.add_argument("--wandb", action="store_true", help="Enable W&B logging")
+    parser.add_argument("--wandb_project", type=str, default="qwen2vl-sae-analysis")
     args = parser.parse_args()
+    
+    # Initialize W&B
+    if args.wandb:
+        wandb.init(
+            project=args.wandb_project,
+            name=f"qwen2vl_sae_L{args.layer}_{args.language}",
+            config={
+                "model": "Qwen/Qwen2-VL-7B-Instruct",
+                "language": args.language,
+                "layer": args.layer,
+                "expansion_factor": args.expansion_factor,
+                "l1_coefficient": args.l1_coefficient,
+                "learning_rate": args.learning_rate,
+                "batch_size": args.batch_size,
+                "epochs": args.epochs,
+                "stage": "sae_training"
+            },
+            tags=["qwen2vl", "sae-training", args.language, f"layer-{args.layer}"]
+        )
+        print("W&B logging enabled")
     
     print("="*60)
     print(f"Qwen2-VL SAE Training - Layer {args.layer} ({args.language})")
@@ -192,7 +227,8 @@ def main():
         learning_rate=args.learning_rate,
         batch_size=args.batch_size,
         epochs=args.epochs,
-        device=args.device
+        device=args.device,
+        use_wandb=args.wandb
     )
     
     # Save model
@@ -221,6 +257,25 @@ def main():
     with open(history_path, 'w') as f:
         json.dump(history, f, indent=2)
     print(f"Saved history: {history_path}")
+    
+    # Log final metrics to W&B
+    if args.wandb:
+        wandb.log({
+            "final_loss": history['total_loss'][-1],
+            "final_recon_loss": history['recon_loss'][-1],
+            "final_l1_loss": history['l1_loss'][-1],
+            "final_sparsity": history['sparsity'][-1],
+            "status": "complete"
+        })
+        # Save model as artifact
+        artifact = wandb.Artifact(
+            f"qwen2vl_sae_{args.language}_layer_{args.layer}",
+            type="model",
+            description=f"Qwen2-VL SAE for {args.language} layer {args.layer}"
+        )
+        artifact.add_file(str(model_path))
+        wandb.log_artifact(artifact)
+        wandb.finish()
     
     print("\n" + "="*60)
     print("Training complete!")

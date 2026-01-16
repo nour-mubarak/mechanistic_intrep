@@ -27,6 +27,7 @@ import gc
 import json
 from datetime import datetime
 from typing import Dict, List, Optional
+import wandb
 
 # Qwen2-VL specific imports
 from transformers import Qwen2VLForConditionalGeneration, Qwen2VLProcessor
@@ -286,9 +287,26 @@ def main():
     parser.add_argument("--output_dir", type=str, default="checkpoints/qwen2vl")
     parser.add_argument("--max_samples", type=int, default=None)
     parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--wandb", action="store_true", help="Enable W&B logging")
+    parser.add_argument("--wandb_project", type=str, default="qwen2vl-sae-analysis")
     args = parser.parse_args()
     
     layers = [int(l) for l in args.layers.split(',')]
+    
+    # Initialize W&B
+    if args.wandb:
+        wandb.init(
+            project=args.wandb_project,
+            name=f"qwen2vl_extract_{args.language}",
+            config={
+                "model": "Qwen/Qwen2-VL-7B-Instruct",
+                "language": args.language,
+                "layers": layers,
+                "stage": "extraction"
+            },
+            tags=["qwen2vl", "extraction", args.language]
+        )
+        print("W&B logging enabled")
     
     print("="*60)
     print(f"Qwen2-VL Activation Extraction - {args.language.upper()}")
@@ -326,6 +344,16 @@ def main():
     del model, processor
     gc.collect()
     torch.cuda.empty_cache()
+    
+    # Log final metrics to W&B
+    if args.wandb:
+        wandb.log({
+            "samples_processed": metadata['n_samples'],
+            "language": args.language,
+            "n_layers": len(layers),
+            "status": "complete"
+        })
+        wandb.finish()
     
     print("\n" + "="*60)
     print("Extraction complete!")

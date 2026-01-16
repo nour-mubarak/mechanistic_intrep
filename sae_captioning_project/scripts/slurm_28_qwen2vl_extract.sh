@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=qwen2vl_extract
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
+#SBATCH --partition=res-gpu-small
+#SBATCH --gres=gpu:ampere:1
 #SBATCH --time=12:00:00
-#SBATCH --mem=80G
-#SBATCH --cpus-per-task=8
+#SBATCH --mem=28G
+#SBATCH --cpus-per-task=4
 #SBATCH --output=logs/qwen2vl_extract_%A_%a.out
 #SBATCH --error=logs/qwen2vl_extract_%A_%a.err
 #SBATCH --array=0-1
@@ -49,7 +49,9 @@ python scripts/28_extract_qwen2vl_activations.py \
     --data_file data/processed/samples.csv \
     --images_dir data/raw/images \
     --output_dir checkpoints/qwen2vl \
-    --device cuda
+    --device cuda \
+    --wandb \
+    --wandb_project qwen2vl-sae-analysis
 
 echo ""
 echo "$LANGUAGE extraction complete!"

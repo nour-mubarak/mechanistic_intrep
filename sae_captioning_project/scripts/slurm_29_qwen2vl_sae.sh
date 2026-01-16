@@ -52,7 +52,9 @@ python scripts/29_train_qwen2vl_sae.py \
     --output_dir checkpoints/qwen2vl/saes \
     --expansion_factor 8 \
     --epochs 50 \
-    --device cpu
+    --device cpu \
+    --wandb \
+    --wandb_project qwen2vl-sae-analysis
 
 echo ""
 echo "Layer $LAYER $LANGUAGE complete!"
