@@ -28,11 +28,23 @@ echo "Memory limit: 180G"
 # Set Python to use unbuffered output
 export PYTHONUNBUFFERED=1
 
-python scripts/26_surgical_bias_intervention.py \
-    --config configs/config.yaml \
-    --output_dir results/sbi_analysis \
-    --layers ${SLURM_ARRAY_TASK_ID} \
-    --device cpu
+# Optional: Enable W&B logging (set to true for remote monitoring)
+USE_WANDB=true
+
+if [ "$USE_WANDB" = true ]; then
+    python scripts/26_surgical_bias_intervention.py \
+        --config configs/config.yaml \
+        --output_dir results/sbi_analysis \
+        --layers ${SLURM_ARRAY_TASK_ID} \
+        --device cpu \
+        --wandb
+else
+    python scripts/26_surgical_bias_intervention.py \
+        --config configs/config.yaml \
+        --output_dir results/sbi_analysis \
+        --layers ${SLURM_ARRAY_TASK_ID} \
+        --device cpu
+fi
 
 echo ""
 echo "Layer ${SLURM_ARRAY_TASK_ID} complete!"
