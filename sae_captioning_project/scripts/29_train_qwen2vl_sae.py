@@ -85,7 +85,7 @@ def load_qwen2vl_activations(path: str) -> tuple:
     """Load Qwen2-VL activation file."""
     data = torch.load(path, map_location='cpu', weights_only=False)
     
-    activations = data['activations']
+    activations = data["activations"].float()  # Convert bfloat16 to float32
     genders = data.get('genders', [])
     
     print(f"  Loaded: {activations.shape}")

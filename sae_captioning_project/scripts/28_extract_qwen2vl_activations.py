@@ -162,7 +162,6 @@ def prepare_qwen2vl_input(processor, image_path: str, caption: str, language: st
 def extract_activations_qwen2vl(
     model,
     processor,
-    hook: Qwen2VLActivationHook,
     samples_df: pd.DataFrame,
     language: str,
     images_dir: Path,
@@ -170,7 +169,8 @@ def extract_activations_qwen2vl(
     layers: List[int],
     batch_size: int = 1,
     max_samples: Optional[int] = None,
-    device: str = "cuda"
+    device: str = "cuda",
+    hook=None  # Deprecated, not used
 ):
     """Extract activations from Qwen2-VL for all samples."""
     
@@ -261,20 +261,21 @@ def extract_activations_qwen2vl(
             inputs = prepare_qwen2vl_input(processor, str(image_path), sample['caption'], language)
             inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
             
-            # Clear previous activations
-            hook.clear_activations()
-            
-            # Forward pass
+            # Forward pass with hidden states output (more reliable than hooks)
             with torch.no_grad():
-                _ = model(**inputs)
+                outputs = model(**inputs, output_hidden_states=True)
             
-            # Store activations (mean over sequence length)
+            # Extract hidden states for target layers
+            # hidden_states is a tuple of (embedding + 28 layers)
+            hidden_states = outputs.hidden_states
+            
             for layer in layers:
-                if layer in hook.activations:
-                    act = hook.activations[layer]
-                    if len(act.shape) == 3:
-                        act = act.mean(dim=1)  # [batch, seq, hidden] -> [batch, hidden]
-                    layer_activations[layer].append(act.squeeze(0))
+                # Layer 0 is embedding, layer N is at index N+1 in hidden_states
+                # But we want the output of layer N, which is at index N+1
+                layer_output = hidden_states[layer + 1]  # +1 because index 0 is embedding
+                # Mean over sequence length
+                act = layer_output.mean(dim=1).squeeze(0).cpu()
+                layer_activations[layer].append(act)
             
             genders.append(sample['gender'])
             image_ids.append(image_id)
@@ -286,6 +287,8 @@ def extract_activations_qwen2vl(
                 
         except Exception as e:
             print(f"Error processing sample {sample['image_id']}: {e}")
+            import traceback
+            traceback.print_exc()
             continue
     
     # Save activations per layer
@@ -357,19 +360,15 @@ def main():
     # Load model
     model, processor = load_qwen2vl_model(args.device)
     
-    # Setup hooks
-    hook = Qwen2VLActivationHook(model, layers)
-    hook.register_hooks()
-    
     # Load data
     samples_df = pd.read_csv(args.data_file)
     print(f"Loaded {len(samples_df)} samples")
     
-    # Extract activations
+    # Extract activations (using output_hidden_states, no hooks needed)
     metadata = extract_activations_qwen2vl(
         model=model,
         processor=processor,
-        hook=hook,
+        hook=None,  # Not using hooks anymore
         samples_df=samples_df,
         language=args.language,
         images_dir=Path(args.images_dir),
@@ -380,7 +379,6 @@ def main():
     )
     
     # Cleanup
-    hook.remove_hooks()
     del model, processor
     gc.collect()
     torch.cuda.empty_cache()

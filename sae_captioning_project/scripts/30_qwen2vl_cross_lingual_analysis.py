@@ -78,7 +78,7 @@ def get_features_and_labels(activations: torch.Tensor, genders: list, sae: Qwen2
     binary_labels = np.array([1 if g == 'male' else 0 for g in labels])
     
     with torch.no_grad():
-        acts = acts.to(device)
+        acts = acts.float().to(device)  # Convert bfloat16 to float32
         features = sae.encode(acts)
     
     return features.cpu().numpy(), binary_labels

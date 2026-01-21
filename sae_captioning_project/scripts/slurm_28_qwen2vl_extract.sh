@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=qwen2vl_extract
-#SBATCH --partition=res-gpu-small
-#SBATCH --gres=gpu:ampere:1
+#SBATCH --partition=gpu-bigmem
+#SBATCH --gres=gpu:turing:1
 #SBATCH --time=12:00:00
 #SBATCH --mem=28G
 #SBATCH --cpus-per-task=4
