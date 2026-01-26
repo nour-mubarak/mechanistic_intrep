@@ -1,0 +1,120 @@
+{
+  "qwen2vl": {
+    "model": "Qwen2-VL-7B-Instruct",
+    "d_model": 3584,
+    "n_layers": 28,
+    "sae_features": 28672,
+    "layers_analyzed": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      27
+    ],
+    "overlap_counts": {
+      "0": 0,
+      "4": 0,
+      "8": 0,
+      "12": 0,
+      "16": 0,
+      "20": 1,
+      "24": 0,
+      "27": 0
+    },
+    "arabic_probe_acc": {
+      "0": 0.875,
+      "4": 0.909,
+      "8": 0.909,
+      "12": 0.906,
+      "16": 0.907,
+      "20": 0.916,
+      "24": 0.909,
+      "27": 0.891
+    },
+    "english_probe_acc": {
+      "0": 0.903,
+      "4": 0.917,
+      "8": 0.921,
+      "12": 0.921,
+      "16": 0.922,
+      "20": 0.932,
+      "24": 0.924,
+      "27": 0.907
+    },
+    "summary": {
+      "total_overlap": 1,
+      "mean_ar_probe": 0.90275,
+      "mean_en_probe": 0.9183749999999999,
+      "mean_cosine_sim": 0.004025,
+      "max_cosine_sim": 0.0079,
+      "max_cosine_sim_layer": 20
+    },
+    "cosine_similarity": {
+      "0": 0.0015,
+      "4": 0.0037,
+      "8": 0.0047,
+      "12": 0.0018,
+      "16": 0.0029,
+      "20": 0.0079,
+      "24": 0.0024,
+      "27": 0.0073
+    }
+  },
+  "paligemma": {
+    "model": "PaLiGemma-3B",
+    "d_model": 2048,
+    "n_layers": 18,
+    "sae_features": 16384,
+    "layers_analyzed": [
+      3,
+      6,
+      9,
+      12,
+      15,
+      17
+    ],
+    "overlap_counts": {
+      "3": 0,
+      "6": 0,
+      "9": 2,
+      "12": 1,
+      "15": 0,
+      "17": 0
+    },
+    "summary": {
+      "total_overlap": 3,
+      "mean_cosine_sim": 0.026783333333333336,
+      "max_cosine_sim": 0.0407
+    },
+    "cosine_similarity": {
+      "3": 0.0106,
+      "6": 0.0145,
+      "9": 0.0275,
+      "12": 0.0392,
+      "15": 0.0282,
+      "17": 0.0407
+    }
+  },
+  "comparison": {
+    "overlap_ratio": 3.0,
+    "key_finding": "Qwen2-VL (7B) shows 6.7x lower cross-lingual cosine similarity than PaLiGemma (3B), indicating more language-specific gender processing in larger VLMs",
+    "cosine_sim_ratio": 6.65424430641822
+  },
+  "methodology": {
+    "alignment_metric": "Cosine Similarity",
+    "formula": "cos(\u03b8) = (A \u00b7 B) / (||A|| \u00d7 ||B||)",
+    "interpretation": {
+      "1.0": "Perfect alignment (identical feature directions)",
+      "0.0": "No alignment (orthogonal features)",
+      "-1.0": "Inverse alignment (opposite directions)"
+    },
+    "references": [
+      "Conneau et al. (2020) \"Emerging Cross-lingual Structure in Pretrained Language Models\" ACL",
+      "H\u00e4mmerl et al. (2024) \"Understanding Cross-Lingual Alignment\" ACL Findings",
+      "Wang et al. (2018) \"Cross-lingual KG Alignment via GCNs\" EMNLP"
+    ]
+  }
+}

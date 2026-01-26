@@ -1,0 +1,126 @@
+{
+  "timestamp": "2026-01-10T00:34:53.155774",
+  "layers": [
+    0,
+    3,
+    9,
+    12,
+    15,
+    17
+  ],
+  "results": {
+    "0": {
+      "layer": 0,
+      "arabic": {
+        "accuracy": 0.8148148148148148,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.8395061728395061,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 4.506663390202448e-05,
+        "bias_correlation": -0.0023444790741541785,
+        "en_bias_magnitude": 0.01105788815766573,
+        "ar_bias_magnitude": 0.011005137115716934,
+        "similarity": 0.0023444790741541785
+      }
+    },
+    "3": {
+      "layer": 3,
+      "arabic": {
+        "accuracy": 0.7674418604651163,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.7674418604651163,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 6.651558942394331e-05,
+        "bias_correlation": -0.004051378700068204,
+        "en_bias_magnitude": 0.009592411108314991,
+        "ar_bias_magnitude": 0.009423809126019478,
+        "similarity": 0.004051378700068204
+      }
+    },
+    "9": {
+      "layer": 9,
+      "arabic": {
+        "accuracy": 0.8375,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.825,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 2.7835067157866433e-05,
+        "bias_correlation": -0.001079732698351633,
+        "en_bias_magnitude": 0.015406113117933273,
+        "ar_bias_magnitude": 0.014733633026480675,
+        "similarity": 0.001079732698351633
+      }
+    },
+    "12": {
+      "layer": 12,
+      "arabic": {
+        "accuracy": 0.8311688311688312,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.8051948051948052,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 0.0004729852662421763,
+        "bias_correlation": 0.013087041124374239,
+        "en_bias_magnitude": 0.022256413474678993,
+        "ar_bias_magnitude": 0.019555214792490005,
+        "similarity": 0.013087041124374239
+      }
+    },
+    "15": {
+      "layer": 15,
+      "arabic": {
+        "accuracy": 0.8536585365853658,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.8658536585365854,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 0.0009484587935730815,
+        "bias_correlation": -0.011294888114284639,
+        "en_bias_magnitude": 0.04986078664660454,
+        "ar_bias_magnitude": 0.04649689793586731,
+        "similarity": 0.011294888114284639
+      }
+    },
+    "17": {
+      "layer": 17,
+      "arabic": {
+        "accuracy": 0.7674418604651163,
+        "n_samples": 500
+      },
+      "english": {
+        "accuracy": 0.7558139534883721,
+        "n_samples": 500
+      },
+      "clbas": {
+        "clbas": 0.0007063377415761352,
+        "bias_correlation": -0.005503771091548501,
+        "en_bias_magnitude": 0.07317458093166351,
+        "ar_bias_magnitude": 0.07085968554019928,
+        "similarity": 0.005503771091548501
+      }
+    }
+  },
+  "summary": {
+    "mean_arabic_accuracy": 0.812004317249874,
+    "mean_english_accuracy": 0.8098017417540643,
+    "mean_clbas": 0.00037786651531253784
+  }
+}

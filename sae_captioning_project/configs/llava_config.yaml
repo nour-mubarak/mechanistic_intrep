@@ -1,0 +1,145 @@
+# LLaVA-1.5-7B Configuration for Cross-Lingual Analysis
+# =====================================================
+# 
+# Model: llava-hf/llava-1.5-7b-hf
+# 
+# Key Specifications:
+# - Base LLM: Vicuna-7B-v1.5 (Llama 2 architecture)
+# - Vision Encoder: CLIP ViT-L/14-336px
+# - Hidden Size: 4096
+# - Layers: 32
+# - Vocab Size: 32000 (byte-fallback for Arabic)
+# 
+# Arabic Support: Via byte-level fallback tokenization
+# - Not trained on Arabic, but processes it via UTF-8 bytes
+# - Valid activations for mechanistic analysis
+# - Interesting "zero-shot" bilingual condition
+
+# Project paths
+paths:
+  project_root: "."
+  checkpoints: "./checkpoints/llava"
+  activations: "./checkpoints/llava/layer_checkpoints"
+  saes: "./checkpoints/llava/saes"
+  results: "./results/llava_analysis"
+  visualizations: "./visualizations/llava"
+  logs: "./logs"
+
+# Model configuration
+model:
+  name: "llava-hf/llava-1.5-7b-hf"
+  type: "llava"
+  hidden_size: 4096
+  num_layers: 32
+  vocab_size: 32000
+  dtype: "float16"  # LLaVA handles float16 better than PaLiGemma
+  device: "cuda"
+  max_new_tokens: 100
+  trust_remote_code: false
+  
+  # Vision encoder specs
+  vision_encoder: "openai/clip-vit-large-patch14-336"
+  image_size: 336
+  patch_size: 14
+  
+  # Arabic support method
+  arabic_support: "byte_fallback"  # Tokenizes Arabic via UTF-8 bytes
+  
+# Layers to analyze
+# LLaVA has 32 layers (0-31), sample evenly + final
+layers:
+  extraction: [0, 4, 8, 12, 16, 20, 24, 28, 31]  # 9 layers spread across model
+  primary_analysis: [8, 16, 24, 31]  # Key layers for main analysis
+  
+# Dataset configuration (same as other models for comparability)
+data:
+  num_samples: 10000
+  val_split: 0.1
+  batch_size: 1
+  num_workers: 4
+  
+  # Prompt templates
+  english_prompt: "USER: <image>\nDescribe the person in this image.\nASSISTANT:"
+  arabic_prompt: "USER: <image>\nصف الشخص في هذه الصورة.\nASSISTANT:"
+  
+  # Alternative prompts for captioning context
+  english_caption_context: "USER: <image>\nImage description: {caption}\nWhat gender is the person?\nASSISTANT:"
+  arabic_caption_context: "USER: <image>\nوصف الصورة: {caption}\nما جنس الشخص؟\nASSISTANT:"
+
+# SAE configuration
+sae:
+  d_model: 4096
+  expansion_factor: 8  # d_hidden = 4096 * 8 = 32768
+  l1_coefficient: 1e-4
+  
+  # Training
+  epochs: 50
+  batch_size: 256
+  learning_rate: 3e-4
+  warmup_steps: 500
+  weight_decay: 0.0
+  
+  # Architecture
+  normalize_decoder: true
+  tied_weights: false
+  activation: "relu"
+  
+  # Early stopping
+  patience: 10
+  min_delta: 1e-5
+
+# Analysis configuration
+analysis:
+  top_k_features: 100
+  significance_level: 0.05
+  effect_size_threshold: 0.2  # Cohen's d
+  correlation_method: "spearman"
+  
+  # Cross-lingual metrics
+  clbas_components:
+    - cosine_similarity
+    - spearman_correlation
+    - pearson_correlation
+  
+  # Ablation settings
+  ablation_k_values: [50, 100, 200]
+
+# Comparison with other models
+comparison:
+  models:
+    paligemma:
+      name: "google/paligemma-3b-pt-224"
+      hidden_size: 2048
+      num_layers: 18
+      results_path: "./results/proper_cross_lingual/cross_lingual_results.json"
+    qwen2vl:
+      name: "Qwen/Qwen2-VL-7B-Instruct"
+      hidden_size: 3584
+      num_layers: 28
+      results_path: "./results/qwen2vl_analysis/cross_lingual_results.json"
+  
+  # Research questions for LLaVA
+  research_questions:
+    - "Do byte-fallback models develop cross-lingual features?"
+    - "How does 'emergent' bilingualism differ from trained bilingualism?"
+    - "Is gender bias encoded differently when Arabic is 'unseen'?"
+
+# Visualization settings
+visualization:
+  dpi: 150
+  figure_width: 12
+  figure_height: 8
+  
+  # Colors for three-model comparison
+  colors:
+    llava: "#9b59b6"       # Purple for LLaVA
+    paligemma: "#3498db"   # Blue for PaLiGemma
+    qwen2vl: "#e74c3c"     # Red for Qwen2-VL
+    arabic: "#e74c3c"
+    english: "#2ecc71"
+
+# W&B logging
+wandb:
+  project: "llava-sae-analysis"
+  entity: null  # Set to your W&B username
+  tags: ["llava", "cross-lingual", "gender-bias", "byte-fallback"]

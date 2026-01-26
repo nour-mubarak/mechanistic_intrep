@@ -1,0 +1,277 @@
+[
+  {
+    "layer": 17,
+    "arabic_ablation": [
+      {
+        "k": 10,
+        "baseline_accuracy": 0.8768145940867423,
+        "ablated_accuracy": 0.8762698003958844,
+        "accuracy_drop": 0.0005447936908579143,
+        "relative_drop_pct": 0.06213328274095976,
+        "reconstruction_quality": 0.9974685311317444,
+        "features_ablated": [
+          9153,
+          6287,
+          9136,
+          12305,
+          5304,
+          12497,
+          9647,
+          12905,
+          2331,
+          6356
+        ]
+      },
+      {
+        "k": 25,
+        "baseline_accuracy": 0.8768145940867423,
+        "ablated_accuracy": 0.8773592232370717,
+        "accuracy_drop": -0.0005446291503293788,
+        "relative_drop_pct": -0.06211451702587641,
+        "reconstruction_quality": 0.9944122433662415,
+        "features_ablated": [
+          9153,
+          6287,
+          9136,
+          12305,
+          5304,
+          12497,
+          9647,
+          12905,
+          2331,
+          6356
+        ]
+      },
+      {
+        "k": 50,
+        "baseline_accuracy": 0.8768145940867423,
+        "ablated_accuracy": 0.8771765832501032,
+        "accuracy_drop": -0.00036198916336083187,
+        "relative_drop_pct": -0.04128457324981758,
+        "reconstruction_quality": 0.9890453815460205,
+        "features_ablated": [
+          9153,
+          6287,
+          9136,
+          12305,
+          5304,
+          12497,
+          9647,
+          12905,
+          2331,
+          6356
+        ]
+      },
+      {
+        "k": 100,
+        "baseline_accuracy": 0.8768145940867423,
+        "ablated_accuracy": 0.8766329413429469,
+        "accuracy_drop": 0.00018165274379544627,
+        "relative_drop_pct": 0.020717349485343484,
+        "reconstruction_quality": 0.9770523905754089,
+        "features_ablated": [
+          9153,
+          6287,
+          9136,
+          12305,
+          5304,
+          12497,
+          9647,
+          12905,
+          2331,
+          6356
+        ]
+      },
+      {
+        "k": 200,
+        "baseline_accuracy": 0.8768145940867423,
+        "ablated_accuracy": 0.8769957532089517,
+        "accuracy_drop": -0.00018115912220939556,
+        "relative_drop_pct": -0.02066105234004279,
+        "reconstruction_quality": 0.9532008171081543,
+        "features_ablated": [
+          9153,
+          6287,
+          9136,
+          12305,
+          5304,
+          12497,
+          9647,
+          12905,
+          2331,
+          6356
+        ]
+      }
+    ],
+    "english_ablation": [
+      {
+        "k": 10,
+        "baseline_accuracy": 0.8575028636884306,
+        "ablated_accuracy": 0.8563573883161512,
+        "accuracy_drop": 0.001145475372279492,
+        "relative_drop_pct": 0.13358268768367573,
+        "reconstruction_quality": 0.9985451102256775,
+        "features_ablated": [
+          6135,
+          11870,
+          10283,
+          15343,
+          4013,
+          8497,
+          9953,
+          8463,
+          6927,
+          16306
+        ]
+      },
+      {
+        "k": 25,
+        "baseline_accuracy": 0.8575028636884306,
+        "ablated_accuracy": 0.8595647193585337,
+        "accuracy_drop": -0.0020618556701030855,
+        "relative_drop_pct": -0.2404488378306163,
+        "reconstruction_quality": 0.996036946773529,
+        "features_ablated": [
+          6135,
+          11870,
+          10283,
+          15343,
+          4013,
+          8497,
+          9953,
+          8463,
+          6927,
+          16306
+        ]
+      },
+      {
+        "k": 50,
+        "baseline_accuracy": 0.8575028636884306,
+        "ablated_accuracy": 0.8572737686139748,
+        "accuracy_drop": 0.00022909507445589838,
+        "relative_drop_pct": 0.026716537536735144,
+        "reconstruction_quality": 0.9916433095932007,
+        "features_ablated": [
+          6135,
+          11870,
+          10283,
+          15343,
+          4013,
+          8497,
+          9953,
+          8463,
+          6927,
+          16306
+        ]
+      },
+      {
+        "k": 100,
+        "baseline_accuracy": 0.8575028636884306,
+        "ablated_accuracy": 0.8563573883161512,
+        "accuracy_drop": 0.001145475372279492,
+        "relative_drop_pct": 0.13358268768367573,
+        "reconstruction_quality": 0.9833561778068542,
+        "features_ablated": [
+          6135,
+          11870,
+          10283,
+          15343,
+          4013,
+          8497,
+          9953,
+          8463,
+          6927,
+          16306
+        ]
+      },
+      {
+        "k": 200,
+        "baseline_accuracy": 0.8575028636884306,
+        "ablated_accuracy": 0.8549828178694158,
+        "accuracy_drop": 0.0025200458190148822,
+        "relative_drop_pct": 0.2938819129040866,
+        "reconstruction_quality": 0.9662936925888062,
+        "features_ablated": [
+          6135,
+          11870,
+          10283,
+          15343,
+          4013,
+          8497,
+          9953,
+          8463,
+          6927,
+          16306
+        ]
+      }
+    ],
+    "cross_lingual": {
+      "k": 100,
+      "arabic": {
+        "baseline": 0.8768145940867423,
+        "same_language_ablation": 0.8766329413429469,
+        "same_language_drop": 0.00018165274379544627,
+        "cross_language_ablation": 0.8769949305063077,
+        "cross_language_drop": -0.0001803364195653856
+      },
+      "english": {
+        "baseline": 0.8575028636884306,
+        "same_language_ablation": 0.8563573883161512,
+        "same_language_drop": 0.001145475372279492,
+        "cross_language_ablation": 0.8609392898052691,
+        "cross_language_drop": -0.0034364261168384758
+      },
+      "language_specificity": {
+        "arabic": 0.18165274379544627,
+        "english": 1.145475372279492,
+        "interpretation": "Higher values indicate more language-specific features"
+      }
+    },
+    "top_features": {
+      "arabic": [
+        9153,
+        6287,
+        9136,
+        12305,
+        5304,
+        12497,
+        9647,
+        12905,
+        2331,
+        6356,
+        3971,
+        8650,
+        10051,
+        13292,
+        9849,
+        10362,
+        6473,
+        5839,
+        4524,
+        14036
+      ],
+      "english": [
+        6135,
+        11870,
+        10283,
+        15343,
+        4013,
+        8497,
+        9953,
+        8463,
+        6927,
+        16306,
+        13258,
+        7586,
+        10769,
+        14112,
+        8353,
+        9104,
+        15762,
+        11078,
+        4838,
+        14145
+      ]
+    }
+  }
+]

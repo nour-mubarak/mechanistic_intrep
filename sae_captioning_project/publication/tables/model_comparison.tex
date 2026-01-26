@@ -1,0 +1,19 @@
+% Table 1: Model Comparison - Cross-Lingual Gender Bias Analysis
+% Use: \input{tables/model_comparison.tex}
+
+\begin{table}[h]
+\centering
+\caption{Cross-lingual gender bias analysis across Vision-Language Models. 
+Mean cosine similarity measures the alignment of gender-associated SAE features between Arabic and English representations. 
+Higher overlap indicates more shared bias circuits. Probe accuracy measures gender classification from hidden representations.}
+\label{tab:model_comparison}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{d\_model} & \textbf{Layers} & \textbf{SAE Features} & \textbf{Mean Cos. Sim.} & \textbf{AR Probe} & \textbf{EN Probe} \\
+\midrule
+PaLiGemma-3B & 2,048 & 18 & 16,384 & 0.027 & -- & -- \\
+Qwen2-VL-7B  & 3,584 & 28 & 28,672 & 0.004 & 90.3\% & 91.8\% \\
+LLaVA-1.5-7B & 4,096 & 32 & 32,768 & \textit{pending} & \textit{pending} & \textit{pending} \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,23 @@
+% Table 4: PaLiGemma CLBAS by Layer
+% Use: \input{tables/paligemma_clbas.tex}
+
+\begin{table}[h]
+\centering
+\caption{Cross-Lingual Bias Alignment Score (CLBAS) components by layer for PaLiGemma-3B.
+Higher cosine similarity indicates greater alignment of gender-associated features between Arabic and English.}
+\label{tab:paligemma_clbas}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Layer} & \textbf{Cosine Similarity} & \textbf{Overlap Count} \\
+\midrule
+3  & 0.0106 & 0 \\
+6  & 0.0145 & 0 \\
+9  & 0.0275 & 2 \\
+12 & 0.0392 & 1 \\
+15 & 0.0282 & 0 \\
+17 & \textbf{0.0407} & 0 \\
+\midrule
+\textbf{Mean} & 0.0268 & 0.5 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,25 @@
+% Table 2: Layer-by-Layer CLBAS Analysis for Qwen2-VL
+% Use: \input{tables/clbas_by_layer.tex}
+
+\begin{table}[h]
+\centering
+\caption{Cross-Lingual Bias Alignment Score (CLBAS) components by layer for Qwen2-VL-7B.
+Cosine similarity measures feature alignment between languages. Overlap count indicates shared gender-associated features (top-100).}
+\label{tab:clbas_layers}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Layer} & \textbf{Cosine Sim.} & \textbf{Overlap Count} & \textbf{AR Probe Acc.} & \textbf{EN Probe Acc.} \\
+\midrule
+0  & 0.0015 & 0 & 87.5\% & 90.3\% \\
+4  & 0.0037 & 0 & 90.9\% & 91.7\% \\
+8  & 0.0047 & 0 & 90.9\% & 92.1\% \\
+12 & 0.0018 & 0 & 90.6\% & 92.1\% \\
+16 & 0.0029 & 0 & 90.7\% & 92.2\% \\
+20 & \textbf{0.0079} & \textbf{1} & 91.6\% & 93.2\% \\
+24 & 0.0024 & 0 & 90.9\% & 92.4\% \\
+27 & 0.0073 & 0 & 89.1\% & 90.7\% \\
+\midrule
+\textbf{Mean} & 0.0040 & 0.125 & 90.3\% & 91.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}

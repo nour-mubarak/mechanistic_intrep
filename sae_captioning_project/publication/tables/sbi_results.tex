@@ -1,0 +1,29 @@
+% Table 3: Surgical Bias Intervention (SBI) Results
+% Use: \input{tables/sbi_results.tex}
+
+\begin{table}[h]
+\centering
+\caption{Surgical Bias Intervention (SBI) results on PaLiGemma layer 17.
+Ablating gender-associated SAE features minimally impacts model performance,
+confirming features can be safely intervened upon.}
+\label{tab:sbi_results}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Language} & \textbf{k} & \textbf{Baseline Acc.} & \textbf{Ablated Acc.} & \textbf{Rel. Drop} & \textbf{Recon. Quality} \\
+\midrule
+\multirow{5}{*}{Arabic}
+ & 10  & 87.7\% & 87.6\% & +0.06\% & 99.7\% \\
+ & 25  & 87.7\% & 87.7\% & -0.06\% & 99.4\% \\
+ & 50  & 87.7\% & 87.7\% & -0.04\% & 98.9\% \\
+ & 100 & 87.7\% & 87.7\% & +0.02\% & 97.7\% \\
+ & 200 & 87.7\% & 87.7\% & -0.02\% & 95.3\% \\
+\midrule
+\multirow{5}{*}{English}
+ & 10  & 85.8\% & 85.6\% & +0.13\% & 99.9\% \\
+ & 25  & 85.8\% & 86.0\% & -0.24\% & 99.6\% \\
+ & 50  & 85.8\% & 85.7\% & -0.03\% & 99.2\% \\
+ & 100 & 85.8\% & 85.7\% & -0.01\% & 98.1\% \\
+ & 200 & 85.8\% & 85.8\% & -0.04\% & 96.4\% \\
+\bottomrule
+\end{tabular}
+\end{table}
