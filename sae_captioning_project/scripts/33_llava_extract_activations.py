@@ -57,8 +57,8 @@ def load_llava_model(device: str = "cuda", dtype: torch.dtype = torch.float16):
     model.eval()
     
     # Get model info
-    # LLaVA structure: model.language_model.model.layers[i]
-    num_layers = len(model.language_model.model.layers)
+    # LLaVA structure: model.language_model.layers[i] (LlamaModel has layers directly)
+    num_layers = len(model.language_model.layers)
     hidden_size = model.config.text_config.hidden_size
     
     print(f"Model loaded on {device} with dtype {dtype}")
@@ -93,8 +93,8 @@ class LLaVAActivationHook:
         print(f"Registering hooks for layers: {self.layers}")
         for layer_idx in self.layers:
             try:
-                # LLaVA: model.language_model.model.layers[i]
-                layer = self.model.language_model.model.layers[layer_idx]
+                # LLaVA: model.language_model.layers[i]
+                layer = self.model.language_model.layers[layer_idx]
                 hook = layer.register_forward_hook(self._get_hook_fn(layer_idx))
                 self.hooks.append(hook)
                 print(f"  ✓ Registered hook for layer {layer_idx}")
