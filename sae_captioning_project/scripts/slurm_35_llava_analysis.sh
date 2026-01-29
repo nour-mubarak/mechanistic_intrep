@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=llava_analysis
-#SBATCH --partition=cpu
+#SBATCH --partition=gpu-bigmem
+#SBATCH --gres=gpu:turing:1
 #SBATCH --time=04:00:00
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=8
@@ -36,9 +37,7 @@ python scripts/35_llava_cross_lingual_analysis.py \
     --layers 0,4,8,12,16,20,24,28,31 \
     --checkpoints_dir checkpoints/llava \
     --output_dir results/llava_analysis \
-    --paligemma_results results/cross_lingual_overlap/cross_lingual_overlap_results.json \
-    --qwen2vl_results results/qwen2vl_analysis/cross_lingual_results.json \
-    --device cpu \
+    --device cuda \
     --wandb \
     --wandb_project llava-sae-analysis
 
