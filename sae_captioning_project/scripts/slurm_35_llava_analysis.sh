@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=llava_analysis
-#SBATCH --partition=gpu-bigmem
-#SBATCH --gres=gpu:turing:1
+#SBATCH --partition=cpu
 #SBATCH --time=04:00:00
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=8
@@ -20,7 +19,7 @@ echo "Node: $(hostname)"
 echo "Date: $(date)"
 echo ""
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 export PYTHONUNBUFFERED=1
@@ -37,7 +36,9 @@ python scripts/35_llava_cross_lingual_analysis.py \
     --layers 0,4,8,12,16,20,24,28,31 \
     --checkpoints_dir checkpoints/llava \
     --output_dir results/llava_analysis \
-    --device cuda \
+    --paligemma_results results/cross_lingual_overlap/cross_lingual_overlap_results.json \
+    --qwen2vl_results results/qwen2vl_analysis/cross_lingual_results.json \
+    --device cpu \
     --wandb \
     --wandb_project llava-sae-analysis
 

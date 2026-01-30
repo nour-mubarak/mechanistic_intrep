@@ -17,7 +17,7 @@ echo "Job ID: ${SLURM_JOB_ID}, Array Task: ${SLURM_ARRAY_TASK_ID}"
 echo "Date: $(date)"
 echo "=========================================="
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 
 # Activate virtual environment with Python 3.10
 source venv/bin/activate

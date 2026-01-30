@@ -8,7 +8,7 @@
 #SBATCH --output=logs/qwen2vl_test_%j.out
 #SBATCH --error=logs/qwen2vl_test_%j.err
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 echo "Starting Qwen2-VL test..."

@@ -22,7 +22,7 @@ echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || ec
 echo "Date: $(date)"
 echo ""
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 # Set language based on array task ID

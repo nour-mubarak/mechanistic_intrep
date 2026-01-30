@@ -19,7 +19,7 @@ echo "Node: $(hostname)"
 echo "Date: $(date)"
 echo ""
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 echo "Python: $(which python)"

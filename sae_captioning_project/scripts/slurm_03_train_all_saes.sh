@@ -21,7 +21,7 @@ echo "Submitting 18 parallel training jobs"
 echo "Start: $(date)"
 echo "=========================================="
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 
 # Clear previous job tracking
 > pipeline_status/step3_sae_jobs.txt
@@ -40,7 +40,7 @@ for layer in {0..17}; do
 #SBATCH --output=logs/step3_train_sae_layer${layer}_%j.out
 #SBATCH --error=logs/step3_train_sae_layer${layer}_%j.err
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 echo "Training SAE for layer ${layer}"

@@ -25,7 +25,8 @@ echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || ec
 echo "Start: $(date)"
 echo ""
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project/mechanistic_intrep/sae_captioning_project
+# Fixed: Use parent directory which has all required data files
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 export PYTHONUNBUFFERED=1

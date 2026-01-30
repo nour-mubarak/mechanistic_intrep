@@ -352,11 +352,22 @@ def analyze_layer(layer: int, checkpoints_dir: Path, results_dir: Path, device: 
     print(f"    Arabic:  {ar_acc:.3f} ± {ar_std:.3f} (F1: {ar_f1:.3f})")
     print(f"    English: {en_acc:.3f} ± {en_std:.3f} (F1: {en_f1:.3f})")
     
-    # Ablation analysis (SKIPPED for speed - 32k features too slow)
-    print("\n  Skipping ablation analysis (too slow with 32k features)")
-    ar_ablation = {'skipped': True}
-    en_ablation = {'skipped': True}
-    cross_ablation = {'skipped': True}
+    # Ablation analysis
+    print("\n  Running ablation analysis...")
+    ar_ablation = run_ablation_analysis(ar_features, ar_labels, ar_effect)
+    en_ablation = run_ablation_analysis(en_features, en_labels, en_effect)
+    
+    # Cross-language ablation
+    print("  Running cross-language ablation...")
+    cross_ablation = cross_language_ablation(
+        ar_features, ar_labels, ar_effect,
+        en_features, en_labels, en_effect,
+        k=100
+    )
+    print(f"    AR same-lang drop: {cross_ablation['arabic']['same_lang_drop']:.4f}")
+    print(f"    AR cross-lang drop: {cross_ablation['arabic']['cross_lang_drop']:.4f}")
+    print(f"    EN same-lang drop: {cross_ablation['english']['same_lang_drop']:.4f}")
+    print(f"    EN cross-lang drop: {cross_ablation['english']['cross_lang_drop']:.4f}")
     
     # Compile results
     results = {

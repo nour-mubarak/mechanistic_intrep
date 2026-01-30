@@ -4,7 +4,7 @@
 # Monitors job status and sends email notifications
 
 EMAIL="jmsk62@durham.ac.uk"
-PROJECT_DIR="/home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project"
+PROJECT_DIR="/home2/jmsk62/mechanistic_intrep/sae_captioning_project"
 LOG_FILE="$PROJECT_DIR/logs/pipeline_monitor.log"
 STATUS_FILE="$PROJECT_DIR/pipeline_status/monitor_state.txt"
 

@@ -18,7 +18,7 @@ echo "Submitting 18 jobs (1 layer each)"
 echo "Start: $(date)"
 echo "=========================================="
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 
 # Clear previous job tracking
 > pipeline_status/step2_extraction_jobs.txt
@@ -37,7 +37,7 @@ for layer in {0..17}; do
 #SBATCH --output=logs/step2_extract_layer${layer}_%j.out
 #SBATCH --error=logs/step2_extract_layer${layer}_%j.err
 
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
 
 echo "Extracting activations for layer ${layer}"

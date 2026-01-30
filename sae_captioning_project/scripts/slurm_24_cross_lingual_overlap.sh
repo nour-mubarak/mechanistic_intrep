@@ -19,7 +19,7 @@ echo "Date: $(date)"
 echo ""
 
 # Navigate to project directory
-cd /home2/jmsk62/mechanistic_intrep/mech_intrep/mechanistic_intrep/mechanistic_intrep/mechanistic_intrep/sae_captioning_project
+cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 
 # Activate virtual environment
 source venv/bin/activate
