@@ -1,0 +1,49 @@
+{
+  "model": "PaLiGemma-3B",
+  "d_model": 2048,
+  "num_layers": 18,
+  "layer_results": {
+    "layer_3": {
+      "clbas": 0.0106,
+      "overlap_pct": 0,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0106
+    },
+    "layer_6": {
+      "clbas": 0.0145,
+      "overlap_pct": 0,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0145
+    },
+    "layer_9": {
+      "clbas": 0.0275,
+      "overlap_pct": 2,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0275
+    },
+    "layer_12": {
+      "clbas": 0.0392,
+      "overlap_pct": 1,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0392
+    },
+    "layer_15": {
+      "clbas": 0.0282,
+      "overlap_pct": 0,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0282
+    },
+    "layer_17": {
+      "clbas": 0.0407,
+      "overlap_pct": 0,
+      "probe_arabic": 0.886,
+      "probe_english": 0.853,
+      "cosine_similarity": 0.0407
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "model": "Qwen2-VL-7B",
+  "d_model": 3584,
+  "num_layers": 28,
+  "layer_results": {
+    "layer_0": {
+      "clbas": 0.0015,
+      "overlap_pct": 0,
+      "probe_arabic": 0.875,
+      "probe_english": 0.903,
+      "cosine_similarity": 0.0015
+    },
+    "layer_4": {
+      "clbas": 0.0037,
+      "overlap_pct": 0,
+      "probe_arabic": 0.909,
+      "probe_english": 0.917,
+      "cosine_similarity": 0.0037
+    },
+    "layer_8": {
+      "clbas": 0.0047,
+      "overlap_pct": 0,
+      "probe_arabic": 0.909,
+      "probe_english": 0.921,
+      "cosine_similarity": 0.0047
+    },
+    "layer_12": {
+      "clbas": 0.0018,
+      "overlap_pct": 0,
+      "probe_arabic": 0.906,
+      "probe_english": 0.921,
+      "cosine_similarity": 0.0018
+    },
+    "layer_16": {
+      "clbas": 0.0029,
+      "overlap_pct": 0,
+      "probe_arabic": 0.907,
+      "probe_english": 0.922,
+      "cosine_similarity": 0.0029
+    },
+    "layer_20": {
+      "clbas": 0.0079,
+      "overlap_pct": 1,
+      "probe_arabic": 0.916,
+      "probe_english": 0.932,
+      "cosine_similarity": 0.0079
+    },
+    "layer_24": {
+      "clbas": 0.0024,
+      "overlap_pct": 0,
+      "probe_arabic": 0.909,
+      "probe_english": 0.924,
+      "cosine_similarity": 0.0024
+    },
+    "layer_27": {
+      "clbas": 0.0073,
+      "overlap_pct": 0,
+      "probe_arabic": 0.891,
+      "probe_english": 0.907,
+      "cosine_similarity": 0.0073
+    }
+  }
+}

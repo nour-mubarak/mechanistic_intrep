@@ -70,7 +70,7 @@ publication/
 |-------|-----------------|-----------------|--------------|---------------|-----------|
 | PaLiGemma-3B | 0.027 | 3 | 88.6% | 85.3% | AR+3.3% |
 | Qwen2-VL-7B | 0.004 | 1 | 90.3% | 91.8% | EN+1.5% |
-| LLaVA-1.5-7B | TBD | TBD | TBD | TBD | TBD |
+| LLaVA-1.5-7B | 0.001 | 1 | 89.9% | 96.3% | EN+6.4% |
 
 ### Table 3: Layer-wise Analysis (Best Layers)
 
@@ -78,6 +78,7 @@ publication/
 |-------|------------------|------------------|-----------------|
 | PaLiGemma-3B | Layer 15 | Layer 15 | 0.041 |
 | Qwen2-VL-7B | Layer 20 | Layer 20 | 0.008 |
+| LLaVA-1.5-7B | Layer 24 | Layer 28 | 0.016 |
 
 ---
 
@@ -86,7 +87,7 @@ publication/
 ### Raw Results
 - `data/paligemma_results.json` - Full PaLiGemma analysis
 - `data/qwen2vl_results.json` - Full Qwen2-VL analysis
-- `data/llava_results.json` - Full LLaVA analysis (when complete)
+- `data/llava_results.json` - Full LLaVA analysis
 - `data/three_model_comparison.json` - Combined comparison
 
 ### Processed Metrics
