@@ -1,0 +1,26 @@
+% Table: Layer-by-Layer CLBAS Analysis for LLaVA-1.5-7B
+% Use: \input{tables/llava_clbas_by_layer.tex}
+
+\begin{table}[h]
+\centering
+\caption{Cross-Lingual Bias Alignment Score (CLBAS) components by layer for LLaVA-1.5-7B.
+Cosine similarity measures feature alignment between languages. Overlap count indicates shared gender-associated features (top-100).}
+\label{tab:llava_clbas_layers}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Layer} & \textbf{Cosine Sim.} & \textbf{Overlap Count} & \textbf{AR Probe Acc.} & \textbf{EN Probe Acc.} \\
+\midrule
+0  & 0.0047 & 0 & 87.9\% & 96.0\% \\
+4  & 0.0064 & 0 & 88.2\% & 96.1\% \\
+8  & -0.0078 & 0 & 89.4\% & 96.5\% \\
+12 & 0.0009 & 0 & 89.3\% & 96.2\% \\
+16 & 0.0014 & 0 & 89.6\% & 96.0\% \\
+20 & \textbf{0.0157} & \textbf{1} & 91.4\% & 96.4\% \\
+24 & -0.0175 & 0 & 91.5\% & 96.5\% \\
+28 & 0.0056 & 0 & 91.5\% & 96.6\% \\
+31 & -0.0012 & 0 & 90.7\% & 96.4\% \\
+\midrule
+\textbf{Mean} & 0.0009 & 0.11 & 89.9\% & 96.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}

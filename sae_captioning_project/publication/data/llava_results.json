@@ -1,0 +1,104 @@
+{
+  "model": "LLaVA-1.5-7B",
+  "model_id": "llava-hf/llava-1.5-7b-hf",
+  "d_model": 4096,
+  "num_layers": 32,
+  "sae_features": 32768,
+  "wandb_project": "nourmubarak/llava-sae-analysis",
+  "wandb_run_id": "ebwdvit8",
+  "run_name": "llava_cross_lingual_20260129_1106",
+  "run_date": "2026-01-29T11:06:12Z",
+  "status": "finished",
+  "summary": {
+    "mean_ar_probe_acc": 0.8993,
+    "mean_en_probe_acc": 0.9631,
+    "mean_cosine_sim": 0.0009,
+    "mean_clbas": 0.015,
+    "mean_overlap_pct": 0.1111,
+    "probe_gap": -0.0638,
+    "probe_gap_direction": "EN"
+  },
+  "layer_results": {
+    "layer_0": {
+      "clbas": 0.0228,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.8786,
+      "probe_english": 0.9602,
+      "cosine_similarity": 0.0047
+    },
+    "layer_4": {
+      "clbas": 0.0192,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.8818,
+      "probe_english": 0.9606,
+      "cosine_similarity": 0.0064
+    },
+    "layer_8": {
+      "clbas": 0.019,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.8941,
+      "probe_english": 0.9649,
+      "cosine_similarity": -0.0078
+    },
+    "layer_12": {
+      "clbas": 0.0011,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.8935,
+      "probe_english": 0.9621,
+      "cosine_similarity": 0.0009
+    },
+    "layer_16": {
+      "clbas": 0.007,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.8957,
+      "probe_english": 0.9604,
+      "cosine_similarity": 0.0014
+    },
+    "layer_20": {
+      "clbas": 0.0168,
+      "overlap_pct": 1.0,
+      "probe_arabic": 0.9137,
+      "probe_english": 0.9642,
+      "cosine_similarity": 0.0157
+    },
+    "layer_24": {
+      "clbas": 0.0334,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.9153,
+      "probe_english": 0.9651,
+      "cosine_similarity": -0.0175
+    },
+    "layer_28": {
+      "clbas": 0.0116,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.9146,
+      "probe_english": 0.9659,
+      "cosine_similarity": 0.0056
+    },
+    "layer_31": {
+      "clbas": 0.0039,
+      "overlap_pct": 0.0,
+      "probe_arabic": 0.9067,
+      "probe_english": 0.9642,
+      "cosine_similarity": -0.0012
+    }
+  },
+  "best_layers": {
+    "best_clbas_layer": 24,
+    "best_clbas_score": 0.0334,
+    "best_probe_layer": 28,
+    "best_ar_probe": 0.9146,
+    "best_en_probe": 0.9659,
+    "peak_cosine_layer": 20,
+    "peak_cosine_sim": 0.0157,
+    "only_overlap_layer": 20
+  },
+  "key_findings": [
+    "LLaVA-1.5-7B shows the lowest cross-lingual alignment (mean cosine 0.0009) among all three models",
+    "Largest probe gap between Arabic (89.9%) and English (96.3%) at 6.4%",
+    "Only Layer 20 shows non-zero feature overlap (1%)",
+    "Layer 24 has the highest CLBAS score (0.033)",
+    "English probe accuracy consistently ~6% higher than Arabic across all layers",
+    "Byte-fallback tokenization for Arabic may contribute to lower Arabic performance"
+  ]
+}
