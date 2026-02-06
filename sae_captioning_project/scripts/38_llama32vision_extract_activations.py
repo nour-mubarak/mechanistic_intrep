@@ -63,9 +63,9 @@ def load_llama32_vision_model(device: str = "cuda", dtype: torch.dtype = torch.b
 
     model.eval()
 
-    # Get model info - Llama 3.2 Vision uses language_model.model.layers
+    # Get model info - Llama 3.2 Vision: model.language_model returns MllamaTextModel which has .layers directly
     try:
-        num_layers = len(model.language_model.model.layers)
+        num_layers = len(model.language_model.layers)
     except:
         num_layers = NUM_LAYERS
 
@@ -106,8 +106,8 @@ class Llama32VisionActivationHook:
         print(f"Registering hooks for layers: {self.layers}")
         for layer_idx in self.layers:
             try:
-                # Llama 3.2 Vision: model.language_model.model.layers[i]
-                layer = self.model.language_model.model.layers[layer_idx]
+                # Llama 3.2 Vision: model.language_model returns MllamaTextModel which has .layers directly
+                layer = self.model.language_model.layers[layer_idx]
                 hook = layer.register_forward_hook(self._get_hook_fn(layer_idx))
                 self.hooks.append(hook)
                 print(f"  ✓ Registered hook for layer {layer_idx}")
@@ -190,12 +190,12 @@ def extract_activations_batch(
     all_genders = []
     all_indices = []
 
-    caption_col = "caption_ar" if language == "arabic" else "caption_en"
+    caption_col = "ar_caption" if language == "arabic" else "en_caption"
 
     for idx, row in tqdm(data.iterrows(), total=len(data), desc=f"Extracting {language}"):
         try:
             # Get image path
-            image_path = images_dir / row["image_file"]
+            image_path = images_dir / row["image"]
             if not image_path.exists():
                 continue
 

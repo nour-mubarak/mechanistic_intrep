@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=llama32v_full
 #SBATCH --partition=gpu-bigmem
-#SBATCH --gres=gpu:turing:1
+#SBATCH --gres=gpu:hopper:1
 #SBATCH --time=24:00:00
-#SBATCH --mem=32G
+#SBATCH --mem=56G
 #SBATCH --cpus-per-task=8
 #SBATCH --output=logs/llama32vision_full_pipeline_%j.out
 #SBATCH --error=logs/llama32vision_full_pipeline_%j.err
@@ -28,6 +28,9 @@ echo ""
 # Fixed: Use parent directory which has all required data files
 cd /home2/jmsk62/mechanistic_intrep/sae_captioning_project
 source venv/bin/activate
+
+# Use venv python explicitly
+PYTHON=/home2/jmsk62/mechanistic_intrep/sae_captioning_project/venv/bin/python3
 
 export PYTHONUNBUFFERED=1
 export HF_HOME=~/.cache/huggingface
@@ -57,7 +60,7 @@ echo "Stage 1/5: Extracting Arabic Activations"
 echo "=============================================="
 echo "Start: $(date)"
 
-python scripts/38_llama32vision_extract_activations.py \
+$PYTHON scripts/38_llama32vision_extract_activations.py \
     --language arabic \
     --layers $LAYERS \
     --data_file data/processed/samples.csv \
@@ -82,7 +85,7 @@ echo "Stage 2/5: Extracting English Activations"
 echo "=============================================="
 echo "Start: $(date)"
 
-python scripts/38_llama32vision_extract_activations.py \
+$PYTHON scripts/38_llama32vision_extract_activations.py \
     --language english \
     --layers $LAYERS \
     --data_file data/processed/samples.csv \
@@ -109,7 +112,7 @@ echo "Start: $(date)"
 
 for LAYER in 0 5 10 15 20 25 30 35 39; do
     echo "Training SAE for Arabic layer $LAYER..."
-    python scripts/39_llama32vision_train_sae.py \
+    $PYTHON scripts/39_llama32vision_train_sae.py \
         --language arabic \
         --layer $LAYER \
         --input_dir checkpoints/llama32vision/layer_checkpoints \
@@ -137,7 +140,7 @@ echo "Start: $(date)"
 
 for LAYER in 0 5 10 15 20 25 30 35 39; do
     echo "Training SAE for English layer $LAYER..."
-    python scripts/39_llama32vision_train_sae.py \
+    $PYTHON scripts/39_llama32vision_train_sae.py \
         --language english \
         --layer $LAYER \
         --input_dir checkpoints/llama32vision/layer_checkpoints \
@@ -163,7 +166,7 @@ echo "Stage 5/5: Cross-Lingual Analysis"
 echo "=============================================="
 echo "Start: $(date)"
 
-python scripts/40_llama32vision_cross_lingual_analysis.py \
+$PYTHON scripts/40_llama32vision_cross_lingual_analysis.py \
     --layers $LAYERS \
     --checkpoints_dir checkpoints/llama32vision \
     --output_dir results/llama32vision_analysis \
