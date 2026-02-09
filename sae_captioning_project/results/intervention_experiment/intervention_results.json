@@ -1,0 +1,1988 @@
+{
+  "config": {
+    "model": "PaLiGemma-3B",
+    "layer": 9,
+    "k_values": [
+      200,
+      500,
+      1000
+    ],
+    "n_images": 100,
+    "timestamp": "2026-02-09T17:54:16.830563"
+  },
+  "baseline": {
+    "captions": [
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506468593_7e41a6d9f1.jpg",
+        "caption": "A woman walks through a forest next to a river, her bare feet sinking into the muddy water. The sun shines on the leaves, casting long shadows on the ground. A large rock sits prominently in the water, while a large green leaf hangs pre"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3042484940_0975a5e486.jpg",
+        "caption": "Two men stand side-by-side, their smiles mirroring the sun shining on a tree. One man, wearing a black jacket and a white shirt, holds a cell phone, its screen illuminating the scene. The other man, wearing a gray shirt"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3229519418_040f05ced1.jpg",
+        "caption": "In this image we can see a group of people standing on the floor. In the background, we can see a wall with a painting on it. We can also see a chair and a curtain."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/138718600_f430ebca17.jpg",
+        "caption": "In this image there are two women sitting on the grass and talking on the mobile phones , and at the background there are bicycles, water, trees, grass, path."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3358682439_be4b83544c.jpg",
+        "caption": "In this image there are two women standing and holding a kangaroo in their hands. At the bottom there is grass. In the background there are trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3571675421_7e07ac07c5.jpg",
+        "caption": "In this image we can see a dog running in the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2269795781_46a296aa21.jpg",
+        "caption": "In this image I can see a person wearing green and white color dress and blue color cap is holding a tennis racket in his hand and hitting the ball. In the background I can see the fence."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3109704348_c6416244ce.jpg",
+        "caption": "In this image we can see three persons running on the ground. In the background we can see a pole, fence, trees and a group of people."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/756004341_1a816df714.jpg",
+        "caption": "In this image we can see two kids wearing goggles and lying on the grass. In the background, we can see a house and a tent."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2081615901_13092cac56.jpg",
+        "caption": "In this image we can see two girls standing on the grass. In the background we can see the fence, trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/540721368_12ac732c6c.jpg",
+        "caption": "In this image we can see a girl standing and holding a food item in her mouth. In the background, we can see a person holding a board."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2918769188_565dd48060.jpg",
+        "caption": "A swimmer gracefully glides through a pool, their arm raised in the air. The water ripples beneath them, reflecting the light of the sun. The pool is filled with water, and the lane divider is white, blue, and red. The swimmer'"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2949762776_52ece64d28.jpg",
+        "caption": "In this image we can see a group of people standing on the ground. In the background we can see a building, fence, pole, wires, a group of people standing on the ground and some objects."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2921198890_6f70dfbf4c.jpg",
+        "caption": "In this image we can see a dog running on the ground. In the background, we can see a railing, plants and a light."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/309049466_1d7e7d5fc2.jpg",
+        "caption": "In this image we can see a dog holding a ball in its mouth and standing on the snow. In the background, we can see a fence and plants."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3077166963_fe172c709d.jpg",
+        "caption": "In this image we can see a woman standing on the wooden logs. In the background, we can see the animals, grass, trees, hills and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2157173498_2eea42ee38.jpg",
+        "caption": "In this image we can see a person jumping with the help of a skateboard. In the background, we can see trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3245912109_fdeef6b456.jpg",
+        "caption": "In this image we can see a group of people standing on the ground. In the background, we can see a building, trees, a fountain, a group of people walking on the ground and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2288530008_4ebcee2174.jpg",
+        "caption": "In this image we can see a train on the railway track. Here we can see a man standing on the platform. Here we can see a woman wearing a yellow jacket and carrying a bag. Here we can see a group of people standing on the"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2193223202_4d908c0450.jpg",
+        "caption": "In this image we can see three persons. One person is lying on the ground and holding a football. Another person is standing and holding a football. In the background, we can see the grass."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3400385314_a5bc062e97.jpg",
+        "caption": "In this image we can see a man and a woman."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3350614753_5624e181b3.jpg",
+        "caption": "In this image we can see a group of people walking on the road. In the background, we can see a railing, buildings and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/488549693_a1f51d8c4a.jpg",
+        "caption": "In this image we can see two children standing on the sand. In the background, we can see the water and the trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3336831820_5c5df4b033.jpg",
+        "caption": "A group of people stand around a room, their faces illuminated by the warm glow of the wall. The room is filled with pictures and a sense of community. A woman in a black dress with white polka dots and a woman in a white dress with"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2642688531_8fb68b2147.jpg",
+        "caption": "In this image I can see a boy is standing in the yellow color object. In the background I can see few people, few trees, few buildings and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/254475194_3d8f4dfd53.jpg",
+        "caption": "In this image we can see a person standing on the ground, there is a dog on the ground, there are trees, there is a fence, there is a building, there is a pole, there is a sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1313961775_824b87d155.jpg",
+        "caption": "In this image we can see a girl wearing a life jacket is floating on the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3524519277_bd0c3e7382.jpg",
+        "caption": "In this image we can see two persons wearing black color dress and one person wearing black color dress are standing on the ground and holding a bottle in their hands. In the background, we can see a banner with some text on it."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1714316707_8bbaa2a2ba.jpg",
+        "caption": "In this image we can see a person standing on the snow. In the background there are trees and a pole."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3471841031_a949645ba8.jpg",
+        "caption": "In this image we can see a person wearing a grey color t-shirt is bending and holding a baby stroller in his hand. Here we can see a person wearing a black color t-shirt is lying on the bench. Here we can see a"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3490044563_8eb551ef59.jpg",
+        "caption": "In this image we can see a woman wearing a cloth on her mouth. In the background, we can see trees and buildings."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2564663851_3a9832e4fc.jpg",
+        "caption": "In this image we can see a boy standing on the floor. Here we can see water falling from the fountain. Here we can see a person sitting on the bench. Here we can see a pillar. Here we can see a person standing on the"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3269380710_9161b0bd00.jpg",
+        "caption": "In this image we can see a man standing and holding a cigarette in his hand. In the background, we can see a wall and a window."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3677329561_fa3e1fdcf9.jpg",
+        "caption": "In this image there are two girls standing and holding a bottle and a dog standing on the ground. In the background there is a vehicle."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1389264266_8170bc1c54.jpg",
+        "caption": "In this image we can see two persons standing on the ground. In the background we can see a person, trees, grass and a wall."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2715035273_8fc8b1291c.jpg",
+        "caption": "A group of people stand on a sidewalk, illuminated by the lights of a city street. A woman in a white dress and a woman in a black jacket are among the crowd. A man leans against a tree, while a woman in a white skirt"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/397451339_76a84bd310.jpg",
+        "caption": "In this image I can see two women are standing and one woman is sitting on the bench. I can also see she is holding a paper in her hand. In the background I can see few trees, few chairs, few tables, few buildings and"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/253762507_9c3356c2f6.jpg",
+        "caption": "A man stands on a subway platform, next to a train. He wears a blue shirt and black shoes. A black bag sits on the train next to him. The train is silver and has a yellow line on the platform. The man is holding"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2410399168_1462c422d4.jpg",
+        "caption": "In this image we can see two dogs on the ground. In the background there is a fence and grass."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3215238223_29de2b35cb.jpg",
+        "caption": "In this image we can see a person jumping on the skateboard, there are some bicycles, vehicles, plants, trees, buildings, windows, lights, also we can see the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3041170372_c4376cd497.jpg",
+        "caption": "In this image I can see a person is riding a bicycle. He is wearing a helmet and gloves. He is wearing a white and red color dress. In the background I can see few trees, few hills and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3054200086_657d4398e8.jpg",
+        "caption": "In this image we can see two persons wearing helmets and gloves are playing hockey on the ice."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2845845721_d0bc113ff7.jpg",
+        "caption": "A man and woman run across a large green field, their laughter echoing through the air. The sky is clear with white clouds, and a red kite dances in the sky. The man wears a blue hat and a white shirt, while the woman wears"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3474985008_0a827cd340.jpg",
+        "caption": "In this image I can see a person wearing yellow and black color dress and blue color helmet is riding a bicycle. In the background I can see few trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3518608016_46453d8b18.jpg",
+        "caption": "In this image we can see a woman holding a monkey. In the background we can see trees and sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/449287870_f17fb825d7.jpg",
+        "caption": "In this image I can see a girl standing on the slide. She is wearing pink color jacket and purple color pant. In the background I can see few trees in green color, few poles in blue color and the sky is in blue color."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3582814058_564776f26c.jpg",
+        "caption": "In this image we can see a group of people standing on the ground. In the background we can see a wall with some text written on it."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/519754987_51861fea85.jpg",
+        "caption": "A woman rides a bike down the street, her brown purse swinging. A crowd of people gathers around her, including a man in a brown shirt, a woman in a white shirt, and a girl in a green shirt. The girl has a brown"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2862931640_2501bd36c5.jpg",
+        "caption": "In this image we can see a person doing a stunt on the bicycle. In the background, we can see a group of people standing on the ground and a banner. In the background, we can see the water, trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/539705321_99406e5820.jpg",
+        "caption": "In this image there are group of children playing football on the ground. In the background there are trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2344412916_9a5a9b1c82.jpg",
+        "caption": "In this image we can see a man skating on the road. In the background, we can see a group of people, trees, buildings, poles, grass and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2424976964_98f58a0618.jpg",
+        "caption": "In this image we can see a group of people walking on the road. Here we can see a car, a person riding a bicycle and a tree."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3368865171_597d51cdd5.jpg",
+        "caption": "In this image I can see a girl is riding a bicycle. She is wearing a green color dress and a white color bag. In the background I can see few people are sitting on the ground and few people are standing."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3494105596_f05cb0d56f.jpg",
+        "caption": "In this image I can see a person wearing white and red color dress is standing and kicking the ball. In the background I can see the fence, few plants and the ground."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2394922193_310166d6af.jpg",
+        "caption": "In this image we can see a woman skating on the road. In the background, we can see a group of people standing on the road, a building with windows, a pole with lights, a railing, a group of people standing on the road"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1402843760_d30f1dbf0f.jpg",
+        "caption": "In this image we can see a dog on the grass. In the background, we can see a person's legs and a pole."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3461041826_0e24cdf597.jpg",
+        "caption": "In this image we can see a dog in the water. In the background, we can see the plants."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1294578091_2ad02fea91.jpg",
+        "caption": "In this image I can see a person wearing green color t-shirt and blue color jeans is standing and holding a mobile phone in his hand. I can see another person wearing pink color t-shirt and blue color jeans is sitting on the chair."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3356938707_d95ba97430.jpg",
+        "caption": "In this image we can see two persons standing on the ground. In the background we can see buildings, windows, lights, boards, clothes and some objects."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/491600485_26c52c8816.jpg",
+        "caption": "In this image we can see a dog on the ground. In the background we can see trees, water and sky with clouds."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/344078103_4b23931ce5.jpg",
+        "caption": "In this image we can see two dogs on the snow."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3577309234_c952c2af86.jpg",
+        "caption": "In this image we can see a bird flying in the air. In the background, we can see trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3631474374_e40764d153.jpg",
+        "caption": "In this image we can see a group of people standing on the floor."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/824923476_d85edce294.jpg",
+        "caption": "In this image we can see birds on the ground. In the background there is grass."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3224227640_31865b3651.jpg",
+        "caption": "In this image we can see two dogs on the ground. In the background there is grass."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2095478050_736c4d2d28.jpg",
+        "caption": "In this image I can see a person is standing and playing guitar. I can also see a microphone and few other people are standing. I can also see few musical instruments, few speakers, few wires and few trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/470887785_e0b1241d94.jpg",
+        "caption": "A woman stands at a podium, holding a sign with the date and text \"April 24.\" The sign is black and white, with red flowers and a white flower on the podium. The woman is wearing a black hat and a white shirt"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2112921744_92bf706805.jpg",
+        "caption": "In this image we can see a dog on the grass. In the background, we can see the mountains and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3638318149_b60450bfbe.jpg",
+        "caption": "In this image I can see a person is doing skating on the road. He is wearing black t-shirt, blue jeans and black shoes. In the background I can see few people are standing and few trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/944374205_fd3e69bfca.jpg",
+        "caption": "In this image we can see a group of children playing football on the ground. In the background, we can see a group of people standing on the rock and we can see the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2451114871_8617ae2f16.jpg",
+        "caption": "A group of dogs race on a dirt track, their tails flying. The brown dog in the lead has a red bandana and a white muzzle. The grey dog in the middle has a blue bandana and a white muzzle. The tan dog in the back"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/872622575_ba1d3632cc.jpg",
+        "caption": "In this image we can see a person climbing the mountain. In the background there is sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/299178969_5ca1de8e40.jpg",
+        "caption": "A young boy, with blonde hair and a smile on his face, rides a bike through a park. He wears a blue jean jacket, a white shirt, and a hood on his jacket. The boy's eyes are bright and the grass is"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1119418776_58e4b93eac.jpg",
+        "caption": "In this image we can see a dog running on the ground. In the background, we can see trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2212472643_80238475b5.jpg",
+        "caption": "In this image we can see a kid on the floor. In the background we can see a chair, a door, a table and a ball."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2484190118_e89363c465.jpg",
+        "caption": "In this image I can see a boy standing on the pole. In the background I can see few trees, few poles, few boards and few buildings."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1096097967_ac305887b4.jpg",
+        "caption": "In this image we can see a dog in the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3516960094_87fb4889de.jpg",
+        "caption": "A woman in a white and yellow tank top and black and yellow shorts jumps in the air, her arms extended. The woman is wearing a white and blue shirt, black shorts, and a white and blue tank top. The grass is green, and"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3430782104_34da558eba.jpg",
+        "caption": "A man on a brown horse chases a black calf in a rodeo. The man wears a red shirt, a white hat, and a blue band on his leg. The calf is running away, and the man is trying to rope it. The horse"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3407357681_5aeaab5b59.jpg",
+        "caption": "In this image we can see two dogs in the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3491013009_572cf2c18a.jpg",
+        "caption": "In this image we can see a group of people. In the background of the image there is a wall."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3301935788_2bb7bbc515.jpg",
+        "caption": "In this image I can see a person wearing white jacket, pink pant and white helmet is standing on the snowboard. I can see the snowboard is in pink and blue color. I can see the snow. In the background I can see few people are"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3650986674_3e101c606b.jpg",
+        "caption": "In this image we can see two dogs running on the ground. In the background, we can see a person standing on the ground and we can see the trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3629664676_36bcefe6b7.jpg",
+        "caption": "In this image we can see a dog holding a rope with its mouth. In the background, we can see the grass."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506216254_04d119cac7.jpg",
+        "caption": "A man in a black suit and sunglasses, smoking a cigarette, walks down the street. He has a white name tag on his chest and a black jacket with a white stripe. A woman with a backpack and a man with a black backpack are also"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2926595608_69b22be8d4.jpg",
+        "caption": "In this image there are group of people playing basketball. In the background there are group of people sitting on the chairs and watching the game."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3097776588_312932e438.jpg",
+        "caption": "In this image we can see two persons. In the background there is a wall."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3621647714_fc67ab2617.jpg",
+        "caption": "In this image we can see a person standing on the snow. In the background we can see mountains, trees and sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/527288854_f26127b770.jpg",
+        "caption": "In this image we can see a person climbing the rock."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/321229104_3cbaf0f51c.jpg",
+        "caption": "In this image we can see a person standing on the ice."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2609836649_b55831ed41.jpg",
+        "caption": "In this image we can see a dog in the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3466353172_deb128bbb0.jpg",
+        "caption": "In this image we can see a dog running on the ground. In the background, we can see the water."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/440737340_5af34ca9cf.jpg",
+        "caption": "In this image I can see a person wearing black cap, yellow and blue color dress is holding a black color box. I can see a dog which is black in color is standing on the ground. In the background I can see few plants, few"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3665179773_dd217416fc.jpg",
+        "caption": "In this image we can see two women are standing and smiling. In the background, we can see some people are standing and some are sitting on the bicycles. Here we can see some trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3565021218_d2bc1aa644.jpg",
+        "caption": "In this image we can see a girl wearing yellow color dress is lying on the bed. Here we can see the flowers."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2271955077_0020b4ee0d.jpg",
+        "caption": "In this image I can see a person is doing skating on the snow. The person is wearing white color dress and white color helmet. The person is in the air. The person is wearing gloves and shoes. The person is wearing a cap. In"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2528552898_9e49a7033f.jpg",
+        "caption": "In this image we can see a car on the road. Here we can see a person sitting in the car. Here we can see a person standing. Here we can see a group of people standing. Here we can see a fence. Here we"
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3498417123_3eae6bbde6.jpg",
+        "caption": "In this image we can see a group of people playing rugby. In the background there are trees."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/278002875_d011ae9dc5.jpg",
+        "caption": "In this image we can see a group of people standing on the ground. In the background we can see trees and the sky."
+      },
+      {
+        "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/766061382_6c7ff514c4.jpg",
+        "caption": "In this image we can see a kid standing under the shower. In the background there is a fence, plants and sky."
+      }
+    ],
+    "gender_stats": {
+      "with_gender": 100,
+      "total": 100,
+      "male_terms": 252,
+      "female_terms": 66
+    }
+  },
+  "ablations": {
+    "k=200": {
+      "captions": [
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506468593_7e41a6d9f1.jpg",
+          "caption": "A man is walking through a forest, crossing a river. The man is wearing a plaid shirt and shorts, and the water is clear. The man is walking through the water, and the river is the water in the photo. The man is walking"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3042484940_0975a5e486.jpg",
+          "caption": "Two men are taking a selfie in a city street. One man is holding a cell phone. The man is wearing a black shirt and a white shirt. The man is smiling. The man is wearing a black jacket. The man is holding a cell"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3229519418_040f05ced1.jpg",
+          "caption": "In this image I can see a few people standing. I can see the wall."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/138718600_f430ebca17.jpg",
+          "caption": "In this image I can see 2 women sitting on the grass. I can see 2 bicycles. I can see the water. I can see the grass in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3358682439_be4b83544c.jpg",
+          "caption": "In this image we can see two persons are standing. Here we can see a kangaroo. Here we can see a grass. In the background we can see trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3571675421_7e07ac07c5.jpg",
+          "caption": "In this image we can see a dog running in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2269795781_46a296aa21.jpg",
+          "caption": "In this image I can see a a person holding a racket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3109704348_c6416244ce.jpg",
+          "caption": "In this image I can see a person running on the ground. I can see a person holding a ball. I can see few people. I can see a person. I can see the ground is covered with grass. I can see the ground is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/756004341_1a816df714.jpg",
+          "caption": "In this image we can see two kids lying on the grass. We can see the goggles. We can see the grass. We can see the wall. We can see the grass. We can see the wall. We can see the wall. We"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2081615901_13092cac56.jpg",
+          "caption": "In this image I can see 2 girls standing in front of the fence. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/540721368_12ac732c6c.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2918769188_565dd48060.jpg",
+          "caption": "A swimmer gracefully glides in a pool, their arm gracefully dipping into the crystal-clear water. The water mirrors the sky, reflecting the vibrant blue hue of the water. The swimmer's arm gracefully extends towards the water, creating a perfect reflection of"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2949762776_52ece64d28.jpg",
+          "caption": "In this image I can see a few people are playing football. I can see few people are wearing helmets. I can see few people are wearing white and purple color dress. I can see few people are standing. I can see few people are wearing"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2921198890_6f70dfbf4c.jpg",
+          "caption": "In this image we can see a dog running. We can see a fencing. We can see a blue color. We can see the ground. We can see the flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/309049466_1d7e7d5fc2.jpg",
+          "caption": "In this image I can see a dog holding a ball in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3077166963_fe172c709d.jpg",
+          "caption": "In this image I can see a woman standing on the wooden logs. I can see the water. I can see the animals. I can see the grass. I can see the water. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2157173498_2eea42ee38.jpg",
+          "caption": "In this image I can see a person is doing skating in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3245912109_fdeef6b456.jpg",
+          "caption": "In this image I can see a few people standing. In the background I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2288530008_4ebcee2174.jpg",
+          "caption": "In this image I can see a train. On the right side I can see a platform. On the platform I can see a woman wearing a yellow jacket. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2193223202_4d908c0450.jpg",
+          "caption": "In this image I can see a person lying on the grass. I can see a person holding a football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3400385314_a5bc062e97.jpg",
+          "caption": "In this image I can see a person and a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3350614753_5624e181b3.jpg",
+          "caption": "In this image I can see a person walking."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/488549693_a1f51d8c4a.jpg",
+          "caption": "In this image I can see 2 kids walking on the sand. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3336831820_5c5df4b033.jpg",
+          "caption": "A group of people stand around a white wall, their faces illuminated by the warm glow of the afternoon sun. The wall is adorned with pictures, a vibrant array of faces reflecting the warm glow the sun. The floor is made of wood, the wall"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2642688531_8fb68b2147.jpg",
+          "caption": "In this image I can see a a kid. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue. I can see a blue."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/254475194_3d8f4dfd53.jpg",
+          "caption": "In this image I can see a dog and a person. I can see the grass in green color. I can see the house."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1313961775_824b87d155.jpg",
+          "caption": "In this image I can see a a person in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3524519277_bd0c3e7382.jpg",
+          "caption": "In this image I can see two persons standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1714316707_8bbaa2a2ba.jpg",
+          "caption": "In this image I can see a person standing in the snow. I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3471841031_a949645ba8.jpg",
+          "caption": "In this image I can see a person is sitting on the road. I can see few people. On the right side of the image I can see a black color. I can see few birds. I can see a person is sitting on the road"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3490044563_8eb551ef59.jpg",
+          "caption": "In this image we can see a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2564663851_3a9832e4fc.jpg",
+          "caption": "In this image I can see a a kid standing. I can see water falling from the top."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3269380710_9161b0bd00.jpg",
+          "caption": "In this image I can see a person standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3677329561_fa3e1fdcf9.jpg",
+          "caption": "In this image I can see 2 girls are standing in front of the car. I can see the car."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1389264266_8170bc1c54.jpg",
+          "caption": "In this image I can see 2 women standing. I can see a woman holding a mobile phone. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2715035273_8fc8b1291c.jpg",
+          "caption": "A group of women stand next to a tree, their faces illuminated by the bright lights of the city. The woman in the center, with long blonde hair and a white dress, stands next to the tree, her hand resting on her ear. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/397451339_76a84bd310.jpg",
+          "caption": "In this image I can see a woman sitting on the bench. On the right side I can see a woman standing. In the background I can see the fencing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/253762507_9c3356c2f6.jpg",
+          "caption": "A man stands next to a train with a bag of trash. The train is filled with people, including a man in a blue shirt, a man in a yellow vest, and a man in a black jacket. The train is open, and the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2410399168_1462c422d4.jpg",
+          "caption": "In this image I can see 2 dogs. In the background I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3215238223_29de2b35cb.jpg",
+          "caption": "In this image I can see a building and a windmill. I can see a person jumping. I can see the building is in cream color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3041170372_c4376cd497.jpg",
+          "caption": "In this image I can see a person is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3054200086_657d4398e8.jpg",
+          "caption": "In this image I can see a person wearing white and maroon color t-shirt and black helmet is standing on the ice."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2845845721_d0bc113ff7.jpg",
+          "caption": "A man and a woman are running in a field, their legs moving quickly. The man is wearing a blue hat and a white shirt, and the woman is wearing a black tank top and blue jeans. The field is green, and the sky is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3474985008_0a827cd340.jpg",
+          "caption": "In this image I can see a person riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3518608016_46453d8b18.jpg",
+          "caption": "In this image I can see a woman is holding a monkey."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/449287870_f17fb825d7.jpg",
+          "caption": "In this image I can see a a girl standing on the playground. I can see the playground equipment. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3582814058_564776f26c.jpg",
+          "caption": "In this image we can see a group of people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/519754987_51861fea85.jpg",
+          "caption": "A woman riding a bike next to a car in a busy street. The woman is riding a bike with a brown bag and a white shirt. The car is parked on the side of the street. The woman is looking at her phone. The car"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2862931640_2501bd36c5.jpg",
+          "caption": "In this image I can see a person doing stunt in the air. I can see few people standing. I can see a black color flag. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/539705321_99406e5820.jpg",
+          "caption": "In this image I can see a a boy is playing the football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2344412916_9a5a9b1c82.jpg",
+          "caption": "In this image I can see a person skating on the road. I can see the grass in green color. I can see the road. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2424976964_98f58a0618.jpg",
+          "caption": "In this image I can see a few people walking on the road. I can see few vehicles parked on the road."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3368865171_597d51cdd5.jpg",
+          "caption": "In this image I can see a a girl is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3494105596_f05cb0d56f.jpg",
+          "caption": "In this image I can see a person is playing the ball."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2394922193_310166d6af.jpg",
+          "caption": "In this image I can see a woman skating on the road. I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1402843760_d30f1dbf0f.jpg",
+          "caption": "In this image we can see a dog. In the foreground we can see the grass. In the background we can see the legs of a person."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3461041826_0e24cdf597.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1294578091_2ad02fea91.jpg",
+          "caption": "In this image I can see a woman sitting on the floor. I can see a board. I can see the painting. I can see the floor. I can see the floor. I can see the floor. I can see the floor. I"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3356938707_d95ba97430.jpg",
+          "caption": "In this image I can see 2 persons standing. In the background I can see the building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/491600485_26c52c8816.jpg",
+          "caption": "In this image we can see a dog. In the background we can see the water and the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/344078103_4b23931ce5.jpg",
+          "caption": "In this image I can see 2 dogs in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3577309234_c952c2af86.jpg",
+          "caption": "In this image we can see a birdthe-bird-in-flight-picture-in-a-zone.jpg"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3631474374_e40764d153.jpg",
+          "caption": "In this image I can see a few people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/824923476_d85edce294.jpg",
+          "caption": "In this image I can see few birds."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3224227640_31865b3651.jpg",
+          "caption": "In this image we can see two dogs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2095478050_736c4d2d28.jpg",
+          "caption": "In this image I can see a person is playing guitar. I can see few people are standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/470887785_e0b1241d94.jpg",
+          "caption": "In this image I can see a woman standing in front of the podium. I can see the boards."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2112921744_92bf706805.jpg",
+          "caption": "In this image I can see a white dog. I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3638318149_b60450bfbe.jpg",
+          "caption": "In this image I can see a person is doing skating."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/944374205_fd3e69bfca.jpg",
+          "caption": "In this image we can see a group of children playing football. In the background we can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2451114871_8617ae2f16.jpg",
+          "caption": "A group of dogs race on a dirt track, their speed evident in their swift movement. The dogs are racing, their faces illuminated with determination. The track is lined with a white railing, and the dirt is brown, creating a stark contrast to the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/872622575_ba1d3632cc.jpg",
+          "caption": "In this image I can see a person climbing the mountain."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/299178969_5ca1de8e40.jpg",
+          "caption": "A young boy, with a bright smile and a white t-shirt, stands next to a tree in a park. The tree has a large trunk and a large tree in the background. The boy is wearing a blue jacket and a white t-"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1119418776_58e4b93eac.jpg",
+          "caption": "In this image I can see a dog running. I can see the grass in green color. I can see the trees in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2212472643_80238475b5.jpg",
+          "caption": "In this image I can see a a kid. In the background I can see a chair and a door."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2484190118_e89363c465.jpg",
+          "caption": "In this image I can see a a kid standing on the pole. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1096097967_ac305887b4.jpg",
+          "caption": "In this image we can see a dog."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3516960094_87fb4889de.jpg",
+          "caption": "A woman in a white tank top and black and yellow shorts is jumping in the air. She is wearing a white and blue tank top and black and yellow shorts. The woman is wearing a white and blue tank top and black and yellow shorts. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3430782104_34da558eba.jpg",
+          "caption": "A man on a brown horse attempts to rope a calf in a rodeo. The man is wearing a maroon shirt and a cowboy hat. The calf is running in the arena. The horse is running in the arena. The man is trying to rope the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3407357681_5aeaab5b59.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3491013009_572cf2c18a.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3301935788_2bb7bbc515.jpg",
+          "caption": "In this image I can see a person is doing skating on the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3650986674_3e101c606b.jpg",
+          "caption": "In this image I can see 2 dogs and a person. I can see the water. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3629664676_36bcefe6b7.jpg",
+          "caption": "In this image we can see a dog holding a rope."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506216254_04d119cac7.jpg",
+          "caption": "A man in a black suit and sunglasses, smoking a cigarette, walks down the street. The man has a long nose and a pink shirt. The building has a window and a balcony. The man is wearing a pink shirt and a black jacket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2926595608_69b22be8d4.jpg",
+          "caption": "In this image I can see a basketball court. I can see few people playing basketball. I can see few people sitting on the chairs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3097776588_312932e438.jpg",
+          "caption": "In this image I can see 2 persons."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3621647714_fc67ab2617.jpg",
+          "caption": "In this image I can see a person standing on the snow. I can see the trees and the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/527288854_f26127b770.jpg",
+          "caption": "In this image I can see a person climbing the rock."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/321229104_3cbaf0f51c.jpg",
+          "caption": "A person is standing in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2609836649_b55831ed41.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3466353172_deb128bbb0.jpg",
+          "caption": "In this image we can see a dog running on the sand."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/440737340_5af34ca9cf.jpg",
+          "caption": "In this image I can see a person holding a box. I can see a dog. I can see the ground. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3665179773_dd217416fc.jpg",
+          "caption": "In this image we can see two persons hugging each other. We can see the persons standing. In the background we can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3565021218_d2bc1aa644.jpg",
+          "caption": "In this image I can see a a girl is lying on the bed. I can see few flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2271955077_0020b4ee0d.jpg",
+          "caption": "In this image I can see a person is doing skating in the air."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2528552898_9e49a7033f.jpg",
+          "caption": "In this image I can see a car. I can see a person is sitting on the car. I can see a person is wearing a helmet. I can see a person is sitting on the grass. I can see a person is wearing a helmet"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3498417123_3eae6bbde6.jpg",
+          "caption": "In this image I can see a few people are playing the game."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/278002875_d011ae9dc5.jpg",
+          "caption": "In this image we can see a few people. We can see the grass. We can see the trees. We can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/766061382_6c7ff514c4.jpg",
+          "caption": "In this image I can see a a kid."
+        }
+      ],
+      "ablated_features": [
+        14267,
+        544,
+        9365,
+        12867,
+        405,
+        2535,
+        583,
+        2064,
+        1803,
+        2978,
+        6652,
+        6375,
+        3435,
+        6899,
+        8537,
+        12629,
+        4458,
+        6474,
+        3732,
+        9394,
+        12074,
+        1493,
+        9006,
+        2572,
+        2932,
+        4343,
+        2094,
+        7722,
+        776,
+        290,
+        1363,
+        16331,
+        7481,
+        6027,
+        5495,
+        5262,
+        14409,
+        11956,
+        7695,
+        2098,
+        8715,
+        8439,
+        647,
+        13576,
+        342,
+        2811,
+        12037,
+        667,
+        16077,
+        13921,
+        3281,
+        15566,
+        6558,
+        12758,
+        10217,
+        7280,
+        5067,
+        3264,
+        15657,
+        4855,
+        11705,
+        491,
+        15264,
+        12815,
+        3129,
+        12482,
+        12400,
+        4496,
+        5584,
+        9647,
+        10497,
+        4910,
+        2990,
+        3259,
+        12967,
+        261,
+        12184,
+        10598,
+        10455,
+        16299,
+        13617,
+        12712,
+        7801,
+        5147,
+        13055,
+        9772,
+        4374,
+        5029,
+        13616,
+        13957,
+        11771,
+        9618,
+        1860,
+        7741,
+        14171,
+        7134,
+        15457,
+        16270,
+        10451,
+        10072
+      ],
+      "gender_stats": {
+        "with_gender": 100,
+        "total": 100,
+        "male_terms": 226,
+        "female_terms": 31
+      }
+    },
+    "k=500": {
+      "captions": [
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506468593_7e41a6d9f1.jpg",
+          "caption": "A man is walking through a forest, crossing a river. The man is wearing a plaid shirt and shorts, and the water is clear. The man is walking through the water, and the river is the water in the photo. The man is walking"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3042484940_0975a5e486.jpg",
+          "caption": "Two men are taking a selfie in a city street. One man is holding a cell phone. The man is wearing a black shirt and a white shirt. The man is smiling. The man is wearing a black jacket. The man is holding a cell"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3229519418_040f05ced1.jpg",
+          "caption": "In this image I can see a few people standing. I can see the wall."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/138718600_f430ebca17.jpg",
+          "caption": "In this image I can see 2 women sitting on the grass. I can see 2 bicycles. I can see the water. I can see the grass in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3358682439_be4b83544c.jpg",
+          "caption": "In this image we can see two persons are standing. Here we can see a kangaroo. Here we can see a grass. In the background we can see trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3571675421_7e07ac07c5.jpg",
+          "caption": "In this image we can see a dog running in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2269795781_46a296aa21.jpg",
+          "caption": "In this image I can see a a person holding a racket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3109704348_c6416244ce.jpg",
+          "caption": "In this image I can see a person running on the ground. I can see a person holding a ball. I can see few people. I can see a person. I can see the ground is covered with grass. I can see the ground is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/756004341_1a816df714.jpg",
+          "caption": "In this image we can see two kids lying on the grass. We can see the goggles. We can see the grass. We can see the wall. We can see the grass. We can see the wall. We can see the wall. We"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2081615901_13092cac56.jpg",
+          "caption": "In this image I can see 2 girls standing in front of the fence. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/540721368_12ac732c6c.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2918769188_565dd48060.jpg",
+          "caption": "A swimmer gracefully glides in a pool, their arm gracefully dipping into the crystal-clear water. The water mirrors the sky, reflecting the vibrant blue hue of the water. The swimmer's arm gracefully extends towards the water, creating a perfect reflection of"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2949762776_52ece64d28.jpg",
+          "caption": "In this image I can see a few people are playing football. I can see few people are wearing helmets. I can see few people are wearing white and purple color dress. I can see few people are standing. I can see few people are wearing"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2921198890_6f70dfbf4c.jpg",
+          "caption": "In this image we can see a dog running. We can see a fencing. We can see a blue color. We can see the ground. We can see the flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/309049466_1d7e7d5fc2.jpg",
+          "caption": "In this image I can see a dog holding a ball in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3077166963_fe172c709d.jpg",
+          "caption": "In this image I can see a woman standing on the wooden logs. I can see the water. I can see the animals. I can see the grass. I can see the water. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2157173498_2eea42ee38.jpg",
+          "caption": "In this image I can see a person is doing skating in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3245912109_fdeef6b456.jpg",
+          "caption": "In this image I can see a few people standing. In the background I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2288530008_4ebcee2174.jpg",
+          "caption": "In this image I can see a train. On the right side I can see a platform. On the platform I can see a woman wearing a yellow jacket. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2193223202_4d908c0450.jpg",
+          "caption": "In this image I can see a person lying on the grass. I can see a person holding a football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3400385314_a5bc062e97.jpg",
+          "caption": "In this image I can see a person and a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3350614753_5624e181b3.jpg",
+          "caption": "In this image I can see a person walking."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/488549693_a1f51d8c4a.jpg",
+          "caption": "In this image I can see 2 kids walking on the sand. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3336831820_5c5df4b033.jpg",
+          "caption": "A group of people stand around a white wall, their faces illuminated by the warm glow of the afternoon sun. The wall is adorned with pictures, a vibrant array of faces reflecting the warm glow the sun. The floor is made of wood, the wall"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2642688531_8fb68b2147.jpg",
+          "caption": "In this image I can see a a kid. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue. I can see a blue."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/254475194_3d8f4dfd53.jpg",
+          "caption": "In this image I can see a dog and a person. I can see the grass in green color. I can see the house."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1313961775_824b87d155.jpg",
+          "caption": "In this image I can see a a person in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3524519277_bd0c3e7382.jpg",
+          "caption": "In this image I can see two persons standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1714316707_8bbaa2a2ba.jpg",
+          "caption": "In this image I can see a person standing in the snow. I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3471841031_a949645ba8.jpg",
+          "caption": "In this image I can see a person is sitting on the road. I can see few people. On the right side of the image I can see a black color. I can see few birds. I can see a person is sitting on the road"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3490044563_8eb551ef59.jpg",
+          "caption": "In this image we can see a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2564663851_3a9832e4fc.jpg",
+          "caption": "In this image I can see a a kid standing. I can see water falling from the top."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3269380710_9161b0bd00.jpg",
+          "caption": "In this image I can see a person standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3677329561_fa3e1fdcf9.jpg",
+          "caption": "In this image I can see 2 girls are standing in front of the car. I can see the car."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1389264266_8170bc1c54.jpg",
+          "caption": "In this image I can see 2 women standing. I can see a woman holding a mobile phone. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2715035273_8fc8b1291c.jpg",
+          "caption": "A group of women stand next to a tree, their faces illuminated by the bright lights of the city. The woman in the center, with long blonde hair and a white dress, stands next to the tree, her hand resting on her ear. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/397451339_76a84bd310.jpg",
+          "caption": "In this image I can see a woman sitting on the bench. On the right side I can see a woman standing. In the background I can see the fencing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/253762507_9c3356c2f6.jpg",
+          "caption": "A man stands next to a train with a bag of trash. The train is filled with people, including a man in a blue shirt, a man in a yellow vest, and a man in a black jacket. The train is open, and the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2410399168_1462c422d4.jpg",
+          "caption": "In this image I can see 2 dogs. In the background I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3215238223_29de2b35cb.jpg",
+          "caption": "In this image I can see a building and a windmill. I can see a person jumping. I can see the building is in cream color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3041170372_c4376cd497.jpg",
+          "caption": "In this image I can see a person is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3054200086_657d4398e8.jpg",
+          "caption": "In this image I can see a person wearing white and maroon color t-shirt and black helmet is standing on the ice."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2845845721_d0bc113ff7.jpg",
+          "caption": "A man and a woman are running in a field, their legs moving quickly. The man is wearing a blue hat and a white shirt, and the woman is wearing a black tank top and blue jeans. The field is green, and the sky is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3474985008_0a827cd340.jpg",
+          "caption": "In this image I can see a person riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3518608016_46453d8b18.jpg",
+          "caption": "In this image I can see a woman is holding a monkey."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/449287870_f17fb825d7.jpg",
+          "caption": "In this image I can see a a girl standing on the playground. I can see the playground equipment. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3582814058_564776f26c.jpg",
+          "caption": "In this image we can see a group of people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/519754987_51861fea85.jpg",
+          "caption": "A woman riding a bike next to a car in a busy street. The woman is riding a bike with a brown bag and a white shirt. The car is parked on the side of the street. The woman is looking at her phone. The car"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2862931640_2501bd36c5.jpg",
+          "caption": "In this image I can see a person doing stunt in the air. I can see few people standing. I can see a black color flag. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/539705321_99406e5820.jpg",
+          "caption": "In this image I can see a a boy is playing the football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2344412916_9a5a9b1c82.jpg",
+          "caption": "In this image I can see a person skating on the road. I can see the grass in green color. I can see the road. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2424976964_98f58a0618.jpg",
+          "caption": "In this image I can see a few people walking on the road. I can see few vehicles parked on the road."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3368865171_597d51cdd5.jpg",
+          "caption": "In this image I can see a a girl is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3494105596_f05cb0d56f.jpg",
+          "caption": "In this image I can see a person is playing the ball."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2394922193_310166d6af.jpg",
+          "caption": "In this image I can see a woman skating on the road. I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1402843760_d30f1dbf0f.jpg",
+          "caption": "In this image we can see a dog. In the foreground we can see the grass. In the background we can see the legs of a person."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3461041826_0e24cdf597.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1294578091_2ad02fea91.jpg",
+          "caption": "In this image I can see a woman sitting on the floor. I can see a board. I can see the painting. I can see the floor. I can see the floor. I can see the floor. I can see the floor. I"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3356938707_d95ba97430.jpg",
+          "caption": "In this image I can see 2 persons standing. In the background I can see the building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/491600485_26c52c8816.jpg",
+          "caption": "In this image we can see a dog. In the background we can see the water and the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/344078103_4b23931ce5.jpg",
+          "caption": "In this image I can see 2 dogs in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3577309234_c952c2af86.jpg",
+          "caption": "In this image we can see a birdthe-bird-in-flight-picture-in-a-zone.jpg"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3631474374_e40764d153.jpg",
+          "caption": "In this image I can see a few people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/824923476_d85edce294.jpg",
+          "caption": "In this image I can see few birds."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3224227640_31865b3651.jpg",
+          "caption": "In this image we can see two dogs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2095478050_736c4d2d28.jpg",
+          "caption": "In this image I can see a person is playing guitar. I can see few people are standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/470887785_e0b1241d94.jpg",
+          "caption": "In this image I can see a woman standing in front of the podium. I can see the boards."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2112921744_92bf706805.jpg",
+          "caption": "In this image I can see a white dog. I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3638318149_b60450bfbe.jpg",
+          "caption": "In this image I can see a person is doing skating."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/944374205_fd3e69bfca.jpg",
+          "caption": "In this image we can see a group of children playing football. In the background we can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2451114871_8617ae2f16.jpg",
+          "caption": "A group of dogs race on a dirt track, their speed evident in their swift movement. The dogs are racing, their faces illuminated with determination. The track is lined with a white railing, and the dirt is brown, creating a stark contrast to the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/872622575_ba1d3632cc.jpg",
+          "caption": "In this image I can see a person climbing the mountain."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/299178969_5ca1de8e40.jpg",
+          "caption": "A young boy, with a bright smile and a white t-shirt, stands next to a tree in a park. The tree has a large trunk and a large tree in the background. The boy is wearing a blue jacket and a white t-"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1119418776_58e4b93eac.jpg",
+          "caption": "In this image I can see a dog running. I can see the grass in green color. I can see the trees in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2212472643_80238475b5.jpg",
+          "caption": "In this image I can see a a kid. In the background I can see a chair and a door."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2484190118_e89363c465.jpg",
+          "caption": "In this image I can see a a kid standing on the pole. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1096097967_ac305887b4.jpg",
+          "caption": "In this image we can see a dog."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3516960094_87fb4889de.jpg",
+          "caption": "A woman in a white tank top and black and yellow shorts is jumping in the air. She is wearing a white and blue tank top and black and yellow shorts. The woman is wearing a white and blue tank top and black and yellow shorts. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3430782104_34da558eba.jpg",
+          "caption": "A man on a brown horse attempts to rope a calf in a rodeo. The man is wearing a maroon shirt and a cowboy hat. The calf is running in the arena. The horse is running in the arena. The man is trying to rope the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3407357681_5aeaab5b59.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3491013009_572cf2c18a.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3301935788_2bb7bbc515.jpg",
+          "caption": "In this image I can see a person is doing skating on the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3650986674_3e101c606b.jpg",
+          "caption": "In this image I can see 2 dogs and a person. I can see the water. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3629664676_36bcefe6b7.jpg",
+          "caption": "In this image we can see a dog holding a rope."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506216254_04d119cac7.jpg",
+          "caption": "A man in a black suit and sunglasses, smoking a cigarette, walks down the street. The man has a long nose and a pink shirt. The building has a window and a balcony. The man is wearing a pink shirt and a black jacket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2926595608_69b22be8d4.jpg",
+          "caption": "In this image I can see a basketball court. I can see few people playing basketball. I can see few people sitting on the chairs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3097776588_312932e438.jpg",
+          "caption": "In this image I can see 2 persons."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3621647714_fc67ab2617.jpg",
+          "caption": "In this image I can see a person standing on the snow. I can see the trees and the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/527288854_f26127b770.jpg",
+          "caption": "In this image I can see a person climbing the rock."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/321229104_3cbaf0f51c.jpg",
+          "caption": "A person is standing in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2609836649_b55831ed41.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3466353172_deb128bbb0.jpg",
+          "caption": "In this image we can see a dog running on the sand."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/440737340_5af34ca9cf.jpg",
+          "caption": "In this image I can see a person holding a box. I can see a dog. I can see the ground. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3665179773_dd217416fc.jpg",
+          "caption": "In this image we can see two persons hugging each other. We can see the persons standing. In the background we can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3565021218_d2bc1aa644.jpg",
+          "caption": "In this image I can see a a girl is lying on the bed. I can see few flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2271955077_0020b4ee0d.jpg",
+          "caption": "In this image I can see a person is doing skating in the air."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2528552898_9e49a7033f.jpg",
+          "caption": "In this image I can see a car. I can see a person is sitting on the car. I can see a person is wearing a helmet. I can see a person is sitting on the grass. I can see a person is wearing a helmet"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3498417123_3eae6bbde6.jpg",
+          "caption": "In this image I can see a few people are playing the game."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/278002875_d011ae9dc5.jpg",
+          "caption": "In this image we can see a few people. We can see the grass. We can see the trees. We can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/766061382_6c7ff514c4.jpg",
+          "caption": "In this image I can see a a kid."
+        }
+      ],
+      "ablated_features": [
+        14267,
+        544,
+        9365,
+        12867,
+        405,
+        2535,
+        583,
+        2064,
+        1803,
+        2978,
+        6652,
+        6375,
+        3435,
+        6899,
+        8537,
+        12629,
+        4458,
+        6474,
+        3732,
+        9394,
+        12074,
+        1493,
+        9006,
+        2572,
+        2932,
+        4343,
+        2094,
+        7722,
+        776,
+        290,
+        1363,
+        16331,
+        7481,
+        6027,
+        5495,
+        5262,
+        14409,
+        11956,
+        7695,
+        2098,
+        8715,
+        8439,
+        647,
+        13576,
+        342,
+        2811,
+        12037,
+        667,
+        16077,
+        13921,
+        3281,
+        15566,
+        6558,
+        12758,
+        10217,
+        7280,
+        5067,
+        3264,
+        15657,
+        4855,
+        11705,
+        491,
+        15264,
+        12815,
+        3129,
+        12482,
+        12400,
+        4496,
+        5584,
+        9647,
+        10497,
+        4910,
+        2990,
+        3259,
+        12967,
+        261,
+        12184,
+        10598,
+        10455,
+        16299,
+        13617,
+        12712,
+        7801,
+        5147,
+        13055,
+        9772,
+        4374,
+        5029,
+        13616,
+        13957,
+        11771,
+        9618,
+        1860,
+        7741,
+        14171,
+        7134,
+        15457,
+        16270,
+        10451,
+        10072
+      ],
+      "gender_stats": {
+        "with_gender": 100,
+        "total": 100,
+        "male_terms": 226,
+        "female_terms": 31
+      }
+    },
+    "k=1000": {
+      "captions": [
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506468593_7e41a6d9f1.jpg",
+          "caption": "A man is walking through a forest, crossing a river. The man is wearing a plaid shirt and shorts, and the water is clear. The man is walking through the water, and the river is the water in the photo. The man is walking"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3042484940_0975a5e486.jpg",
+          "caption": "Two men are taking a selfie in a city street. One man is holding a cell phone. The man is wearing a black shirt and a white shirt. The man is smiling. The man is wearing a black jacket. The man is holding a cell"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3229519418_040f05ced1.jpg",
+          "caption": "In this image I can see a few people standing. I can see the wall."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/138718600_f430ebca17.jpg",
+          "caption": "In this image I can see 2 women sitting on the grass. I can see 2 bicycles. I can see the water. I can see the grass in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3358682439_be4b83544c.jpg",
+          "caption": "In this image we can see two persons are standing. Here we can see a kangaroo. Here we can see a grass. In the background we can see trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3571675421_7e07ac07c5.jpg",
+          "caption": "In this image we can see a dog running in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2269795781_46a296aa21.jpg",
+          "caption": "In this image I can see a a person holding a racket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3109704348_c6416244ce.jpg",
+          "caption": "In this image I can see a person running on the ground. I can see a person holding a ball. I can see few people. I can see a person. I can see the ground is covered with grass. I can see the ground is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/756004341_1a816df714.jpg",
+          "caption": "In this image we can see two kids lying on the grass. We can see the goggles. We can see the grass. We can see the wall. We can see the grass. We can see the wall. We can see the wall. We"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2081615901_13092cac56.jpg",
+          "caption": "In this image I can see 2 girls standing in front of the fence. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/540721368_12ac732c6c.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2918769188_565dd48060.jpg",
+          "caption": "A swimmer gracefully glides in a pool, their arm gracefully dipping into the crystal-clear water. The water mirrors the sky, reflecting the vibrant blue hue of the water. The swimmer's arm gracefully extends towards the water, creating a perfect reflection of"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2949762776_52ece64d28.jpg",
+          "caption": "In this image I can see a few people are playing football. I can see few people are wearing helmets. I can see few people are wearing white and purple color dress. I can see few people are standing. I can see few people are wearing"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2921198890_6f70dfbf4c.jpg",
+          "caption": "In this image we can see a dog running. We can see a fencing. We can see a blue color. We can see the ground. We can see the flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/309049466_1d7e7d5fc2.jpg",
+          "caption": "In this image I can see a dog holding a ball in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3077166963_fe172c709d.jpg",
+          "caption": "In this image I can see a woman standing on the wooden logs. I can see the water. I can see the animals. I can see the grass. I can see the water. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2157173498_2eea42ee38.jpg",
+          "caption": "In this image I can see a person is doing skating in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3245912109_fdeef6b456.jpg",
+          "caption": "In this image I can see a few people standing. In the background I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2288530008_4ebcee2174.jpg",
+          "caption": "In this image I can see a train. On the right side I can see a platform. On the platform I can see a woman wearing a yellow jacket. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2193223202_4d908c0450.jpg",
+          "caption": "In this image I can see a person lying on the grass. I can see a person holding a football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3400385314_a5bc062e97.jpg",
+          "caption": "In this image I can see a person and a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3350614753_5624e181b3.jpg",
+          "caption": "In this image I can see a person walking."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/488549693_a1f51d8c4a.jpg",
+          "caption": "In this image I can see 2 kids walking on the sand. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3336831820_5c5df4b033.jpg",
+          "caption": "A group of people stand around a white wall, their faces illuminated by the warm glow of the afternoon sun. The wall is adorned with pictures, a vibrant array of faces reflecting the warm glow the sun. The floor is made of wood, the wall"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2642688531_8fb68b2147.jpg",
+          "caption": "In this image I can see a a kid. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue color. I can see a blue. I can see a blue."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/254475194_3d8f4dfd53.jpg",
+          "caption": "In this image I can see a dog and a person. I can see the grass in green color. I can see the house."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1313961775_824b87d155.jpg",
+          "caption": "In this image I can see a a person in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3524519277_bd0c3e7382.jpg",
+          "caption": "In this image I can see two persons standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1714316707_8bbaa2a2ba.jpg",
+          "caption": "In this image I can see a person standing in the snow. I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3471841031_a949645ba8.jpg",
+          "caption": "In this image I can see a person is sitting on the road. I can see few people. On the right side of the image I can see a black color. I can see few birds. I can see a person is sitting on the road"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3490044563_8eb551ef59.jpg",
+          "caption": "In this image we can see a woman."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2564663851_3a9832e4fc.jpg",
+          "caption": "In this image I can see a a kid standing. I can see water falling from the top."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3269380710_9161b0bd00.jpg",
+          "caption": "In this image I can see a person standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3677329561_fa3e1fdcf9.jpg",
+          "caption": "In this image I can see 2 girls are standing in front of the car. I can see the car."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1389264266_8170bc1c54.jpg",
+          "caption": "In this image I can see 2 women standing. I can see a woman holding a mobile phone. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2715035273_8fc8b1291c.jpg",
+          "caption": "A group of women stand next to a tree, their faces illuminated by the bright lights of the city. The woman in the center, with long blonde hair and a white dress, stands next to the tree, her hand resting on her ear. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/397451339_76a84bd310.jpg",
+          "caption": "In this image I can see a woman sitting on the bench. On the right side I can see a woman standing. In the background I can see the fencing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/253762507_9c3356c2f6.jpg",
+          "caption": "A man stands next to a train with a bag of trash. The train is filled with people, including a man in a blue shirt, a man in a yellow vest, and a man in a black jacket. The train is open, and the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2410399168_1462c422d4.jpg",
+          "caption": "In this image I can see 2 dogs. In the background I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3215238223_29de2b35cb.jpg",
+          "caption": "In this image I can see a building and a windmill. I can see a person jumping. I can see the building is in cream color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3041170372_c4376cd497.jpg",
+          "caption": "In this image I can see a person is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3054200086_657d4398e8.jpg",
+          "caption": "In this image I can see a person wearing white and maroon color t-shirt and black helmet is standing on the ice."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2845845721_d0bc113ff7.jpg",
+          "caption": "A man and a woman are running in a field, their legs moving quickly. The man is wearing a blue hat and a white shirt, and the woman is wearing a black tank top and blue jeans. The field is green, and the sky is"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3474985008_0a827cd340.jpg",
+          "caption": "In this image I can see a person riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3518608016_46453d8b18.jpg",
+          "caption": "In this image I can see a woman is holding a monkey."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/449287870_f17fb825d7.jpg",
+          "caption": "In this image I can see a a girl standing on the playground. I can see the playground equipment. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3582814058_564776f26c.jpg",
+          "caption": "In this image we can see a group of people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/519754987_51861fea85.jpg",
+          "caption": "A woman riding a bike next to a car in a busy street. The woman is riding a bike with a brown bag and a white shirt. The car is parked on the side of the street. The woman is looking at her phone. The car"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2862931640_2501bd36c5.jpg",
+          "caption": "In this image I can see a person doing stunt in the air. I can see few people standing. I can see a black color flag. I can see the water. I can see the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/539705321_99406e5820.jpg",
+          "caption": "In this image I can see a a boy is playing the football."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2344412916_9a5a9b1c82.jpg",
+          "caption": "In this image I can see a person skating on the road. I can see the grass in green color. I can see the road. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2424976964_98f58a0618.jpg",
+          "caption": "In this image I can see a few people walking on the road. I can see few vehicles parked on the road."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3368865171_597d51cdd5.jpg",
+          "caption": "In this image I can see a a girl is riding a bicycle."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3494105596_f05cb0d56f.jpg",
+          "caption": "In this image I can see a person is playing the ball."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2394922193_310166d6af.jpg",
+          "caption": "In this image I can see a woman skating on the road. I can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1402843760_d30f1dbf0f.jpg",
+          "caption": "In this image we can see a dog. In the foreground we can see the grass. In the background we can see the legs of a person."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3461041826_0e24cdf597.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1294578091_2ad02fea91.jpg",
+          "caption": "In this image I can see a woman sitting on the floor. I can see a board. I can see the painting. I can see the floor. I can see the floor. I can see the floor. I can see the floor. I"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3356938707_d95ba97430.jpg",
+          "caption": "In this image I can see 2 persons standing. In the background I can see the building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/491600485_26c52c8816.jpg",
+          "caption": "In this image we can see a dog. In the background we can see the water and the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/344078103_4b23931ce5.jpg",
+          "caption": "In this image I can see 2 dogs in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3577309234_c952c2af86.jpg",
+          "caption": "In this image we can see a birdthe-bird-in-flight-picture-in-a-zone.jpg"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3631474374_e40764d153.jpg",
+          "caption": "In this image I can see a few people standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/824923476_d85edce294.jpg",
+          "caption": "In this image I can see few birds."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3224227640_31865b3651.jpg",
+          "caption": "In this image we can see two dogs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2095478050_736c4d2d28.jpg",
+          "caption": "In this image I can see a person is playing guitar. I can see few people are standing."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/470887785_e0b1241d94.jpg",
+          "caption": "In this image I can see a woman standing in front of the podium. I can see the boards."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2112921744_92bf706805.jpg",
+          "caption": "In this image I can see a white dog. I can see the grass."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3638318149_b60450bfbe.jpg",
+          "caption": "In this image I can see a person is doing skating."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/944374205_fd3e69bfca.jpg",
+          "caption": "In this image we can see a group of children playing football. In the background we can see a building."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2451114871_8617ae2f16.jpg",
+          "caption": "A group of dogs race on a dirt track, their speed evident in their swift movement. The dogs are racing, their faces illuminated with determination. The track is lined with a white railing, and the dirt is brown, creating a stark contrast to the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/872622575_ba1d3632cc.jpg",
+          "caption": "In this image I can see a person climbing the mountain."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/299178969_5ca1de8e40.jpg",
+          "caption": "A young boy, with a bright smile and a white t-shirt, stands next to a tree in a park. The tree has a large trunk and a large tree in the background. The boy is wearing a blue jacket and a white t-"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1119418776_58e4b93eac.jpg",
+          "caption": "In this image I can see a dog running. I can see the grass in green color. I can see the trees in green color."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2212472643_80238475b5.jpg",
+          "caption": "In this image I can see a a kid. In the background I can see a chair and a door."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2484190118_e89363c465.jpg",
+          "caption": "In this image I can see a a kid standing on the pole. In the background I can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/1096097967_ac305887b4.jpg",
+          "caption": "In this image we can see a dog."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3516960094_87fb4889de.jpg",
+          "caption": "A woman in a white tank top and black and yellow shorts is jumping in the air. She is wearing a white and blue tank top and black and yellow shorts. The woman is wearing a white and blue tank top and black and yellow shorts. The"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3430782104_34da558eba.jpg",
+          "caption": "A man on a brown horse attempts to rope a calf in a rodeo. The man is wearing a maroon shirt and a cowboy hat. The calf is running in the arena. The horse is running in the arena. The man is trying to rope the"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3407357681_5aeaab5b59.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3491013009_572cf2c18a.jpg",
+          "caption": "In this image I can see a a girl."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3301935788_2bb7bbc515.jpg",
+          "caption": "In this image I can see a person is doing skating on the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3650986674_3e101c606b.jpg",
+          "caption": "In this image I can see 2 dogs and a person. I can see the water. In the background I can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3629664676_36bcefe6b7.jpg",
+          "caption": "In this image we can see a dog holding a rope."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3506216254_04d119cac7.jpg",
+          "caption": "A man in a black suit and sunglasses, smoking a cigarette, walks down the street. The man has a long nose and a pink shirt. The building has a window and a balcony. The man is wearing a pink shirt and a black jacket."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2926595608_69b22be8d4.jpg",
+          "caption": "In this image I can see a basketball court. I can see few people playing basketball. I can see few people sitting on the chairs."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3097776588_312932e438.jpg",
+          "caption": "In this image I can see 2 persons."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3621647714_fc67ab2617.jpg",
+          "caption": "In this image I can see a person standing on the snow. I can see the trees and the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/527288854_f26127b770.jpg",
+          "caption": "In this image I can see a person climbing the rock."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/321229104_3cbaf0f51c.jpg",
+          "caption": "A person is standing in the snow."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2609836649_b55831ed41.jpg",
+          "caption": "In this image we can see a dog in the water."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3466353172_deb128bbb0.jpg",
+          "caption": "In this image we can see a dog running on the sand."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/440737340_5af34ca9cf.jpg",
+          "caption": "In this image I can see a person holding a box. I can see a dog. I can see the ground. I can see the trees in the background."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3665179773_dd217416fc.jpg",
+          "caption": "In this image we can see two persons hugging each other. We can see the persons standing. In the background we can see the trees."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3565021218_d2bc1aa644.jpg",
+          "caption": "In this image I can see a a girl is lying on the bed. I can see few flowers."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2271955077_0020b4ee0d.jpg",
+          "caption": "In this image I can see a person is doing skating in the air."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/2528552898_9e49a7033f.jpg",
+          "caption": "In this image I can see a car. I can see a person is sitting on the car. I can see a person is wearing a helmet. I can see a person is sitting on the grass. I can see a person is wearing a helmet"
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/3498417123_3eae6bbde6.jpg",
+          "caption": "In this image I can see a few people are playing the game."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/278002875_d011ae9dc5.jpg",
+          "caption": "In this image we can see a few people. We can see the grass. We can see the trees. We can see the sky."
+        },
+        {
+          "image_path": "/home2/jmsk62/project/mechanistic_intrep/sae_captioning_project/data/raw/images/766061382_6c7ff514c4.jpg",
+          "caption": "In this image I can see a a kid."
+        }
+      ],
+      "ablated_features": [
+        14267,
+        544,
+        9365,
+        12867,
+        405,
+        2535,
+        583,
+        2064,
+        1803,
+        2978,
+        6652,
+        6375,
+        3435,
+        6899,
+        8537,
+        12629,
+        4458,
+        6474,
+        3732,
+        9394,
+        12074,
+        1493,
+        9006,
+        2572,
+        2932,
+        4343,
+        2094,
+        7722,
+        776,
+        290,
+        1363,
+        16331,
+        7481,
+        6027,
+        5495,
+        5262,
+        14409,
+        11956,
+        7695,
+        2098,
+        8715,
+        8439,
+        647,
+        13576,
+        342,
+        2811,
+        12037,
+        667,
+        16077,
+        13921,
+        3281,
+        15566,
+        6558,
+        12758,
+        10217,
+        7280,
+        5067,
+        3264,
+        15657,
+        4855,
+        11705,
+        491,
+        15264,
+        12815,
+        3129,
+        12482,
+        12400,
+        4496,
+        5584,
+        9647,
+        10497,
+        4910,
+        2990,
+        3259,
+        12967,
+        261,
+        12184,
+        10598,
+        10455,
+        16299,
+        13617,
+        12712,
+        7801,
+        5147,
+        13055,
+        9772,
+        4374,
+        5029,
+        13616,
+        13957,
+        11771,
+        9618,
+        1860,
+        7741,
+        14171,
+        7134,
+        15457,
+        16270,
+        10451,
+        10072
+      ],
+      "gender_stats": {
+        "with_gender": 100,
+        "total": 100,
+        "male_terms": 226,
+        "female_terms": 31
+      }
+    }
+  },
+  "summary": {
+    "baseline": {
+      "gender_term_pct": 100.0,
+      "male_terms_per_caption": 2.52,
+      "female_terms_per_caption": 0.66
+    },
+    "ablations": {
+      "k=200": {
+        "gender_term_pct": 100.0,
+        "male_terms_per_caption": 2.26,
+        "female_terms_per_caption": 0.31,
+        "change_from_baseline": 0.0
+      },
+      "k=500": {
+        "gender_term_pct": 100.0,
+        "male_terms_per_caption": 2.26,
+        "female_terms_per_caption": 0.31,
+        "change_from_baseline": 0.0
+      },
+      "k=1000": {
+        "gender_term_pct": 100.0,
+        "male_terms_per_caption": 2.26,
+        "female_terms_per_caption": 0.31,
+        "change_from_baseline": 0.0
+      }
+    }
+  }
+}
