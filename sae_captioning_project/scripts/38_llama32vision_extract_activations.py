@@ -54,7 +54,7 @@ def load_llama32_vision_model(device: str = "cuda", dtype: torch.dtype = torch.b
 
     model = MllamaForConditionalGeneration.from_pretrained(
         MODEL_ID,
-        torch_dtype=dtype,
+        dtype=dtype,
         device_map="auto",
         low_cpu_mem_usage=True
     )
@@ -223,8 +223,8 @@ def extract_activations_batch(
             for layer_idx in hook.layers:
                 if layer_idx in hook.activations:
                     act = hook.activations[layer_idx]
-                    # Mean pool over sequence dimension
-                    act_mean = act.mean(dim=1).squeeze().numpy()
+                    # Mean pool over sequence dimension, convert bfloat16->float32 for numpy
+                    act_mean = act.float().mean(dim=1).squeeze().numpy()
                     all_activations[layer_idx].append(act_mean)
 
             all_genders.append(gender)
