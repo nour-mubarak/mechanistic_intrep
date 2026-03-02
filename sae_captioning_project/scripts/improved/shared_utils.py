@@ -422,7 +422,8 @@ def _load_qwen2vl(layer, device, base_dir):
     
     sae_path = base_dir / f'checkpoints/qwen2vl/saes/qwen2vl_sae_english_layer_{layer}.pt'
     sae, n_features = _load_sae(sae_path, device)
-    target_layer = model.model.layers[layer]
+    # Qwen2-VL: layers are at model.model.language_model.layers
+    target_layer = model.model.language_model.layers[layer]
     
     def generate_fn(image, prompt="Describe this image in English:"):
         messages = [{"role": "user", "content": [{"type": "image", "image": image}, {"type": "text", "text": prompt}]}]
@@ -448,9 +449,10 @@ def _load_llama32vision(layer, device, base_dir):
     )
     model.eval()
     
-    sae_path = base_dir / f'checkpoints/llama32vision/saes/llama32vision_sae_english_layer_{layer}.pt'
+    sae_path = base_dir / f'checkpoints/llama32vision/saes/llama32vision_sae_english_layer{layer}.pt'
     sae, n_features = _load_sae(sae_path, device)
-    target_layer = model.language_model.model.layers[layer]
+    # Llama-3.2-Vision: model.language_model returns MllamaTextModel which has .layers directly
+    target_layer = model.language_model.layers[layer]
     
     def generate_fn(image, prompt="Describe this image:"):
         messages = [{"role": "user", "content": [{"type": "image"}, {"type": "text", "text": prompt}]}]
@@ -468,18 +470,31 @@ def _load_llama32vision(layer, device, base_dir):
 
 
 def _load_sae(sae_path, device):
-    """Load SAE checkpoint."""
+    """Load SAE checkpoint (handles both PaLiGemma/Qwen2-VL and Llama formats)."""
     print(f"Loading SAE from {sae_path}...")
     if not sae_path.exists():
         raise FileNotFoundError(f"SAE checkpoint not found: {sae_path}")
     
     checkpoint = torch.load(sae_path, map_location=device, weights_only=False)
     d_model = checkpoint['d_model']
-    n_features = checkpoint['d_hidden']
+    
+    # Handle different checkpoint formats
+    if 'd_hidden' in checkpoint:
+        n_features = checkpoint['d_hidden']
+    else:
+        # Llama SAEs store expansion_factor instead of d_hidden
+        n_features = d_model * checkpoint['expansion_factor']
     print(f"SAE dimensions: d_model={d_model}, n_features={n_features}")
     
     sae = SimpleSAE(d_model, n_features).to(device).to(torch.bfloat16)
-    sae.load_state_dict(checkpoint['model_state_dict'])
+    
+    # Handle different state dict keys
+    if 'model_state_dict' in checkpoint:
+        sae.load_state_dict(checkpoint['model_state_dict'])
+    elif 'state_dict' in checkpoint:
+        sae.load_state_dict(checkpoint['state_dict'])
+    else:
+        raise KeyError(f"No recognized state dict key in checkpoint. Keys: {list(checkpoint.keys())}")
     sae.eval()
     
     return sae, n_features
@@ -490,66 +505,140 @@ def _load_sae(sae_path, device):
 # ============================================================
 
 def load_top_gender_features(layer=9, k=100, model_name='paligemma'):
-    """Load top-k gender-associated features from analysis results."""
+    """Load top-k gender-associated features from analysis results.
+    
+    Supports multiple sources:
+    1. PaLiGemma: feature_interpretation_results.json or cross_lingual_results.json
+    2. Llama-3.2-Vision: gender_features embedded in SAE checkpoint
+    3. Qwen2-VL: computed on-the-fly from activation data with gender labels
+    """
     base_dir = Path('/home2/jmsk62/mechanistic_intrep/sae_captioning_project')
     
-    # Try feature interpretation results (PaLiGemma)
-    results_path = base_dir / 'results/feature_interpretation/feature_interpretation_results.json'
-    if results_path.exists():
-        with open(results_path) as f:
-            data = json.load(f)
-        for layer_data in data:
-            if layer_data['layer'] == layer:
-                male_features = [f['feature_id'] for f in layer_data['arabic']['top_features']['male_associated'][:k//2]]
-                female_features = [f['feature_id'] for f in layer_data['arabic']['top_features']['female_associated'][:k//2]]
-                if len(male_features) + len(female_features) > 0:
-                    return (male_features + female_features)[:k]
+    # --- Source 1: PaLiGemma feature interpretation results ---
+    if model_name == 'paligemma':
+        results_path = base_dir / 'results/feature_interpretation/feature_interpretation_results.json'
+        if results_path.exists():
+            with open(results_path) as f:
+                data = json.load(f)
+            for layer_data in data:
+                if layer_data['layer'] == layer:
+                    male_features = [f['feature_id'] for f in layer_data['arabic']['top_features']['male_associated'][:k//2]]
+                    female_features = [f['feature_id'] for f in layer_data['arabic']['top_features']['female_associated'][:k//2]]
+                    if len(male_features) + len(female_features) > 0:
+                        print(f"Loaded {len(male_features)+len(female_features)} gender features from feature_interpretation_results.json")
+                        return (male_features + female_features)[:k]
+        
+        # Fallback: cross-lingual results
+        cross_path = base_dir / 'results/proper_cross_lingual/cross_lingual_results.json'
+        if cross_path.exists():
+            with open(cross_path) as f:
+                data = json.load(f)
+            layer_key = str(layer)
+            if layer_key in data:
+                layer_data = data[layer_key]
+                if 'arabic' in layer_data and 'top_features' in layer_data['arabic']:
+                    features = layer_data['arabic']['top_features']
+                    if isinstance(features, dict):
+                        male = features.get('male_associated', [])[:k//2]
+                        female = features.get('female_associated', [])[:k//2]
+                        result = [f['feature_id'] if isinstance(f, dict) else f for f in male + female][:k]
+                        if result:
+                            print(f"Loaded {len(result)} gender features from cross_lingual_results.json")
+                            return result
     
-    # Try cross-lingual results
-    cross_path = base_dir / 'results/proper_cross_lingual/cross_lingual_results.json'
-    if cross_path.exists():
-        with open(cross_path) as f:
-            data = json.load(f)
-        layer_key = str(layer)
-        if layer_key in data:
-            layer_data = data[layer_key]
-            if 'arabic' in layer_data and 'top_features' in layer_data['arabic']:
-                features = layer_data['arabic']['top_features']
-                if isinstance(features, dict):
-                    male = features.get('male_associated', [])[:k//2]
-                    female = features.get('female_associated', [])[:k//2]
-                    return [f['feature_id'] if isinstance(f, dict) else f for f in male + female][:k]
+    # --- Source 2: Llama-3.2-Vision gender features from SAE checkpoint ---
+    if model_name == 'llama32vision':
+        sae_path = base_dir / f'checkpoints/llama32vision/saes/llama32vision_sae_english_layer{layer}.pt'
+        if sae_path.exists():
+            checkpoint = torch.load(sae_path, map_location='cpu', weights_only=False)
+            if 'gender_features' in checkpoint:
+                gf = checkpoint['gender_features']
+                male = gf.get('male_features', [])[:k//2]
+                female = gf.get('female_features', [])[:k//2]
+                combined = list(set(male + female))[:k]
+                print(f"Loaded {len(combined)} gender features from Llama SAE checkpoint")
+                return combined
     
-    # Try model-specific results
-    model_results_dirs = {
-        'qwen2vl': base_dir / 'results/qwen2vl_analysis',
-        'llama32vision': base_dir / 'results/llama32vision_analysis',
-    }
+    # --- Source 3: Qwen2-VL — compute from activation data ---
+    if model_name == 'qwen2vl':
+        features = _compute_gender_features_from_activations(
+            base_dir, layer, k, model_name='qwen2vl'
+        )
+        if features:
+            return features
     
-    if model_name in model_results_dirs:
-        model_dir = model_results_dirs[model_name]
-        for result_file in model_dir.glob('*features*.json'):
-            try:
-                with open(result_file) as f:
-                    data = json.load(f)
-                # Attempt to extract features
-                if isinstance(data, list):
-                    for item in data:
-                        if item.get('layer') == layer:
-                            features = []
-                            for lang in ['arabic', 'english']:
-                                if lang in item and 'top_features' in item[lang]:
-                                    tf = item[lang]['top_features']
-                                    for cat in ['male_associated', 'female_associated']:
-                                        if cat in tf:
-                                            features.extend([f['feature_id'] if isinstance(f, dict) else f for f in tf[cat][:k//2]])
-                            if features:
-                                return features[:k]
-            except Exception:
-                continue
+    # --- Generic fallback: compute from activation data if available ---
+    features = _compute_gender_features_from_activations(
+        base_dir, layer, k, model_name=model_name
+    )
+    if features:
+        return features
     
-    print(f"Warning: Could not load features for {model_name} layer {layer}, using placeholder range")
+    print(f"WARNING: Could not load features for {model_name} layer {layer}, using random features")
     return list(range(k))
+
+
+def _compute_gender_features_from_activations(base_dir, layer, k, model_name):
+    """Compute top gender-associated SAE features from activation data.
+    
+    Uses stored activations with gender labels to find features with
+    highest differential activation between male and female samples.
+    """
+    # Find activation file
+    act_paths = {
+        'qwen2vl': base_dir / f'checkpoints/qwen2vl/layer_checkpoints/qwen2vl_layer_{layer}_english.pt',
+    }
+    act_path = act_paths.get(model_name)
+    if act_path is None or not act_path.exists():
+        return None
+    
+    # Find corresponding SAE
+    sae_paths = {
+        'qwen2vl': base_dir / f'checkpoints/qwen2vl/saes/qwen2vl_sae_english_layer_{layer}.pt',
+    }
+    sae_path = sae_paths.get(model_name)
+    if sae_path is None or not sae_path.exists():
+        return None
+    
+    print(f"Computing gender features for {model_name} layer {layer} from activation data...")
+    
+    # Load activations and labels
+    act_data = torch.load(act_path, map_location='cpu', weights_only=False)
+    activations = act_data['activations'].float()
+    genders = act_data['genders']
+    
+    # Load SAE
+    sae_checkpoint = torch.load(sae_path, map_location='cpu', weights_only=False)
+    d_model = sae_checkpoint['d_model']
+    n_features = sae_checkpoint.get('d_hidden', d_model * sae_checkpoint.get('expansion_factor', 8))
+    sae = SimpleSAE(d_model, n_features)
+    if 'model_state_dict' in sae_checkpoint:
+        sae.load_state_dict(sae_checkpoint['model_state_dict'])
+    elif 'state_dict' in sae_checkpoint:
+        sae.load_state_dict(sae_checkpoint['state_dict'])
+    sae.eval()
+    
+    # Get SAE encodings
+    with torch.no_grad():
+        encoded = torch.relu(sae.encoder(activations))  # [N, n_features]
+    
+    # Split by gender
+    male_mask = torch.tensor([g == 'male' for g in genders])
+    female_mask = torch.tensor([g == 'female' for g in genders])
+    
+    if male_mask.sum() == 0 or female_mask.sum() == 0:
+        print(f"  Warning: insufficient gender labels (male={male_mask.sum()}, female={female_mask.sum()})")
+        return None
+    
+    male_mean = encoded[male_mask].mean(dim=0)
+    female_mean = encoded[female_mask].mean(dim=0)
+    
+    # Features with highest differential activation
+    diff = (male_mean - female_mean).abs()
+    top_features = diff.argsort(descending=True)[:k].tolist()
+    
+    print(f"  Computed {len(top_features)} gender features ({male_mask.sum()} male, {female_mask.sum()} female samples)")
+    return top_features
 
 
 # ============================================================
