@@ -315,7 +315,17 @@ def compute_aggregate_stats(captions, language='english'):
 # ============================================================
 
 class SAEHook:
-    """Hook to intercept and modify activations through SAE with optional feature ablation."""
+    """Hook to intercept and modify activations through SAE with surgical feature ablation.
+    
+    Uses residual ablation: instead of replacing activations with full SAE reconstruction
+    (which can destroy output for models whose per-token activations differ from the
+    mean-pooled activations the SAE was trained on), we:
+    1. Encode to get SAE feature activations
+    2. Compute the contribution of only the targeted features via the decoder
+    3. Subtract that contribution from the original activations
+    
+    This preserves the original signal and only removes the targeted features' influence.
+    """
     
     def __init__(self, sae, ablate_features=None, ablation_value=0.0):
         self.sae = sae
@@ -327,20 +337,35 @@ class SAEHook:
             hidden_states = output[0]
         else:
             hidden_states = output
+        
+        if len(self.ablate_features) == 0:
+            return output
             
         batch_size, seq_len, hidden_dim = hidden_states.shape
         flat_acts = hidden_states.view(-1, hidden_dim)
         
         with torch.no_grad():
+            # Encode to get SAE feature activations
             pre_acts = flat_acts @ self.sae.encoder.weight.T + self.sae.encoder.bias
             sae_acts = torch.relu(pre_acts)
             
-            if len(self.ablate_features) > 0:
-                sae_acts[:, self.ablate_features] = self.ablation_value
+            # Compute contribution of ablated features only
+            # decoder.weight is [d_model, n_features] (nn.Linear stores weight as [out, in])
+            # decoder.weight.T is [n_features, d_model]
+            # We want: contribution = ablated_acts @ decoder_weight_for_ablated_features
+            ablate_idx = torch.tensor(self.ablate_features, device=flat_acts.device)
+            ablated_acts = sae_acts[:, ablate_idx]  # [N, len(ablate_features)]
+            # decoder.weight shape: [d_model, n_features] — select columns for ablated features
+            decoder_cols = self.sae.decoder.weight[:, ablate_idx]  # [d_model, len(ablate_features)]
             
-            reconstructed = sae_acts @ self.sae.decoder.weight.T + self.sae.decoder.bias
+            # Contribution of ablated features: ablated_acts @ decoder_cols.T = [N, d_model]
+            target_acts = torch.full_like(ablated_acts, self.ablation_value)
+            delta = (ablated_acts - target_acts) @ decoder_cols.T  # [N, d_model]
+            
+            # Surgically remove targeted features' contribution
+            modified_flat = flat_acts - delta
         
-        modified = reconstructed.view(batch_size, seq_len, hidden_dim)
+        modified = modified_flat.view(batch_size, seq_len, hidden_dim)
         
         if isinstance(output, tuple):
             return (modified,) + output[1:]
