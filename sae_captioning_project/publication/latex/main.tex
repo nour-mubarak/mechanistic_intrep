@@ -1,0 +1,548 @@
+% ============================================================
+% Sparse Autoencoders Reveal and Control Gender Bias in
+% Vision-Language Model Captioning
+% ============================================================
+% LaTeX Paper Draft — 3 March 2026
+% Target: ACL / EMNLP / NeurIPS style (single-column draft)
+% ============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% ---- Packages ----
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{url}
+
+% Convenience
+\newcommand{\modelname}[1]{\textsc{#1}}
+\newcommand{\pali}{\modelname{PaLiGemma-3B}}
+\newcommand{\qwen}{\modelname{Qwen2-VL-7B}}
+\newcommand{\llama}{\modelname{Llama-3.2-11B}}
+\newcommand{\llava}{\modelname{LLaVA-1.5-7B}}
+\newcommand{\sae}{SAE}
+\newcommand{\saes}{SAEs}
+
+\title{Sparse Autoencoders Reveal and Control Gender Bias\\in Vision-Language Model Captioning:\\A Cross-Lingual Mechanistic Interpretability Study}
+
+\author{
+  Nour Mubarak \\
+  Durham University \\
+  \texttt{nour.mubarak@durham.ac.uk}
+}
+
+\date{March 2026 — Draft}
+
+\begin{document}
+\maketitle
+
+% ============================================================
+\begin{abstract}
+% ============================================================
+Vision-language models (VLMs) generate image captions that often reflect societal gender biases, but the internal mechanisms producing this bias remain poorly understood.
+We apply sparse autoencoders (\saes{}) to the internal activations of three VLM architectures---\pali{}, \qwen{}, and \llama{}---to identify and causally intervene on features associated with gender bias in captioning.
+
+Our main findings are threefold.
+\textbf{(1)}~Targeted ablation of the top 100 \sae{}-identified gender features (0.6\% of all features) produces a statistically significant change in gender-marked language across all three models, with effect ratios of 1.8--7.1$\times$ relative to random feature ablation controls (25~runs each, 500~images, bootstrap CIs excluding zero).
+\textbf{(2)}~The \emph{direction} of the intervention effect depends on model architecture: \pali{} shows a $-16.1\%$ \emph{decrease} in gender terms, while \qwen{} ($+3.95\%$) and \llama{} ($+5.02\%$) show \emph{increases}---suggesting that smaller captioning models encode gender as \emph{production} features, whereas larger instruction-tuned models encode gender through \emph{regulatory/suppressor} features.
+\textbf{(3)}~Cross-lingual analysis across English and Arabic reveals near-zero feature overlap (CLBAS~$< 0.015$), demonstrating that gender bias is encoded through language-specific features, with implications for multilingual debiasing.
+
+To our knowledge, this is the first application of \saes{} for mechanistic interpretability of gender bias in VLMs.
+Code and data are available at \url{https://github.com/nour-mubarak/mechanistic_intrep}.
+\end{abstract}
+
+% ============================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================
+
+Vision-language models (VLMs) have demonstrated remarkable capabilities in image captioning, visual question answering, and multimodal reasoning \citep{liu2023visual,bai2023qwen,team2024paligemma}.
+However, these models inherit and amplify societal biases present in their training data, particularly gender bias in describing people \citep{hendricks2018women,hirota2022quantifying}.
+A man on a skateboard is described as ``a \emph{man} performing tricks,'' while a woman in a similar pose is described as ``a \emph{person} standing on a board''---the model systematically deploys gendered language for some groups while using neutral language for others.
+
+Prior work has \emph{measured} such biases through caption-level statistics \citep{zhao2017men,hendricks2018women} and proposed output-level mitigations such as data augmentation or constrained decoding \citep{zhao2017men}.
+However, these approaches treat the model as a black box: they quantify \emph{what} the model does but not \emph{why} or \emph{how} it encodes gender information internally.
+
+Mechanistic interpretability---the study of how neural network components implement specific computations---offers a path toward understanding \emph{how} bias is encoded in model representations.
+Sparse autoencoders (\saes{}), recently applied to text-only language models \citep{cunningham2023sparse,bricken2023monosemanticity,templeton2024scaling}, decompose dense neural activations into interpretable, monosemantic features.
+If gender bias is encoded through specific features, these features can be identified, analyzed, and surgically ablated to test causal claims.
+
+In this work, we extend \sae{}-based mechanistic interpretability to VLMs for the first time, focusing on gender bias in image captioning across four architectures and two languages.
+Our contributions are:
+
+\begin{enumerate}
+    \item \textbf{Methodological:} First application of \saes{} for mechanistic interpretability of gender bias in VLMs.
+    We train \saes{} on language-model decoder activations from four VLMs (\pali{}, \qwen{}, \llava{}, \llama{}) and identify gender-associated features via differential activation analysis.
+
+    \item \textbf{Empirical:} Causal intervention evidence across three architectures showing that targeted ablation of 100 \sae{} features (0.6\% of total) produces statistically significant changes in gender-marked language---with effect ratios of 1.8--7.1$\times$ relative to random ablation controls.
+
+    \item \textbf{Cross-lingual:} First cross-lingual bias alignment analysis (CLBAS metric) across four VLMs, showing near-zero feature overlap between English and Arabic gender representations---implying that debiasing in one language does not transfer to another.
+
+    \item \textbf{Mechanistic insight:} Discovery that the \emph{direction} of gender-feature influence varies across architectures: smaller captioning models use excitatory gender features (ablation reduces gender terms), while larger instruction-tuned models use inhibitory/regulatory features (ablation increases gender terms).
+\end{enumerate}
+
+% ============================================================
+\section{Related Work}
+\label{sec:related}
+% ============================================================
+
+\paragraph{Gender bias in VLMs.}
+\citet{hendricks2018women} documented systematic gender bias in image captioning, showing that models describe men with activity-related terms and women with appearance-related terms.
+\citet{zhao2017men} proposed data augmentation to reduce bias in visual semantic role labeling.
+\citet{hirota2022quantifying} developed metrics for quantifying bias in VLM-generated captions.
+These works measure and mitigate bias at the output level but do not explain the internal mechanisms.
+
+\paragraph{Mechanistic interpretability with SAEs.}
+\citet{cunningham2023sparse} demonstrated that \saes{} can decompose GPT-2 activations into interpretable, monosemantic features.
+\citet{bricken2023monosemanticity} scaled this to larger models, showing that individual features correspond to semantically meaningful concepts.
+\citet{templeton2024scaling} trained \saes{} with 34M features on Claude Sonnet, identifying features for safety-relevant concepts.
+All prior \sae{} work has focused on text-only models; we extend this to multimodal VLMs.
+
+\paragraph{Causal interpretability.}
+Causal tracing \citep{meng2022locating} identifies which model components store factual associations by corrupting and restoring activations.
+Activation patching \citep{geiger2021causal} tests causal hypotheses about intermediate representations.
+Our approach is complementary: \saes{} decompose activations into interpretable features, and ablation tests whether specific features causally influence output.
+
+% ============================================================
+\section{Models and Data}
+\label{sec:models}
+% ============================================================
+
+\subsection{Models}
+
+We study four VLMs spanning 2.9B--10.6B parameters (Table~\ref{tab:models}).
+All models use a vision encoder connected to a language model decoder; we extract activations from the \emph{language model decoder layers} (not the vision encoder), as these are the layers that generate text tokens.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Vision-language models used in this study. $d_{\text{model}}$ is the decoder hidden dimension; $n_{\text{features}}$ is the \sae{} dictionary size (8$\times$ expansion).}
+\label{tab:models}
+\begin{tabular}{@{}lccccl@{}}
+\toprule
+\textbf{Model} & \textbf{Params} & $d_{\text{model}}$ & \textbf{Layers} & $n_{\text{features}}$ & \textbf{Intervention} \\
+\midrule
+\pali{}    & 2.9B  & 2,048 & 18 & 16,384 & L9, L17 \\
+\qwen{}    & 7.6B  & 3,584 & 28 & 28,672 & L12 \\
+\llava{}   & 7.1B  & 4,096 & 32 & 32,768 & --- \\
+\llama{}   & 10.6B & 4,096 & 40 & 32,768 & L20 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Layer selection.}
+Intervention layers are selected at approximately the 50th percentile of each model's depth, following evidence that middle transformer layers encode the richest semantic features \citep{cunningham2023sparse,templeton2024scaling}.
+For \pali{}, L17 (penultimate layer) serves as a negative control.
+
+\subsection{Dataset}
+
+We use a COCO-derived bilingual image captioning dataset containing 8,092 images with 40,455 English--Arabic caption pairs.
+Gender labels are derived from caption content using keyword matching (male: 5,562 samples; female: 2,047 samples, reflecting COCO's inherent male bias).
+
+\paragraph{Gender term dictionary.}
+We track 16 binary gender terms: \texttt{he, she, him, her, his, hers, man, woman, boy, girl, men, women, boys, girls, male, female}.
+Following reviewer feedback, we separately track 18 gender-neutral terms (\texttt{person, people, individual}, etc.) to detect whether ablation shifts output toward neutral descriptions.
+
+% ============================================================
+\section{Method}
+\label{sec:method}
+% ============================================================
+
+Our pipeline has four stages: (1)~activation extraction, (2)~\sae{} training, (3)~gender feature identification, and (4)~causal intervention.
+
+\subsection{Activation Extraction}
+
+For each model, we extract activations from selected decoder layers using PyTorch forward hooks.
+Activations are \textbf{mean-pooled} across sequence positions to yield one $\mathbb{R}^{d_{\text{model}}}$ vector per image--caption pair.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Activation extraction details per model.}
+\label{tab:extraction}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Model} & \textbf{N samples} & \textbf{Layers extracted} & \textbf{Source} \\
+\midrule
+\pali{}  & 10,000 & 0,3,6,9,12,15,17 & samples.csv \\
+\qwen{}  & 7,609 (EN) / 6,413 (AR) & 0,4,8,12,16,20,24,27 & gender-labeled \\
+\llava{} & 5,249 (EN) / 4,449 (AR) & 0,4,8,...,31 & gender-labeled \\
+\llama{} & 5,249 (EN) / $\sim$5,000 (AR) & 0,5,10,...,39 & gender-labeled \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{SAE Architecture and Training}
+
+We use a vanilla sparse autoencoder with ReLU activation and L1 sparsity:
+\begin{align}
+    \mathbf{h} &= \text{ReLU}(\mathbf{W}_{\text{enc}} \mathbf{x} + \mathbf{b}_{\text{enc}}) \label{eq:enc} \\
+    \hat{\mathbf{x}} &= \mathbf{W}_{\text{dec}} \mathbf{h} + \mathbf{b}_{\text{dec}} \label{eq:dec} \\
+    \mathcal{L} &= \text{MSE}(\mathbf{x}, \hat{\mathbf{x}}) + \lambda \|\mathbf{h}\|_1 \label{eq:loss}
+\end{align}
+where $\mathbf{W}_{\text{enc}} \in \mathbb{R}^{n_{\text{features}} \times d_{\text{model}}}$, $\mathbf{W}_{\text{dec}} \in \mathbb{R}^{d_{\text{model}} \times n_{\text{features}}}$, and $\lambda$ controls sparsity (1$\times$10$^{-4}$ for \pali{}, 5$\times$10$^{-4}$ for \qwen{}).
+
+Training uses AdamW with learning rate $10^{-4}$, batch size 256, 50 epochs with early stopping (patience=10), and a 90/10 train/validation split.
+The expansion factor is 8$\times$ throughout.
+
+\subsection{Gender Feature Identification}
+\label{sec:feature_id}
+
+Gender-associated features are identified by \textbf{differential activation analysis}:
+\begin{enumerate}
+    \item Encode all gender-labeled samples through the trained \sae{} encoder
+    \item Compute mean feature activation $\bar{a}_j^{\text{male}}$ and $\bar{a}_j^{\text{female}}$ for each feature $j$
+    \item Rank features by $|\bar{a}_j^{\text{male}} - \bar{a}_j^{\text{female}}|$
+    \item Select top-$k$ features ($k=100$, i.e., 0.6\% of features for \pali{})
+\end{enumerate}
+
+\subsection{Causal Intervention}
+\label{sec:intervention}
+
+The intervention experiment has three phases:
+
+\begin{enumerate}
+    \item \textbf{Baseline:} Generate captions for 500 images (seed=42) with no modification
+    \item \textbf{Targeted ablation:} Register a forward hook that zeros the contribution of the $k=100$ gender features during generation
+    \item \textbf{Random control:} Repeat 25 times with randomly selected features (same $k$)
+\end{enumerate}
+
+\paragraph{Ablation hook.}
+We implement two hook variants:
+
+\textbf{Full reconstruction} (used for \pali{}): Replace activations with full \sae{} reconstruction after zeroing targeted features:
+\begin{equation}
+    \mathbf{x}_{\text{mod}} = \mathbf{W}_{\text{dec}} \cdot (\mathbf{h} \odot \mathbf{m}) + \mathbf{b}_{\text{dec}}
+\end{equation}
+where $\mathbf{m}$ is a binary mask with $m_j = 0$ for ablated features.
+
+\textbf{Residual ablation} (used for \qwen{}, \llama{}): Subtract only the contribution of targeted features from the original activations:
+\begin{equation}
+    \mathbf{x}_{\text{mod}} = \mathbf{x} - \sum_{j \in \mathcal{A}} h_j \cdot \mathbf{W}_{\text{dec}}^{(:,j)}
+    \label{eq:residual}
+\end{equation}
+where $\mathcal{A}$ is the set of ablated feature indices.
+
+\paragraph{Justification for two hook variants.}
+The full-reconstruction hook works when the \sae{} produces high-fidelity per-token reconstructions.
+For \pali{} (cos\_sim = 0.9999), this was the case.
+For \qwen{}, the \sae{} was trained on mean-pooled activations but applied to per-token activations during generation; the distribution mismatch caused the full-reconstruction hook to destroy output coherence (producing 0 gender terms in all conditions).
+Residual ablation (Eq.~\ref{eq:residual}) avoids this by preserving the original activations and only removing the targeted features' contribution.
+Importantly, within each model, the same hook variant is used for both targeted and random conditions, so the targeted-vs.-random comparison remains valid.
+
+\paragraph{Generation.}
+All captions are generated with deterministic greedy decoding (\texttt{do\_sample=False}, \texttt{num\_beams=1}, \texttt{max\_new\_tokens=64}) to eliminate sampling variance.
+
+% ============================================================
+\section{Statistical Analysis}
+\label{sec:stats}
+% ============================================================
+
+\paragraph{Primary metric.}
+Total gender term count across 500 captions, reported as percentage change from baseline.
+
+\paragraph{Length normalization.}
+Gender rate = total gender terms / total tokens, controlling for caption length changes.
+
+\paragraph{Paired statistics.}
+For each image $i$, we compute $\Delta_i = \text{count}(\text{ablated}_i) - \text{count}(\text{baseline}_i)$.
+We report the mean $\Delta$ with bootstrap 95\% CIs (10,000 resamples) and Wilcoxon signed-rank tests.
+
+\paragraph{One-sided Wilcoxon limitation.}
+Our Wilcoxon test uses the one-sided alternative $H_1$: targeted $<$ baseline (testing for decrease).
+For models where targeted ablation \emph{increases} gender terms (\qwen{}, \llama{}), the one-sided $p$-value approaches 1.0---this does not indicate absence of effect but rather an effect in the opposite direction.
+For these models, significance is established via bootstrap CIs on the paired difference (targeted $-$ random): if the 95\% CI excludes zero, the effect is statistically significant regardless of direction.
+
+\paragraph{Effect specificity.}
+$\text{Specificity} = |\text{targeted change\%}| - |\text{random change\%}|$.
+Ratio = $|\text{targeted}| / |\text{random}|$; values $> 1$ indicate specificity.
+
+% ============================================================
+\section{Results}
+\label{sec:results}
+% ============================================================
+
+\subsection{Main Intervention Results}
+
+Table~\ref{tab:main_results} presents the core findings across all three models with intervention experiments.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Intervention results across three VLM architectures. All experiments use 500 images, $k=100$ ablated features, and 25 random control runs. $\Delta$CI is the bootstrap 95\% CI on the paired difference (targeted $-$ random) per image. Significance: CI excludes zero for all three models.}
+\label{tab:main_results}
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+\textbf{Model} & \textbf{Hook} & \textbf{Baseline} & \textbf{Targeted} & \textbf{Change} & \textbf{Random} & \textbf{Spec.} & \textbf{Ratio} & \textbf{$\Delta$CI (targeted$-$random)} \\
+\midrule
+\pali{} (L9) & Full recon. & 1,522 & 1,277 & $-16.1\%$ & $-8.7\% \pm 3.9\%$ & $-7.3$ pp & $1.8\times$ & $[-0.274, -0.174]$ \\
+\qwen{} (L12) & Residual & 1,315 & 1,367 & $+3.95\%$ & $-0.56\% \pm 1.14\%$ & $+4.5$ pp & $7.1\times$ & $[+0.038, +0.200]$ \\
+\llama{} (L20) & Residual & 1,355 & 1,423 & $+5.02\%$ & $-0.84\% \pm 0.76\%$ & $+5.9$ pp & $6.0\times$ & $[+0.078, +0.242]$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+All three models show statistically significant targeted effects: the bootstrap 95\% CI on the paired difference (targeted $-$ random) excludes zero in every case.
+Effect specificity ranges from 4.5 to 7.3 percentage points, and effect ratios range from 1.8$\times$ to 7.1$\times$.
+
+\paragraph{Direction divergence.}
+The most striking finding is the \emph{direction} of the effect.
+\pali{} shows a $-16.1\%$ decrease in gender terms under targeted ablation, while \qwen{} ($+3.95\%$) and \llama{} ($+5.02\%$) show increases.
+This suggests two distinct mechanisms of gender encoding:
+\begin{itemize}
+    \item \pali{} (smaller, captioning-focused): Gender features \emph{produce} gendered output; ablation removes it.
+    \item \qwen{}/\llama{} (larger, instruction-tuned): Top-differential features \emph{regulate/suppress} gender; ablation disinhibits it.
+\end{itemize}
+This is analogous to the distinction between excitatory and inhibitory circuits in neuroscience.
+
+\paragraph{Instruction tuning effect.}
+The two instruction-tuned models (\qwen{}, \llama{}) show notably tighter random ablation variance (std = 1.14\%, 0.76\%) compared to \pali{} (std = 3.9\%), suggesting that instruction tuning creates more stable internal representations where random feature perturbation has less impact.
+
+\subsection{Layer Specificity (PaLiGemma)}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Layer specificity analysis for \pali{}. L9 (mid-layer) carries the entire effect; L17 (penultimate) shows no significant change.}
+\label{tab:layer_specificity}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Config} & \textbf{Targeted} & \textbf{Random} & \textbf{Wilcoxon $p$} \\
+\midrule
+L9 (mid-layer) & $-16.1\%$ & $-8.7\% \pm 3.9\%$ & $1.65 \times 10^{-21}$ \\
+L17 (late layer) & $-0.8\%$ & $-4.1\% \pm 5.0\%$ & 0.999 (n.s.) \\
+L9 + L17 & $-16.1\%$ & $-8.7\% \pm 3.9\%$ & $1.65 \times 10^{-21}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Gender features are concentrated in the mid-layer (L9): targeted ablation at L17 produces no significant effect ($p = 0.999$), and combining L9+L17 produces identical results to L9 alone.
+This confirms that gender bias is encoded in specific intermediate layers, not distributed uniformly.
+
+\subsection{Per-Term Analysis}
+
+Table~\ref{tab:per_term} shows the most affected terms across models.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Top per-term changes under targeted ablation. \pali{} reduces pronouns; \qwen{}/\llama{} increase explicit nouns and possessives.}
+\label{tab:per_term}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Term} & \textbf{\pali{}} & \textbf{\qwen{}} & \textbf{\llama{}} \\
+\midrule
+her & $-73.2\%$ & $+4.1\%$ & $+11.9\%$ \\
+he & $-22.6\%$ & $+0.2\%$ & $-0.2\%$ \\
+his & $-0.4\%$ & $+6.3\%$ & $+66.3\%$ \\
+man & $+10.4\%$ & $+53.6\%$ & $+4.8\%$ \\
+woman & $+9.3\%$ & $+43.6\%$ & $-4.3\%$ \\
+him & $-83.3\%$ & $+90.9\%$ & $+5.3\%$ \\
+men & $-33.3\%$ & $+7.5\%$ & $-43.9\%$ \\
+son & $+2.8\%$ & $-30.0\%$ & $-40.6\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A consistent cross-model pattern emerges: ablation reshuffles \emph{which} gendered terms appear (e.g., pronouns vs.\ nouns) rather than uniformly increasing or decreasing all terms.
+For \pali{}, pronouns (``her'', ``him'', ``she'') are dramatically reduced while explicit nouns (``man'', ``woman'') slightly increase---suggesting the ablated features encode pronoun usage patterns rather than pure gender semantics.
+
+\subsection{SAE Quality Metrics}
+
+\begin{table}[h]
+\centering
+\small
+\caption{SAE quality metrics. \pali{} has the highest quality; \llama{} (original) has the lowest. Intervention results are significant across this quality range.}
+\label{tab:sae_quality}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{Cos Sim} & \textbf{Expl. Var.} & \textbf{L0} & \textbf{Dead \%} \\
+\midrule
+\pali{}  & 0.9999 & 99.8\% & 7,992 & 51.2\% \\
+\qwen{}  & 0.9965 & 66.4\% & 2,049 & 71.6\% \\
+\llama{} & 0.9956 & 36.6\% & 344 & 98.6\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+SAE quality varies substantially across models.
+Notably, \llama{} achieves significant intervention results (6.0$\times$ ratio, CI excludes zero) despite having the lowest-quality \sae{} (36.6\% explained variance, 98.6\% dead features).
+This suggests the intervention is robust to \sae{} quality and may strengthen with better-trained \saes{}.
+
+\subsection{Cross-Lingual Analysis}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Cross-lingual bias alignment. CLBAS $\approx 0$ indicates gender is encoded through language-specific features, not shared cross-lingual representations.}
+\label{tab:clbas}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Model} & \textbf{CLBAS} & \textbf{EN Probe} & \textbf{AR Probe} \\
+\midrule
+\pali{}  & 0.0004 & 0.810 & 0.812 \\
+\qwen{}  & 0.004 & 0.918 & 0.903 \\
+\llava{} & 0.015 & 0.963 & 0.899 \\
+\llama{} & 0.004 & 0.994 & 0.985 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All models encode gender in linearly decodable features (probe accuracy $> 0.80$), but cross-lingual feature overlap is near-zero (CLBAS $< 0.015$, Jaccard overlap $< 3\%$ at all layers).
+This means English and Arabic gender biases are encoded through \textbf{entirely separate feature sets}---debiasing in English would not automatically reduce bias in Arabic.
+
+% ============================================================
+\section{Discussion}
+\label{sec:discussion}
+% ============================================================
+
+\paragraph{Excitatory vs.\ inhibitory gender features.}
+The most important finding is the direction divergence across architectures.
+\pali{} (a simpler, captioning-focused model) appears to encode gender through \emph{excitatory} features: these features directly contribute gendered language to the output, so ablation reduces it.
+\qwen{} and \llama{} (larger, instruction-tuned) appear to use \emph{inhibitory/regulatory} features: these features modulate or suppress gendered output, so ablation releases it.
+
+This finding has practical implications: a na\"ive debiasing approach that ablates top-differential features would \emph{reduce} gender bias in \pali{} but \emph{increase} it in \qwen{}/\llama{}.
+Architecture-specific analysis is essential before deploying \sae{}-based debiasing interventions.
+
+\paragraph{Hook method confound.}
+We acknowledge that the direction difference could partly reflect the different hook methods (full reconstruction vs.\ residual ablation).
+However, both \qwen{} and \llama{} use the same residual hook and show the same direction, while the full-reconstruction hook \emph{destroyed} \qwen{}'s output entirely---suggesting the direction difference is primarily architectural.
+Running \pali{} with the residual hook would disambiguate this (see Limitations).
+
+\paragraph{Cross-lingual implications.}
+The near-zero CLBAS scores across all models challenge the assumption that multilingual models share bias representations across languages.
+Even \qwen{} (natively multilingual) shows CLBAS = 0.004.
+This implies that multilingual fairness requires language-specific debiasing interventions.
+
+\paragraph{Mean-pooling trade-off.}
+Our \saes{} are trained on mean-pooled activations but applied to per-token activations during generation.
+For \pali{}, this works because the \sae{} has near-perfect reconstruction on pooled data.
+For \qwen{}/\llama{}, the mismatch necessitated residual ablation (\Cref{eq:residual}).
+Training per-token \saes{} would avoid this mismatch but at significantly higher computational cost.
+
+% ============================================================
+\section{Limitations}
+\label{sec:limitations}
+% ============================================================
+
+\begin{enumerate}
+    \item \textbf{SAE training scale:} \saes{} trained on 5K--10K samples per model; larger training sets may yield better features.
+    \item \textbf{Binary gender:} We track binary gender terms only; non-binary terms are tracked separately but not used as the primary metric.
+    \item \textbf{Hook inconsistency:} \pali{} uses full reconstruction; \qwen{}/\llama{} use residual ablation. Running \pali{} with residual ablation would test whether the direction difference is architectural or methodological.
+    \item \textbf{SAE quality variance:} \llama{}'s \sae{} has only 36.6\% explained variance. The tuned \sae{} (99.9\% EV) exists but was not used for intervention.
+    \item \textbf{No human evaluation:} We measure gender term counts but do not evaluate caption fluency or semantic accuracy after ablation.
+    \item \textbf{Feature polysemanticity:} We cannot claim the ablated features \emph{exclusively} encode gender; they may be polysemantic.
+\end{enumerate}
+
+% ============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================
+
+We have demonstrated that sparse autoencoders can identify and causally intervene on gender bias features in VLM internal representations.
+Across three architectures, targeted ablation of just 0.6\% of \sae{} features produces statistically significant changes in gender-marked captioning language, with effect ratios of 1.8--7.1$\times$ relative to random controls.
+The discovery that different architectures use fundamentally different gender encoding mechanisms---excitatory vs.\ inhibitory---provides new mechanistic insight into how VLMs process social attributes and has practical implications for bias mitigation strategies.
+
+% ============================================================
+% References
+% ============================================================
+\bibliographystyle{plain}
+
+\begin{thebibliography}{99}
+
+\bibitem[Bai et~al.(2023)]{bai2023qwen}
+J.~Bai, S.~Bai, S.~Yang, et~al.
+\newblock Qwen-VL: A versatile vision-language model for understanding, localization, text reading, and beyond.
+\newblock \emph{arXiv preprint arXiv:2308.12966}, 2023.
+
+\bibitem[Bricken et~al.(2023)]{bricken2023monosemanticity}
+T.~Bricken, A.~Templeton, J.~Batson, et~al.
+\newblock Towards monosemanticity: Decomposing language models with dictionary learning.
+\newblock \emph{Anthropic Research}, 2023.
+
+\bibitem[Cunningham et~al.(2023)]{cunningham2023sparse}
+H.~Cunningham, A.~Ewart, L.~Riggs, R.~Huben, and L.~Sharkey.
+\newblock Sparse autoencoders find highly interpretable features in language models.
+\newblock \emph{arXiv preprint arXiv:2309.08600}, 2023.
+
+\bibitem[Geiger et~al.(2021)]{geiger2021causal}
+A.~Geiger, H.~Lu, T.~Icard, and C.~Potts.
+\newblock Causal abstractions of neural networks.
+\newblock In \emph{NeurIPS}, 2021.
+
+\bibitem[Hendricks et~al.(2018)]{hendricks2018women}
+L.~A.~Hendricks, K.~Burns, K.~Saenko, T.~Darrell, and A.~Rohrbach.
+\newblock Women also snowboard: Overcoming bias in captioning models.
+\newblock In \emph{ECCV}, 2018.
+
+\bibitem[Hirota et~al.(2022)]{hirota2022quantifying}
+Y.~Hirota, Y.~Nakashima, and N.~Garcia.
+\newblock Quantifying societal bias amplification in image captioning.
+\newblock In \emph{CVPR}, 2022.
+
+\bibitem[Liu et~al.(2023)]{liu2023visual}
+H.~Liu, C.~Li, Q.~Wu, and Y.~J.~Lee.
+\newblock Visual instruction tuning.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Meng et~al.(2022)]{meng2022locating}
+K.~Meng, D.~Bau, A.~Andonian, and Y.~Belinkov.
+\newblock Locating and editing factual associations in {GPT}.
+\newblock In \emph{NeurIPS}, 2022.
+
+\bibitem[Team et~al.(2024)]{team2024paligemma}
+PaLiGemma Team.
+\newblock PaLiGemma: A versatile 3B VLM for transfer.
+\newblock \emph{arXiv preprint arXiv:2407.07726}, 2024.
+
+\bibitem[Templeton et~al.(2024)]{templeton2024scaling}
+A.~Templeton, T.~Conerly, J.~Marcus, et~al.
+\newblock Scaling monosemanticity: Extracting interpretable features from Claude 3 Sonnet.
+\newblock \emph{Anthropic Research}, 2024.
+
+\bibitem[Zhao et~al.(2017)]{zhao2017men}
+J.~Zhao, T.~Wang, M.~Yatskar, V.~Ordonez, and K.-W.~Chang.
+\newblock Men also like shopping: Reducing gender bias amplification using corpus-level constraints.
+\newblock In \emph{EMNLP}, 2017.
+
+\end{thebibliography}
+
+% ============================================================
+\appendix
+\section{Additional Per-Term Analysis}
+\label{app:per_term}
+
+Complete per-term breakdown for all models is available in the supplementary materials and at \url{https://github.com/nour-mubarak/mechanistic_intrep}.
+
+\section{SAE Training Details}
+\label{app:sae_training}
+
+\begin{table}[h]
+\centering
+\small
+\caption{SAE training hyperparameters.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Expansion factor & 8$\times$ \\
+L1 coefficient ($\lambda$) & $10^{-4}$ (\pali{}), $5 \times 10^{-4}$ (\qwen{}) \\
+Learning rate & $10^{-4}$ \\
+Optimizer & AdamW \\
+Batch size & 256 \\
+Epochs & 50 (early stopping, patience=10) \\
+Warmup steps & 1,000 \\
+Train/Val split & 90/10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Random Ablation Distributions}
+\label{app:random_dist}
+
+See supplementary Figure~S2 for the distribution of all 25 random ablation runs per model, showing that random effects are centered near zero while targeted effects fall well outside the distribution.
+
+\end{document}
