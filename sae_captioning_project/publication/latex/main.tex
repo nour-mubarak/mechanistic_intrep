@@ -13,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
+\usepackage[round]{natbib}  % For \citep{} and \citet{}
 \graphicspath{{../figures/main/}{../figures/supplementary/}{../figures/appendix/}}
 \usepackage{booktabs}
 \usepackage{pifont}
@@ -182,13 +183,13 @@ Activations are \textbf{mean-pooled} across sequence positions to yield one $\ma
 \begin{table}[h]
 \centering
 \small
-\caption{Activation extraction details per model.}
+\caption{Activation extraction details per model. All models use Flickr8K with bilingual captions.}
 \label{tab:extraction}
 \begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Model} & \textbf{N samples} & \textbf{Layers extracted} & \textbf{Source} \\
 \midrule
-\pali{}  & 10,000 & 0,3,6,9,12,15,17 & samples.csv \\
+\pali{}  & 10,000 & 0,3,6,9,12,15,17 & Flickr8K subset \\
 \qwen{}  & 7,609 (EN) / 6,413 (AR) & 0,4,8,12,16,20,24,27 & gender-labeled \\
 \llava{} & 5,249 (EN) / 4,449 (AR) & 0,4,8,...,31 & gender-labeled \\
 \llama{} & 5,249 (EN) / $\sim$5,000 (AR) & 0,5,10,...,39 & gender-labeled \\
@@ -302,12 +303,12 @@ Table~\ref{tab:main_results} presents the core findings across all three models 
 
 \begin{table*}[t]
 \centering
-\small
+\scriptsize
 \caption{Intervention results across three VLM architectures. All experiments use 500 images, $k=100$ ablated features, and 25 random control runs. $\Delta$CI is the bootstrap 95\% CI on the paired difference (targeted $-$ random) per image. Significance: CI excludes zero for all three models.}
 \label{tab:main_results}
-\begin{tabular}{@{}lcccccccc@{}}
+\begin{tabular}{@{}lcccccccl@{}}
 \toprule
-\textbf{Model} & \textbf{Hook} & \textbf{Baseline} & \textbf{Targeted} & \textbf{Change} & \textbf{Random} & \textbf{Spec.} & \textbf{Ratio} & \textbf{$\Delta$CI (targeted$-$random)} \\
+\textbf{Model} & \textbf{Hook} & \textbf{Base} & \textbf{Targ.} & \textbf{Change} & \textbf{Random} & \textbf{Spec.} & \textbf{Ratio} & \textbf{$\Delta$CI (targ.$-$rand.)} \\
 \midrule
 \pali{} (L9) & Full recon. & 1,522 & 1,277 & $-16.1\%$ & $-8.7\% \pm 3.9\%$ & $-7.3$ pp & $1.8\times$ & $[-0.274, -0.174]$ \\
 \qwen{} (L12) & Residual & 1,315 & 1,367 & $+3.95\%$ & $-0.56\% \pm 1.14\%$ & $+4.5$ pp & $7.1\times$ & $[+0.038, +0.200]$ \\
@@ -409,7 +410,7 @@ Like English, ablation reshuffles term distributions: \emph{rajul} (man) drops d
 \begin{table}[h]
 \centering
 \small
-\caption{Arabic per-term changes under AR$\to$AR ablation. Transliteration: \emph{rajul}=man, \emph{imra'a}=woman, \emph{huwa}=he, \emph{hiya}=she, \emph{ab}=father, \emph{umm}=mother, \emph{akh}=brother, \emph{fataa}=girl, \emph{sabiy}=boy.}
+\caption{Arabic per-term changes under AR$\to$AR ablation. Terms shown in transliteration.}
 \label{tab:arabic_per_term}
 \begin{tabular}{@{}lcc@{}}
 \toprule
@@ -592,7 +593,7 @@ These findings have immediate practical implications: architecture-specific and 
 % ============================================================
 % References
 % ============================================================
-\bibliographystyle{plain}
+\bibliographystyle{plainnat}
 
 \begin{thebibliography}{99}
 

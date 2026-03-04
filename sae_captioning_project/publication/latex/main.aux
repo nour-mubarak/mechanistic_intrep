@@ -1,11 +1,29 @@
 \relax 
+\citation{liu2023visual,bai2023qwen,team2024paligemma}
+\citation{hendricks2018women,hirota2022quantifying}
+\citation{zhao2017men,hendricks2018women}
+\citation{zhao2017men}
+\citation{cunningham2023sparse,bricken2023monosemanticity,templeton2024scaling}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}\protected@file@percent }
 \newlabel{sec:intro}{{1}{1}}
+\citation{hendricks2018women}
+\citation{zhao2017men}
+\citation{hirota2022quantifying}
+\citation{cunningham2023sparse}
+\citation{bricken2023monosemanticity}
+\citation{templeton2024scaling}
+\citation{meng2022locating}
+\citation{geiger2021causal}
+\citation{fiottokaufman2024nnsight}
+\citation{pku2025saelensv}
+\citation{girrbach2025revealing}
+\citation{wang2024mbbq}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}\protected@file@percent }
 \newlabel{sec:related}{{2}{2}}
 \@writefile{toc}{\contentsline {paragraph}{Gender bias in VLMs.}{2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Mechanistic interpretability with SAEs.}{2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Causal interpretability.}{2}\protected@file@percent }
+\citation{cunningham2023sparse,templeton2024scaling}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of our pipeline. For each VLM, we extract decoder activations from bilingual image--caption pairs, train sparse autoencoders (SAEs) to decompose activations into interpretable features, identify gender-associated features via differential activation analysis, and perform targeted ablation during caption generation to test causal claims. Cross-lingual analysis compares English and Arabic feature sets.}}{3}\protected@file@percent }
 \newlabel{fig:pipeline}{{1}{3}}
 \@writefile{toc}{\contentsline {paragraph}{Concurrent work.}{3}\protected@file@percent }
@@ -15,12 +33,16 @@
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Vision-language models used in this study. $d_{\text  {model}}$ is the decoder hidden dimension; $n_{\text  {features}}$ is the SAE{} dictionary size (8$\times $ expansion).}}{3}\protected@file@percent }
 \newlabel{tab:models}{{1}{3}}
 \@writefile{toc}{\contentsline {paragraph}{Layer selection.}{3}\protected@file@percent }
+\citation{hodosh2013framing}
+\citation{bricken2023monosemanticity}
+\citation{gao2024scaling}
+\citation{rajamanoharan2024jumping}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Dataset}{4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Gender term dictionary.}{4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Method}{4}\protected@file@percent }
 \newlabel{sec:method}{{4}{4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Activation Extraction}{4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Activation extraction details per model.}}{4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Activation extraction details per model. All models use Flickr8K with bilingual captions.}}{4}\protected@file@percent }
 \newlabel{tab:extraction}{{2}{4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}SAE Architecture and Training}{4}\protected@file@percent }
 \newlabel{eq:enc}{{1}{4}}
@@ -62,56 +84,57 @@
 \@writefile{toc}{\contentsline {paragraph}{Arabic terms.}{8}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Layer specificity in \textsc  {PaLiGemma-3B}{}. Gender bias features are concentrated at L9 (mid-layer): targeted ablation produces a significant decrease, while L17 (penultimate layer, negative control) shows no effect. Combining both layers yields no additional benefit.}}{9}\protected@file@percent }
 \newlabel{fig:layer_specificity}{{4}{9}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Arabic per-term changes under AR$\to $AR ablation. Transliteration: \emph  {rajul}=man, \emph  {imra'a}=woman, \emph  {huwa}=he, \emph  {hiya}=she, \emph  {ab}=father, \emph  {umm}=mother, \emph  {akh}=brother, \emph  {fataa}=girl, \emph  {sabiy}=boy.}}{9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Arabic per-term changes under AR$\to $AR ablation. Terms shown in transliteration.}}{9}\protected@file@percent }
 \newlabel{tab:arabic_per_term}{{6}{9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.4}SAE Quality Metrics}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Cross-Lingual Analysis}{9}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Per-term gender change heatmap under targeted ablation. Each cell shows percentage change from baseline for a specific gender term. \textsc  {PaLiGemma-3B}{} dramatically reduces pronouns (``her'' $-73\%$, ``him'' $-83\%$) while \textsc  {Qwen2-VL-7B}{}/\textsc  {Llama-3.2-11B}{} increase explicit nouns (``man'' $+54\%$, ``him'' $+91\%$). This reveals that ablation reshuffles gendered language rather than uniformly suppressing it.}}{10}\protected@file@percent }
 \newlabel{fig:per_term}{{5}{10}}
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces SAE quality metrics. \textsc  {PaLiGemma-3B}{} has the highest quality; \textsc  {Llama-3.2-11B}{} (original) has the lowest. Intervention results are significant across this quality range.}}{10}\protected@file@percent }
 \newlabel{tab:sae_quality}{{7}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Cross-Lingual Analysis}{10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.5.1}Causal Cross-Lingual Ablation}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{10}\protected@file@percent }
+\newlabel{sec:discussion}{{7}{10}}
+\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{10}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Cross-lingual bias alignment. CLBAS $\approx 0$ indicates gender is encoded through language-specific features, not shared cross-lingual representations.}}{11}\protected@file@percent }
 \newlabel{tab:clbas}{{8}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Jaccard index of top-100 English vs.\ Arabic gender features across transformer layers. All models show near-zero overlap at all layers, confirming that gender bias is encoded through language-specific feature sets.}}{11}\protected@file@percent }
 \newlabel{fig:feature_overlap}{{6}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{11}\protected@file@percent }
-\newlabel{sec:discussion}{{7}{11}}
-\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Architecture hypothesis.}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Hook method confound.}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{11}\protected@file@percent }
+\citation{karvonen2025saebench}
 \@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Cross-lingual causal ablation ($n = 500$ images, 10 random controls). Ablating English features significantly changes English output in \textsc  {Qwen2-VL-7B}{} but has no cross-lingual transfer---causally confirming CLBAS\nobreakspace  {}$\approx 0$.}}{12}\protected@file@percent }
 \newlabel{tab:crosslingual_ablation}{{9}{12}}
-\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{12}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Mean-pooling trade-off.}{12}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{12}\protected@file@percent }
 \newlabel{sec:limitations}{{8}{12}}
-\bibstyle{plain}
+\bibstyle{plainnat}
+\bibcite{bai2023qwen}{{1}{2023}{{Bai et~al.}}{{}}}
+\bibcite{bricken2023monosemanticity}{{2}{2023}{{Bricken et~al.}}{{}}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Comprehensive summary of main findings. (a)\nobreakspace  {}Cross-model intervention: targeted ablation of 100 gender features produces significant changes in all three models, with opposite directions for excitatory (\textsc  {PaLiGemma-3B}{}) vs.\ inhibitory (\textsc  {Qwen2-VL-7B}{}, \textsc  {Llama-3.2-11B}{}) architectures. (b)\nobreakspace  {}Bootstrap 95\% CIs confirm significance. (c)\nobreakspace  {}Effect specificity ratios. (d)\nobreakspace  {}Layer specificity in \textsc  {PaLiGemma-3B}{}: gender features are concentrated at L9.}}{13}\protected@file@percent }
 \newlabel{fig:summary}{{7}{13}}
 \@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{13}\protected@file@percent }
 \newlabel{sec:conclusion}{{9}{13}}
-\bibcite{bai2023qwen}{Bai et\nobreakspace  {}al.(2023)}
-\bibcite{bricken2023monosemanticity}{Bricken et\nobreakspace  {}al.(2023)}
-\bibcite{cunningham2023sparse}{Cunningham et\nobreakspace  {}al.(2023)}
-\bibcite{gao2024scaling}{Gao et\nobreakspace  {}al.(2024)}
-\bibcite{geiger2021causal}{Geiger et\nobreakspace  {}al.(2021)}
-\bibcite{hendricks2018women}{Hendricks et\nobreakspace  {}al.(2018)}
-\bibcite{hodosh2013framing}{Hodosh et\nobreakspace  {}al.(2013)}
-\bibcite{hirota2022quantifying}{Hirota et\nobreakspace  {}al.(2022)}
-\bibcite{liu2023visual}{Liu et\nobreakspace  {}al.(2023)}
-\bibcite{meng2022locating}{Meng et\nobreakspace  {}al.(2022)}
-\bibcite{team2024paligemma}{Team et\nobreakspace  {}al.(2024)}
-\bibcite{rajamanoharan2024jumping}{Rajamanoharan et\nobreakspace  {}al.(2024)}
-\bibcite{karvonen2025saebench}{Karvonen et\nobreakspace  {}al.(2025)}
-\bibcite{templeton2024scaling}{Templeton et\nobreakspace  {}al.(2024)}
-\bibcite{zhao2017men}{Zhao et\nobreakspace  {}al.(2017)}
-\bibcite{fiottokaufman2024nnsight}{Fiotto-Kaufman et\nobreakspace  {}al.(2024)}
-\bibcite{pku2025saelensv}{PKU-Alignment(2025)}
-\bibcite{girrbach2025revealing}{Girrbach et\nobreakspace  {}al.(2025)}
-\bibcite{wang2024mbbq}{Wang et\nobreakspace  {}al.(2024)}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Per-Term Analysis}{15}\protected@file@percent }
-\newlabel{app:per_term}{{A}{15}}
+\bibcite{cunningham2023sparse}{{3}{2023}{{Cunningham et~al.}}{{}}}
+\bibcite{gao2024scaling}{{4}{2024}{{Gao et~al.}}{{}}}
+\bibcite{geiger2021causal}{{5}{2021}{{Geiger et~al.}}{{}}}
+\bibcite{hendricks2018women}{{6}{2018}{{Hendricks et~al.}}{{}}}
+\bibcite{hodosh2013framing}{{7}{2013}{{Hodosh et~al.}}{{}}}
+\bibcite{hirota2022quantifying}{{8}{2022}{{Hirota et~al.}}{{}}}
+\bibcite{liu2023visual}{{9}{2023}{{Liu et~al.}}{{}}}
+\bibcite{meng2022locating}{{10}{2022}{{Meng et~al.}}{{}}}
+\bibcite{team2024paligemma}{{11}{2024}{{Team et~al.}}{{}}}
+\bibcite{rajamanoharan2024jumping}{{12}{2024}{{Rajamanoharan et~al.}}{{}}}
+\bibcite{karvonen2025saebench}{{13}{2025}{{Karvonen et~al.}}{{}}}
+\bibcite{templeton2024scaling}{{14}{2024}{{Templeton et~al.}}{{}}}
+\bibcite{zhao2017men}{{15}{2017}{{Zhao et~al.}}{{}}}
+\bibcite{fiottokaufman2024nnsight}{{16}{2024}{{Fiotto-Kaufman et~al.}}{{}}}
+\bibcite{pku2025saelensv}{{17}{2025}{{PKU-Alignment}}{{}}}
+\bibcite{girrbach2025revealing}{{18}{2025}{{Girrbach et~al.}}{{}}}
+\bibcite{wang2024mbbq}{{19}{2024}{{Wang et~al.}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Per-Term Analysis}{14}\protected@file@percent }
+\newlabel{app:per_term}{{A}{14}}
 \@writefile{toc}{\contentsline {section}{\numberline {B}SAE Training Details}{15}\protected@file@percent }
 \newlabel{app:sae_training}{{B}{15}}
 \@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces SAE training hyperparameters.}}{15}\protected@file@percent }

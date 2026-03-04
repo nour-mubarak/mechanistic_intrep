@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Generate Publication-Quality Figures for SAE Gender Bias Paper
 ==============================================================
@@ -293,10 +294,11 @@ def fig3_per_term_heatmap(results):
                 ax.text(j, i, f'{val:+.0f}%', ha='center', va='center',
                        fontsize=7, color=color, fontweight='bold')
 
-    cbar = plt.colorbar(im, ax=ax, shrink=0.8)
+    cbar = plt.colorbar(im, ax=ax, shrink=0.8, pad=0.02)
     cbar.set_label('Change (%)', fontsize=10)
 
-    plt.tight_layout()
+    # Adjust layout to ensure colorbar is inside figure
+    plt.tight_layout(rect=[0, 0, 0.95, 1])
     plt.savefig(OUTPUT_DIR / 'fig3_per_term_heatmap.png')
     plt.savefig(OUTPUT_DIR / 'fig3_per_term_heatmap.pdf')
     plt.close()
@@ -339,13 +341,13 @@ def fig4_layer_specificity(results):
     ax.set_xticklabels(labels)
     ax.legend(loc='lower left', framealpha=0.9)
 
-    # Annotate key finding
+    # Annotate key finding - positioned inside plot frame
     ax.annotate('Gender effect\nconcentrated here',
-               xy=(0, targeted[0]), xytext=(0.8, targeted[0] - 3),
+               xy=(0, targeted[0]), xytext=(0.35, targeted[0] + 5),
                arrowprops=dict(arrowstyle='->', color=COLORS['paligemma']),
                fontsize=9, color=COLORS['paligemma'], fontweight='bold')
     ax.annotate('No effect\n(negative control)',
-               xy=(1, targeted[1]), xytext=(1.8, targeted[1] + 4),
+               xy=(1, targeted[1]), xytext=(1.3, targeted[1] - 5),
                arrowprops=dict(arrowstyle='->', color='#90CAF9'),
                fontsize=9, color='#90CAF9', fontweight='bold')
 
@@ -381,14 +383,21 @@ def fig5_sae_quality_vs_effect(results):
         'Llama L20': COLORS['llama'],
     }
 
+    # Custom label positions to keep text inside plot frame
+    label_offsets = {
+        'PaLiGemma L9': (-35, -2),   # left and slightly down for rightmost point
+        'Qwen2-VL L12': (-30, 2),    # left and up
+        'Llama L20': (5, 2),         # right and up for leftmost point
+    }
     for name, d in sae_data.items():
         ax.scatter(d['ev'], abs(d['effect']), s=200, c=model_colors[name],
                    edgecolors='black', linewidth=1, zorder=5)
-        # Label with direction arrow
+        # Label with direction arrow - positioned inside frame
         direction = '↓' if d['effect'] < 0 else '↑'
+        xoff, yoff = label_offsets[name]
         ax.annotate(f"{name}\n({direction}{abs(d['effect']):.1f}%)",
                    xy=(d['ev'], abs(d['effect'])),
-                   xytext=(10, 10), textcoords='offset points',
+                   xytext=(xoff, yoff), textcoords='offset points',
                    fontsize=9, fontweight='bold',
                    color=model_colors[name])
 
