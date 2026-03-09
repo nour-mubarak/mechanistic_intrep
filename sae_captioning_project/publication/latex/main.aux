@@ -93,32 +93,30 @@
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces SAE quality metrics. \textsc  {PaLiGemma-3B}{} has the highest quality; \textsc  {Llama-3.2-11B}{} (original) has the lowest. Intervention results are significant across this quality range.}}{10}\protected@file@percent }
 \newlabel{tab:sae_quality}{{7}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.5.1}Causal Cross-Lingual Ablation}{10}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{10}\protected@file@percent }
-\newlabel{sec:discussion}{{7}{10}}
-\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{10}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Cross-lingual bias alignment. CLBAS $\approx 0$ indicates gender is encoded through language-specific features, not shared cross-lingual representations.}}{11}\protected@file@percent }
-\newlabel{tab:clbas}{{8}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Cross-lingual causal ablation ($n = 500$ images, 10 random controls). Ablating English features significantly changes English output in \textsc  {Qwen2-VL-7B}{} but has no cross-lingual transfer---causally confirming language-specific encoding.}}{10}\protected@file@percent }
+\newlabel{tab:crosslingual_ablation}{{8}{10}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Jaccard index of top-100 English vs.\ Arabic gender features across transformer layers. All models show near-zero overlap at all layers, confirming that gender bias is encoded through language-specific feature sets.}}{11}\protected@file@percent }
 \newlabel{fig:feature_overlap}{{6}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{11}\protected@file@percent }
+\newlabel{sec:discussion}{{7}{11}}
+\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Architecture hypothesis.}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Hook method confound.}{11}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{11}\protected@file@percent }
 \citation{karvonen2025saebench}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Cross-lingual causal ablation ($n = 500$ images, 10 random controls). Ablating English features significantly changes English output in \textsc  {Qwen2-VL-7B}{} but has no cross-lingual transfer---causally confirming CLBAS\nobreakspace  {}$\approx 0$.}}{12}\protected@file@percent }
-\newlabel{tab:crosslingual_ablation}{{9}{12}}
+\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{12}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Mean-pooling trade-off.}{12}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{12}\protected@file@percent }
 \newlabel{sec:limitations}{{8}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{12}\protected@file@percent }
+\newlabel{sec:conclusion}{{9}{12}}
 \bibstyle{plainnat}
 \bibcite{bai2023qwen}{{1}{2023}{{Bai et~al.}}{{}}}
 \bibcite{bricken2023monosemanticity}{{2}{2023}{{Bricken et~al.}}{{}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Comprehensive summary of main findings. (a)\nobreakspace  {}Cross-model intervention: targeted ablation of 100 gender features produces significant changes in all three models, with opposite directions for excitatory (\textsc  {PaLiGemma-3B}{}) vs.\ inhibitory (\textsc  {Qwen2-VL-7B}{}, \textsc  {Llama-3.2-11B}{}) architectures. (b)\nobreakspace  {}Bootstrap 95\% CIs confirm significance. (c)\nobreakspace  {}Effect specificity ratios. (d)\nobreakspace  {}Layer specificity in \textsc  {PaLiGemma-3B}{}: gender features are concentrated at L9.}}{13}\protected@file@percent }
-\newlabel{fig:summary}{{7}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{13}\protected@file@percent }
-\newlabel{sec:conclusion}{{9}{13}}
 \bibcite{cunningham2023sparse}{{3}{2023}{{Cunningham et~al.}}{{}}}
 \bibcite{gao2024scaling}{{4}{2024}{{Gao et~al.}}{{}}}
 \bibcite{geiger2021causal}{{5}{2021}{{Geiger et~al.}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Comprehensive summary of main findings. (a)\nobreakspace  {}Cross-model intervention: targeted ablation of 100 gender features produces significant changes in all three models, with opposite directions for excitatory (\textsc  {PaLiGemma-3B}{}) vs.\ inhibitory (\textsc  {Qwen2-VL-7B}{}, \textsc  {Llama-3.2-11B}{}) architectures. (b)\nobreakspace  {}Bootstrap 95\% CIs confirm significance. (c)\nobreakspace  {}Effect specificity ratios. (d)\nobreakspace  {}Layer specificity in \textsc  {PaLiGemma-3B}{}: gender features are concentrated at L9.}}{13}\protected@file@percent }
+\newlabel{fig:summary}{{7}{13}}
 \bibcite{hendricks2018women}{{6}{2018}{{Hendricks et~al.}}{{}}}
 \bibcite{hodosh2013framing}{{7}{2013}{{Hodosh et~al.}}{{}}}
 \bibcite{hirota2022quantifying}{{8}{2022}{{Hirota et~al.}}{{}}}
@@ -135,14 +133,14 @@
 \bibcite{wang2024mbbq}{{19}{2024}{{Wang et~al.}}{{}}}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Additional Per-Term Analysis}{14}\protected@file@percent }
 \newlabel{app:per_term}{{A}{14}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}SAE Training Details}{15}\protected@file@percent }
-\newlabel{app:sae_training}{{B}{15}}
-\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces SAE training hyperparameters.}}{15}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {C}Random Ablation Distributions}{15}\protected@file@percent }
-\newlabel{app:random_dist}{{C}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}SAE Training Details}{14}\protected@file@percent }
+\newlabel{app:sae_training}{{B}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Random Ablation Distributions}{14}\protected@file@percent }
+\newlabel{app:random_dist}{{C}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}SAE Quality vs.\ Effect Size}{14}\protected@file@percent }
+\newlabel{app:sae_quality_effect}{{D}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces SAE training hyperparameters.}}{15}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Distribution of gender term changes across all 25 random ablation control runs for each model. The targeted ablation effect (red dashed line) falls well outside the random distribution in all three cases, confirming specificity.}}{15}\protected@file@percent }
 \newlabel{fig:random_dist}{{8}{15}}
-\@writefile{toc}{\contentsline {section}{\numberline {D}SAE Quality vs.\ Effect Size}{15}\protected@file@percent }
-\newlabel{app:sae_quality_effect}{{D}{15}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces SAE quality (explained variance) vs.\ intervention effect magnitude. Despite large differences in SAE quality across models, all produce significant intervention effects---suggesting the approach is robust to SAE training quality.}}{16}\protected@file@percent }
 \newlabel{fig:sae_quality_effect}{{9}{16}}

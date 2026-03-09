@@ -55,7 +55,7 @@ We apply sparse autoencoders (\saes{}) to the internal activations of three VLM 
 Our main findings are threefold.
 \textbf{(1)}~Targeted ablation of the top 100 \sae{}-identified gender features (0.6\% of all features) produces a statistically significant change in gender-marked language across all three models, with effect ratios of 1.8--7.1$\times$ relative to random feature ablation controls (25~runs each, 500~images, bootstrap CIs excluding zero).
 \textbf{(2)}~The \emph{direction} of the intervention effect depends on model architecture: \pali{} shows a $-16.1\%$ \emph{decrease} in gender terms, while \qwen{} ($+3.95\%$) and \llama{} ($+5.02\%$) show \emph{increases}---suggesting that smaller captioning models encode gender as \emph{production} features, whereas larger instruction-tuned models encode gender through \emph{regulatory/suppressor} features.
-\textbf{(3)}~Cross-lingual analysis across English and Arabic reveals near-zero feature overlap (CLBAS~$< 0.015$), and a causal $2\times 2$ cross-lingual ablation confirms that gender bias is encoded through language-specific features: ablating English features has no effect on Arabic captions in \qwen{} (0\% overlap), while \pali{} (57\% overlap) shows cross-lingual transfer, directly linking overlap to transferability.
+\textbf{(3)}~Cross-lingual analysis across English and Arabic, via a causal $2\times 2$ ablation experiment, confirms that gender bias is encoded through language-specific features: ablating English features has no effect on Arabic captions in \qwen{} (0\% feature overlap), while \pali{} (57\% overlap) shows cross-lingual transfer, directly linking feature overlap to transferability.
 These findings imply that na\"ive debiasing would reduce bias in some architectures but \emph{increase} it in others, and that multilingual fairness requires language-specific interventions.
 
 To our knowledge, this is the first application of \saes{} for mechanistic interpretability of gender bias in VLMs.
@@ -87,7 +87,7 @@ Our contributions are:
 
     \item \textbf{Empirical:} Causal intervention evidence across three architectures showing that targeted ablation of 100 \sae{} features (0.6\% of total) produces statistically significant changes in gender-marked language---with effect ratios of 1.8--7.1$\times$ relative to random ablation controls.
 
-    \item \textbf{Cross-lingual:} First cross-lingual bias alignment analysis (CLBAS metric) across four VLMs, plus a causal $2 \times 2$ ablation experiment (feature language $\times$ caption language) confirming that debiasing in one language does not transfer to another when feature overlap is zero, while high overlap predicts cross-lingual transfer.
+    \item \textbf{Cross-lingual:} First causal $2 \times 2$ cross-lingual ablation experiment (feature language $\times$ caption language) on VLMs, confirming that debiasing in one language does not transfer to another when feature overlap is zero, while high overlap predicts cross-lingual transfer.
 
     \item \textbf{Mechanistic insight:} Discovery that the \emph{direction} of gender-feature influence varies across architectures: smaller captioning models use excitatory gender features (ablation reduces gender terms), while larger instruction-tuned models use inhibitory/regulatory features (ablation increases gender terms).
 \end{enumerate}
@@ -460,25 +460,9 @@ This suggests the intervention is robust to \sae{} quality and may strengthen wi
 
 \subsection{Cross-Lingual Analysis}
 
-\begin{table}[h]
-\centering
-\small
-\caption{Cross-lingual bias alignment. CLBAS $\approx 0$ indicates gender is encoded through language-specific features, not shared cross-lingual representations.}
-\label{tab:clbas}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\textbf{Model} & \textbf{CLBAS} & \textbf{EN Probe} & \textbf{AR Probe} \\
-\midrule
-\pali{}  & 0.0004 & 0.810 & 0.812 \\
-\qwen{}  & 0.004 & 0.918 & 0.903 \\
-\llava{} & 0.015 & 0.963 & 0.899 \\
-\llama{} & 0.004 & 0.994 & 0.985 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-All models encode gender in linearly decodable features (probe accuracy $> 0.80$), but cross-lingual feature overlap is near-zero (CLBAS $< 0.015$, Jaccard overlap $< 3\%$ at all layers).
-This means English and Arabic gender biases are encoded through \textbf{entirely separate feature sets}---debiasing in English would not automatically reduce bias in Arabic.
+We analyze whether English and Arabic share gender-associated features by computing the Jaccard overlap of top-100 gender features identified separately in each language.
+Across all four models and all layers, Jaccard overlap is near-zero ($< 3\%$), indicating that English and Arabic gender biases are encoded through \textbf{entirely separate feature sets}.
+This raises a critical question: if features don't overlap, does debiasing in one language transfer to another?
 
 \begin{figure}[t]
 \centering
@@ -489,14 +473,14 @@ This means English and Arabic gender biases are encoded through \textbf{entirely
 
 \subsubsection{Causal Cross-Lingual Ablation}
 
-To move beyond the correlational CLBAS metric, we perform a $2 \times 2$ causal ablation experiment: \emph{feature language} (EN/AR) $\times$ \emph{caption language} (EN/AR).
+To test whether language-specific features have language-specific effects, we perform a $2 \times 2$ causal ablation experiment: \emph{feature language} (EN/AR) $\times$ \emph{caption language} (EN/AR).
 If gender features are truly language-specific, ablating English features should affect English captions but \emph{not} Arabic ones, and vice versa.
 
 \begin{table}[h]
 \centering
 \small
 \caption{Cross-lingual causal ablation ($n = 500$ images, 10 random controls).
-Ablating English features significantly changes English output in \qwen{} but has no cross-lingual transfer---causally confirming CLBAS~$\approx 0$.}
+Ablating English features significantly changes English output in \qwen{} but has no cross-lingual transfer---causally confirming language-specific encoding.}
 \label{tab:crosslingual_ablation}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
@@ -518,9 +502,9 @@ Ablating English features significantly changes English output in \qwen{} but ha
 For \qwen{} (feature overlap 0/100, Jaccard~$= 0.000$), the pattern is exactly as predicted: within-language EN$\to$EN is the only significant condition, and neither cross-lingual condition shows transfer.
 This provides \textbf{causal confirmation} that gender is encoded through language-specific features.
 
-\pali{} presents a contrasting case: feature overlap is 57/100 (Jaccard~$= 0.399$), substantially higher than the CLBAS metric suggested.
+\pali{} presents a contrasting case: feature overlap is 57/100 (Jaccard~$= 0.399$), substantially higher than \qwen{}.
 Accordingly, Arabic features \emph{do} transfer to English captions (AR$\to$EN is significant), consistent with the shared feature sets.
-This demonstrates that feature overlap predicts cross-lingual transfer: high overlap $\Rightarrow$ transfer, zero overlap $\Rightarrow$ no transfer.
+This demonstrates that \textbf{feature overlap predicts cross-lingual transfer}: high overlap $\Rightarrow$ transfer, zero overlap $\Rightarrow$ no transfer.
 
 % ============================================================
 \section{Discussion}
@@ -547,8 +531,8 @@ However, both \qwen{} and \llama{} use the same residual hook and show the same 
 Running \pali{} with the residual hook would disambiguate this (see Limitations).
 
 \paragraph{Cross-lingual implications.}
-The near-zero CLBAS scores across all models challenge the assumption that multilingual models share bias representations across languages.
-Our causal cross-lingual ablation (Table~\ref{tab:crosslingual_ablation}) strengthens this claim beyond correlation: for \qwen{} (0\% feature overlap), ablating English gender features has \emph{no effect} on Arabic captions and vice versa, providing direct causal evidence that debiasing in one language does not transfer.
+The near-zero feature overlap across all models challenges the assumption that multilingual models share bias representations across languages.
+Our causal cross-lingual ablation (Table~\ref{tab:crosslingual_ablation}) provides direct evidence: for \qwen{} (0\% feature overlap), ablating English gender features has \emph{no effect} on Arabic captions and vice versa, demonstrating that debiasing in one language does not transfer.
 Critically, \pali{} (57\% feature overlap) shows the opposite---Arabic features \emph{do} transfer to English---confirming that the degree of cross-lingual transfer is directly predicted by feature overlap.
 This implies that multilingual fairness requires auditing feature overlap before assuming transfer, and likely necessitates language-specific debiasing interventions for models like \qwen{} and \llama{}.
 
