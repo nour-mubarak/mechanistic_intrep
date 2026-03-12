@@ -126,7 +126,7 @@ cross_box = FancyBboxPatch((0.3, cross_y), cross_width, cross_height,
                            edgecolor=COLORS['crosslingual_border'], linewidth=2)
 ax.add_patch(cross_box)
 
-ax.text(7, cross_y + cross_height - 0.25, "Cross-Lingual Analysis: 2x2 Causal Ablation", 
+ax.text(7, cross_y + cross_height - 0.25, "Cross-Lingual Causal Transfer Test", 
         ha='center', va='center', fontsize=11, fontweight='bold', color=COLORS['text'])
 
 # Sub-boxes for the 2x2 design
@@ -193,13 +193,13 @@ insight_box = FancyBboxPatch((insight_x, insight_y), insight_width, insight_heig
                              facecolor='#FFF8E1', edgecolor='#FF6F00', linewidth=2)
 ax.add_patch(insight_box)
 ax.text(insight_x + insight_width/2, insight_y + insight_height - 0.25, 
-        "Direction Effect", ha='center', va='center', fontsize=9, fontweight='bold', color='#E65100')
-ax.text(insight_x + insight_width/2, insight_y + 0.9, 
+        "Mechanistic", ha='center', va='center', fontsize=9, fontweight='bold', color='#E65100')
+ax.text(insight_x + insight_width/2, insight_y + 1.05, 
+        "Interpretation", ha='center', va='center', fontsize=8, fontweight='bold', color='#E65100')
+ax.text(insight_x + insight_width/2, insight_y + 0.7, 
         "Excitatory vs", ha='center', va='center', fontsize=8, color='#424242')
-ax.text(insight_x + insight_width/2, insight_y + 0.6, 
+ax.text(insight_x + insight_width/2, insight_y + 0.45, 
         "Inhibitory", ha='center', va='center', fontsize=8, color='#424242')
-ax.text(insight_x + insight_width/2, insight_y + 0.25, 
-        "features", ha='center', va='center', fontsize=8, color='#424242')
 
 # Arrow from intervention to insight
 arrow = FancyArrowPatch((0.3 + 3*(box_width + gap) + box_width, y_main + box_height - 0.5),

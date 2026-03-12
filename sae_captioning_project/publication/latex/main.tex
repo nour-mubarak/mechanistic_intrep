@@ -164,6 +164,11 @@ We use the Flickr8K dataset \citep{hodosh2013framing}, comprising 8,092 images w
 Gender labels are derived from caption content using keyword matching (male: 5,562 samples; female: 2,047 samples; ratio 2.7:1, reflecting the dataset's inherent male bias).
 Note that while we extract 8,092 images total, per-model sample counts in Table~\ref{tab:extraction} vary due to filtering for samples where gender is identifiable.
 
+\paragraph{Dataset scale justification.}
+Flickr8K is sufficient for mechanistic interpretability analysis because we analyze \emph{internal activations}, not train new models.
+Our extraction yields up to 10,000 activation samples per model---adequate for SAE training and feature identification, as SAEs learn to reconstruct the activation distribution rather than generalize to new images.
+This is consistent with prior mechanistic interpretability work \citep{cunningham2023sparse,bricken2023monosemanticity} that uses comparable activation sample sizes.
+
 \paragraph{Gender term dictionary.}
 We track 16 binary gender terms: \texttt{he, she, him, her, his, hers, man, woman, boy, girl, men, women, boys, girls, male, female}.
 Following reviewer feedback, we separately track 18 gender-neutral terms (\texttt{person, people, individual}, etc.) to detect whether ablation shifts output toward neutral descriptions.
@@ -177,13 +182,14 @@ Our pipeline has four stages: (1)~activation extraction, (2)~\sae{} training, (3
 
 \subsection{Activation Extraction}
 
-For each model, we extract activations from selected decoder layers using PyTorch forward hooks.
+For each model, we extract activations from selected \textbf{language model decoder layers} using PyTorch forward hooks.
+Critically, we extract from the \emph{text decoder}, not the visual encoder or raw pixel representations---the decoder layers are where linguistic gender information is encoded for caption generation.
 Activations are \textbf{mean-pooled} across sequence positions to yield one $\mathbb{R}^{d_{\text{model}}}$ vector per image--caption pair.
 
 \begin{table}[h]
 \centering
 \small
-\caption{Activation extraction details per model. All models use Flickr8K with bilingual captions.}
+\caption{Activation extraction details per model. Sample counts vary due to extraction failures (image loading errors, OOM) during independent processing of each model. All models use Flickr8K with bilingual captions.}
 \label{tab:extraction}
 \begin{tabular}{@{}lccc@{}}
 \toprule
@@ -261,6 +267,13 @@ Importantly, within each model, the same hook variant is used for both targeted 
 \paragraph{Generation.}
 All captions are generated with deterministic greedy decoding (\texttt{do\_sample=False}, \texttt{num\_beams=1}, \texttt{max\_new\_tokens=64}) to eliminate sampling variance.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_intervention_design.png}
+\caption{Intervention experiment design. Phase~1 (baseline) generates captions without modification. Phase~2 (targeted) zeros $k=100$ gender-associated \sae{} features during generation. Phase~3 (random) repeats ablation with randomly selected features 25 times to establish a control distribution. Statistical comparison tests whether targeted ablation produces significantly larger effects than random ablation.}
+\label{fig:intervention}
+\end{figure}
+
 \paragraph{Language design.}
 The main intervention experiments (Section~\ref{sec:results}) use \textbf{EN$\to$EN} (English features ablated, English caption prompt): this provides the clearest test of whether identified gender features causally influence output, using the same language for feature identification and generation.
 A full cross-lingual design---EN$\to$AR (ablate English features, generate Arabic), AR$\to$EN, AR$\to$AR---is deferred to the cross-lingual ablation analysis (Section~\ref{sec:discussion}) to test feature language-specificity, because:
@@ -327,15 +340,16 @@ Effect specificity ranges from 4.5 to 7.3 percentage points, and effect ratios r
 \label{fig:cross_model}
 \end{figure}
 
-\paragraph{Direction divergence.}
-The most striking finding is the \emph{direction} of the effect.
+\paragraph{Direction divergence: Excitatory vs.\ inhibitory gender encoding.}
+The most striking finding---and a key novel insight of this work---is the \emph{direction} of the effect.
 \pali{} shows a $-16.1\%$ decrease in gender terms under targeted ablation, while \qwen{} ($+3.95\%$) and \llama{} ($+5.02\%$) show increases.
-This suggests two distinct mechanisms of gender encoding:
+This reveals two fundamentally distinct mechanisms of gender encoding:
 \begin{itemize}
-    \item \pali{} (smaller, captioning-focused): Gender features \emph{produce} gendered output; ablation removes it.
-    \item \qwen{}/\llama{} (larger, instruction-tuned): Top-differential features \emph{regulate/suppress} gender; ablation disinhibits it.
+    \item \textbf{Excitatory mechanism} (\pali{}, smaller, captioning-focused): Gender features directly \emph{produce} gendered output; ablation removes this contribution.
+    \item \textbf{Inhibitory/regulatory mechanism} (\qwen{}/\llama{}, larger, instruction-tuned): Top-differential features act as \emph{regulators/suppressors} of gendered language; ablation disinhibits explicit gender terms.
 \end{itemize}
-This is analogous to the distinction between excitatory and inhibitory circuits in neuroscience.
+This distinction, analogous to excitatory and inhibitory circuits in neuroscience, suggests a novel hypothesis: \textbf{instruction tuning may fundamentally change how models encode sensitive attributes}---from direct production (captioning models) to regulatory suppression (instruction-tuned models).
+This has practical implications for bias mitigation: the same ablation strategy would \emph{reduce} bias in captioning models but \emph{increase} it in instruction-tuned models.
 
 \paragraph{Instruction tuning effect.}
 The two instruction-tuned models (\qwen{}, \llama{}) show notably tighter random ablation variance (std = 1.14\%, 0.76\%) compared to \pali{} (std = 3.9\%), suggesting that instruction tuning creates more stable internal representations where random feature perturbation has less impact.

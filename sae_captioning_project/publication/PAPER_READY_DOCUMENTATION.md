@@ -46,9 +46,18 @@
 ### Claimed Contributions
 
 1. **Methodological:** First application of SAEs for mechanistic interpretability of gender bias in VLMs (prior SAE work focused on text-only LLMs)
-2. **Empirical:** Causal intervention evidence across 3 VLM architectures (PaLiGemma-3B, Qwen2-VL-7B, Llama-3.2-Vision-11B) showing targeted ablation significantly reduces gender-marked language
-3. **Cross-lingual:** First cross-lingual bias alignment analysis (CLBAS metric) across 4 VLMs, showing near-zero feature overlap between English and Arabic gender representations
-4. **Practical:** Demonstration that 0.6% of SAE features (100/16,384) can be surgically ablated to reduce gender terms by 16% while preserving caption coherence
+2. **Empirical:** Causal intervention evidence across 3 VLM architectures (PaLiGemma-3B, Qwen2-VL-7B, Llama-3.2-Vision-11B) showing targeted ablation produces significant effects (1.8-7.1× relative to random controls)
+3. **Mechanistic insight (KEY NOVEL FINDING):** Discovery that the *direction* of gender-feature influence depends on architecture—captioning models use **excitatory** features (ablation reduces gender terms), while instruction-tuned models use **inhibitory/regulatory** features (ablation increases gender terms). This implies the same debiasing intervention has *opposite* effects across architectures.
+4. **Cross-lingual:** First causal 2×2 cross-lingual ablation experiment on VLMs, showing feature overlap predicts transferability (0% overlap → no transfer; 57% overlap → transfer occurs)
+5. **Practical:** Demonstration that 0.6% of SAE features (100/16,384) can be surgically ablated to produce measurable changes while preserving caption coherence
+
+### Anticipated Reviewer Concerns (Addressed)
+
+| Concern | Response |
+|---------|----------|
+| **Dataset size (Flickr8K is small)** | Flickr8K is sufficient for mechanistic analysis because we analyze *internal activations*, not train new models. 8,092 images yield up to 10,000 activation samples—adequate for SAE training as SAEs learn activation distribution reconstruction. This is consistent with prior SAE work. |
+| **Gender term counting (shorter captions?)** | We report both raw count AND length-normalized rate (gender_terms / total_tokens). This controls for caption length changes and is reported in the paper. |
+| **CLBAS metric (not standard)** | CLBAS was removed from the paper. The core evidence is now the **causal 2×2 ablation experiment** (feature language × caption language), which directly tests transfer. Jaccard overlap is used as a simple diagnostic. |
 
 ---
 

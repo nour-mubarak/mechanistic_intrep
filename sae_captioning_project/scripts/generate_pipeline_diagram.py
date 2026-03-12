@@ -196,17 +196,19 @@ add_box(ax, 9.3, 5.2, 2.4, 1.5, "Main Results",
         "Effect ratios: 1.8-7.1×\nCIs exclude zero",
         color=COLORS['intervention'], border_color=COLORS['intervention_border'])
 
-# Direction Discovery
+# Mechanistic Interpretation
 dir_box = FancyBboxPatch((9.3, 3.3), 2.4, 1.5,
                          boxstyle="round,pad=0.02,rounding_size=0.1",
                          facecolor=COLORS['intervention'], 
                          edgecolor=COLORS['intervention_border'], linewidth=2)
 ax.add_patch(dir_box)
-ax.text(10.5, 4.5, "Direction Discovery", ha='center', va='center', 
+ax.text(10.5, 4.5, "Mechanistic", ha='center', va='center', 
         fontsize=11, fontweight='bold', color=COLORS['text'])
-ax.text(10.5, 4.0, "PaLiGemma: −16.1%", ha='center', va='center', 
+ax.text(10.5, 4.15, "Interpretation", ha='center', va='center', 
+        fontsize=11, fontweight='bold', color=COLORS['text'])
+ax.text(10.5, 3.8, "PaLiGemma: −16.1%", ha='center', va='center', 
         fontsize=9, color='#C62828')
-ax.text(10.5, 3.65, "Qwen/Llama: +4-5%", ha='center', va='center', 
+ax.text(10.5, 3.5, "Qwen/Llama: +4-5%", ha='center', va='center',
         fontsize=9, color='#2E7D32')
 
 # Arrows
@@ -224,7 +226,7 @@ cross_box = FancyBboxPatch((0.3, 0.3), 13.4, 1.4,
                            edgecolor=COLORS['crosslingual_border'], linewidth=2)
 ax.add_patch(cross_box)
 
-ax.text(7, 1.3, "Cross-Lingual Analysis: 2×2 Causal Ablation", 
+ax.text(7, 1.3, "Cross-Lingual Causal Transfer Test", 
         ha='center', va='center', fontsize=12, fontweight='bold', color=COLORS['text'])
 
 # Sub-boxes for cross-lingual

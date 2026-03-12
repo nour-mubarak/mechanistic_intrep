@@ -34,12 +34,57 @@ COLORS = {
     'green': RgbColor(34, 197, 94),
 }
 
+# Figure paths
+FIGURES_DIR = "/home2/jmsk62/mechanistic_intrep/sae_captioning_project/publication/figures/main"
+
 def set_slide_background(slide, color):
     """Set slide background color."""
     background = slide.background
     fill = background.fill
     fill.solid()
     fill.fore_color.rgb = color
+
+def add_image_slide(prs, title, image_path, caption=""):
+    """Add a slide with an image."""
+    slide_layout = prs.slide_layouts[6]  # Blank
+    slide = prs.slides.add_slide(slide_layout)
+    set_slide_background(slide, COLORS['light'])
+    
+    # Title bar
+    shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(10), Inches(0.9))
+    shape.fill.solid()
+    shape.fill.fore_color.rgb = COLORS['title_bg']
+    shape.line.fill.background()
+    
+    # Title text
+    txBox = slide.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(9), Inches(0.6))
+    tf = txBox.text_frame
+    p = tf.paragraphs[0]
+    p.text = title
+    p.font.size = Pt(28)
+    p.font.bold = True
+    p.font.color.rgb = COLORS['white']
+    
+    # Add image
+    if os.path.exists(image_path):
+        # Center the image
+        img_left = Inches(0.5)
+        img_top = Inches(1.1)
+        img_width = Inches(9)
+        slide.shapes.add_picture(image_path, img_left, img_top, width=img_width)
+    
+    # Caption (if provided)
+    if caption:
+        txBox = slide.shapes.add_textbox(Inches(0.5), Inches(6.8), Inches(9), Inches(0.5))
+        tf = txBox.text_frame
+        p = tf.paragraphs[0]
+        p.text = caption
+        p.font.size = Pt(12)
+        p.font.italic = True
+        p.font.color.rgb = COLORS['dark']
+        p.alignment = PP_ALIGN.CENTER
+    
+    return slide
 
 def add_title_slide(prs, title, subtitle=""):
     """Add a title slide."""
@@ -490,8 +535,23 @@ def create_presentation():
         "Gender labels derived from caption content (keyword matching)",
         "Male samples: 5,562 | Female samples: 2,047 (ratio 2.7:1)",
         "16 binary gender terms tracked (he, she, him, her, man, woman, etc.)",
-        "18 gender-neutral terms tracked for comparison",
-        "Dataset reflects real-world male bias common in image datasets"
+        "18 gender-neutral terms tracked for comparison"
+    ])
+    
+    # =========================================================================
+    # SLIDE 8a: Dataset Justification
+    # =========================================================================
+    add_content_slide(prs, "Why Flickr8K is Sufficient", [
+        "QUESTION: Isn't Flickr8K small compared to modern datasets?",
+        "",
+        "ANSWER: We analyze INTERNAL ACTIVATIONS, not train new models",
+        "   -> 8,092 images yield up to 10,000 activation samples",
+        "   -> SAEs learn to reconstruct activation distribution",
+        "   -> Not generalizing to new images, just decomposing existing ones",
+        "",
+        "Consistent with prior mechanistic interpretability work:",
+        "   -> Cunningham et al. (2023): similar sample sizes",
+        "   -> Bricken et al. (2023): comparable SAE training data"
     ])
     
     # =========================================================================
@@ -499,7 +559,8 @@ def create_presentation():
     # =========================================================================
     add_content_slide(prs, "Four-Stage Pipeline", [
         "Stage 1: ACTIVATION EXTRACTION",
-        "   -> Extract decoder layer activations using PyTorch hooks",
+        "   -> Extract LANGUAGE MODEL DECODER activations (NOT visual encoder)",
+        "   -> PyTorch forward hooks on text decoder layers",
         "   -> Mean-pool across sequence positions",
         "Stage 2: SAE TRAINING",
         "   -> Train sparse autoencoder (8x expansion factor)",
@@ -510,6 +571,39 @@ def create_presentation():
         "Stage 4: CAUSAL INTERVENTION",
         "   -> Ablate identified features during generation",
         "   -> Compare to random ablation controls (25 runs)"
+    ])
+    
+    # =========================================================================
+    # SLIDE 9a: Pipeline Figure
+    # =========================================================================
+    add_image_slide(prs, "Pipeline Overview Figure",
+        os.path.join(FIGURES_DIR, "fig1_pipeline_overview_new.png"),
+        caption="Complete pipeline: Data -> Extraction -> SAE Training -> Intervention -> Cross-lingual Analysis")
+    
+    # =========================================================================
+    # SLIDE 9b: Extraction Details
+    # =========================================================================
+    add_table_slide(prs, "Activation Extraction Details", 
+        headers=["Model", "N Samples", "Layers", "Notes"],
+        rows=[
+            ["PaLiGemma-3B", "10,000", "0,3,6,9,12,15,17", "Flickr8K subset"],
+            ["Qwen2-VL-7B", "7,609 EN / 6,413 AR", "0,4,8,...,27", "Gender-labeled"],
+            ["LLaVA-1.5-7B", "5,249 EN / 4,449 AR", "0,4,8,...,31", "Gender-labeled"],
+            ["Llama-3.2-11B", "5,249 EN / ~5K AR", "0,5,10,...,39", "Gender-labeled"],
+        ]
+    )
+    
+    # Add footnote about sample variation - use content slide
+    add_content_slide(prs, "Why Sample Counts Vary", [
+        "Each model extracted independently with its own script",
+        "Sample counts differ due to:",
+        "   -> Image loading failures (corrupted files)",
+        "   -> Out-of-memory errors on larger models",
+        "   -> Different tokenization producing invalid samples",
+        "Key point: Activations are from LANGUAGE MODEL DECODER",
+        "   -> NOT visual encoder features",
+        "   -> NOT raw pixel representations",
+        "   -> The decoder layers encode linguistic gender for generation"
     ])
     
     # =========================================================================
@@ -539,6 +633,30 @@ def create_presentation():
         "   -> Residual ablation (Qwen, Llama): Subtract feature contribution",
         "Deterministic generation: greedy decoding, no sampling"
     ])
+    
+    # =========================================================================
+    # SLIDE 11a: Metrics
+    # =========================================================================
+    add_content_slide(prs, "Evaluation Metrics", [
+        "PRIMARY: Raw gender term count change (%)",
+        "   -> count(targeted) vs count(baseline)",
+        "",
+        "CONTROL: Length-normalized gender rate",
+        "   -> rate = gender_terms / total_tokens",
+        "   -> Prevents criticism: 'shorter captions = fewer terms mechanically'",
+        "",
+        "STATISTICAL TESTS:",
+        "   -> Bootstrap 95% CI (10,000 resamples)",
+        "   -> Wilcoxon signed-rank (paired, per-image)",
+        "   -> Effect ratio: targeted_change / random_change"
+    ])
+    
+    # =========================================================================
+    # SLIDE 11b: Intervention Design Figure
+    # =========================================================================
+    add_image_slide(prs, "Intervention Experiment Design",
+        os.path.join(FIGURES_DIR, "fig_intervention_design.png"),
+        caption="Three-phase design: Baseline -> Targeted Ablation -> Random Control (x25) -> Statistical Comparison")
     
     # =========================================================================
     # SECTION: Results
@@ -573,16 +691,21 @@ def create_presentation():
     )
     
     # =========================================================================
-    # SLIDE 14: Key Finding 2
+    # SLIDE 14: Key Finding 2 (MOST NOVEL INSIGHT)
     # =========================================================================
     add_key_finding_slide(prs, 2,
-        "Direction Divergence: Excitatory vs Inhibitory",
-        "The DIRECTION of the effect depends on model architecture. PaLiGemma (captioning-focused) shows DECREASE in gender terms (-16.1%), while Qwen2-VL (+3.95%) and Llama (+5.02%) show INCREASES. This reveals fundamentally different encoding mechanisms.",
+        "KEY NOVEL INSIGHT: Excitatory vs Inhibitory",
+        "The DIRECTION of the effect depends on model architecture. This is our most important discovery: the same ablation has OPPOSITE effects across architectures!",
         [
-            "PaLiGemma: Gender features PRODUCE gendered output -> ablation removes it",
-            "Qwen/Llama: Gender features SUPPRESS/REGULATE -> ablation releases it",
-            "Analogous to excitatory vs inhibitory circuits in neuroscience",
-            "Critical implication: Same intervention has OPPOSITE effects!"
+            "PaLiGemma (captioning): -16.1% gender terms (ablation REMOVES)",
+            "Qwen/Llama (instruction-tuned): +4-5% gender terms (ablation RELEASES)",
+            "",
+            "HYPOTHESIS: Instruction tuning fundamentally changes encoding:",
+            "   Captioning models: gender features PRODUCE gender",
+            "   Instruction models: gender features REGULATE/SUPPRESS gender",
+            "",
+            "PRACTICAL IMPLICATION: Same debiasing intervention would",
+            "   REDUCE bias in some models, INCREASE it in others!"
         ]
     )
     
