@@ -1017,6 +1017,81 @@ def create_presentation():
         os.path.join(FIGURES_DIR, "fig1_cross_model_intervention.png"),
         caption="Targeted ablation shows consistent specificity across architectures, but direction differs by model type",
         subtitle="Error bars: 25 random control runs; dotted line: baseline")
+
+    # Qualitative Examples (English)
+    add_content_slide(prs, "Cherry-Picked Qualitative Examples (EN): Before → After",
+        [
+            "PaLiGemma (image 2312984882):",
+            "  Before: 'A group of men ... A man ... A man ...'",
+            "  After : 'A group of musicians ...' (explicit gender nouns removed)",
+            "",
+            "Qwen2-VL (image 2920305300):",
+            "  Before: 'The image depicts a cyclist riding a bicycle ...'",
+            "  After : 'The image depicts a man riding a bicycle ...' (neutral → male)",
+            "",
+            "Llama-3.2-Vision (image 3009383694):",
+            "  Before: 'The image depicts a person in mid-air ...'",
+            "  After : 'The image shows a man bungee jumping ...' (neutral → male)",
+            "",
+            "Random controls for these cases were typically closer to baseline wording"
+        ],
+        footer_note="Qualitative examples align with the model-specific direction effects from quantitative results"
+    )
+
+    # Qualitative Examples (Arabic)
+    add_content_slide(prs, "Arabic Qualitative Evidence (Where Available)",
+        [
+            "From cross-lingual ablation outputs (EN→AR / AR→AR conditions):",
+            "",
+            "Qwen2-VL AR→AR sample caption (transliteration):",
+            "  Before: 'fi al-sura, nara la'iba tenis ...' (female tennis player)",
+            "  After : 'fi al-sura, nara imra'a ...' (woman)",
+            "",
+            "Arabic per-term shifts (Qwen2-VL, AR→AR):",
+            "  rajul (man): 68 → 29",
+            "  ab (father): 75 → 84",
+            "  umm (mother): 34 → 41",
+            "  akh (brother): 34 → 45",
+            "",
+            "Interpretation: targeted ablation changes Arabic lexical gender realization, not only total counts"
+        ],
+        footer_note="Arabic examples are included from saved cross-lingual outputs where full paired captions are available"
+    )
+
+    # Clean Qualitative Table (Cross-Lingual Format)
+    add_table_slide(prs, "Qualitative Examples (Clean Cross-Lingual Table)",
+        ["Image Context", "Ground Truth", "EN→EN", "EN→AR", "AR→EN", "AR→AR", "Bias Type"],
+        [
+            [
+                "Tennis player",
+                "Woman athlete",
+                "'female tennis player...'",
+                "'la'iba ...' → 'imra'a ...'",
+                "'woman playing tennis...'",
+                "'nara imra'a tal'ab ...'",
+                "Lexical shift"
+            ],
+            [
+                "Wheelchair street scene",
+                "Person in wheelchair",
+                "'person ...' → 'man ...'",
+                "More explicit 'rajul' usage",
+                "'person ...' → 'man ...'",
+                "Gendered noun substitutions",
+                "Gender re-labeling"
+            ],
+            [
+                "Cyclist in forest",
+                "Cyclist (neutral role)",
+                "'cyclist ...' → 'man ...'",
+                "Gender-marked Arabic nouns",
+                "'cyclist ...' → 'man ...'",
+                "Role wording becomes gendered",
+                "Role→gender substitution"
+            ]
+        ],
+        subtitle="Configuration format: [Prompt Language] → [Caption Language]; Arabic shown as transliteration"
+    )
     
     # Key Finding 1
     add_key_finding_slide(prs, 1,

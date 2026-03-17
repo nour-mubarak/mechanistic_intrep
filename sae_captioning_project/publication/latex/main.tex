@@ -387,6 +387,30 @@ Table~\ref{tab:main_results} presents the core findings across all three models 
 All three models show statistically significant targeted effects: the bootstrap 95\% CI on the paired difference (targeted $-$ random) excludes zero in every case.
 Effect specificity ranges from 4.5 to 7.3 percentage points, and effect ratios range from 1.8$\times$ to 7.1$\times$.
 
+\paragraph{Qualitative cherry-picked examples (clean cross-lingual view).}
+To provide an organized qualitative view matching the cross-lingual setup, Table~\ref{tab:qual_examples} presents compact examples across configuration formats ([prompt language]$\rightarrow$[caption language]).
+Arabic outputs are included as transliterations for readability in this draft.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Cherry-picked qualitative examples under targeted intervention (\qwen{}). Columns follow configuration format [Prompt Language]$\rightarrow$[Caption Language]. AR outputs shown in transliteration.}
+\label{tab:qual_examples}
+\begin{tabular}{@{}p{2.2cm}p{2.2cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{1.8cm}@{}}
+\toprule
+\textbf{Image context} & \textbf{Ground truth (short)} & \textbf{EN$\rightarrow$EN} & \textbf{EN$\rightarrow$AR} & \textbf{AR$\rightarrow$EN} & \textbf{AR$\rightarrow$AR} & \textbf{Bias type} \\
+\midrule
+Tennis player & woman athlete & ``female tennis player ...'' & ``la'ibat ...'' $\rightarrow$ ``imra'a ...'' & ``woman playing tennis ...'' & ``nara imra'a tal'ab ...'' & Lexical shift \\
+Street wheelchair scene & neutral person description & ``person in wheelchair ...'' $\rightarrow$ ``man in wheelchair ...'' & ``rajul ...'' appears more explicitly & ``person ...'' $\rightarrow$ ``man ...'' & ``rajul/imra'a'' distribution shifts & Gender re-labeling \\
+Cyclist in forest & neutral role (cyclist) & ``cyclist ...'' $\rightarrow$ ``man ...'' & ``rakib darraja ...'' with gendered nouns & ``cyclist ...'' $\rightarrow$ ``man ...'' & gendered noun substitutions & Role-to-gender substitution \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Arabic per-term evidence is also consistent with intervention impact where available.
+For example, in \qwen{} AR$\rightarrow$AR, the Arabic masculine noun transliterated as \emph{rajul} (``man'') changes from 68 to 29 counts under targeted ablation, while feminine/kinship terms (e.g., \emph{ab}, \emph{umm}, \emph{akh}) shift in the opposite direction.
+This supports the claim that targeted features influence lexical gender realization, not only total counts.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig1_cross_model_intervention.pdf}
