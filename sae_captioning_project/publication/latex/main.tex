@@ -232,13 +232,44 @@ Gender-associated features are identified by \textbf{differential activation ana
 \subsection{Causal Intervention}
 \label{sec:intervention}
 
+Our causal question is: \emph{do SAE-identified gender features actually cause gendered language, or are they only correlated with it?}
+To answer this, we use a treatment-vs-control design with matched intervention strength.
+
 The intervention experiment has three phases:
 
 \begin{enumerate}
-    \item \textbf{Baseline:} Generate captions for 500 images (seed=42) with no modification
-    \item \textbf{Targeted ablation:} Register a forward hook that zeros the contribution of the $k=100$ gender features during generation
-    \item \textbf{Random control:} Repeat 25 times with randomly selected features (same $k$)
+    \item \textbf{Baseline (no intervention):} Generate captions for 500 images (seed=42) with the original model.
+    \item \textbf{Targeted ablation (treatment):} Register a forward hook that removes the contribution of the top-$k$ gender features ($k=100$) identified by differential activation analysis.
+    \item \textbf{Random ablation (control):} Repeat the same intervention with randomly selected $k=100$ features for 25 runs.
 \end{enumerate}
+
+\paragraph{Targeted feature selection (offline).}
+For each SAE feature $j$, we compute:
+\begin{equation}
+\Delta_j = |\bar{a}_j^{\text{male}} - \bar{a}_j^{\text{female}}|
+\end{equation}
+and select the top-$k$ features by $\Delta_j$ as the targeted gender set.
+This yields a mechanistically motivated treatment set rather than arbitrary indices.
+
+\paragraph{Why random ablation is necessary.}
+Targeted ablation alone is insufficient: ablating \emph{any} 100 features might change output.
+Random ablation defines the null distribution for non-specific feature damage.
+Formally, we test:
+\begin{itemize}
+    \item $H_0$: ablating targeted gender features has the same effect as ablating random features of equal size.
+    \item $H_1$: targeted ablation produces a different (and larger-magnitude) effect than random ablation.
+\end{itemize}
+Using 25 random runs estimates the random-effect distribution (mean$\pm$std) and enables robust targeted-vs-random inference.
+
+\paragraph{Targeted-vs-random effect comparison.}
+Let $\delta^{\text{targ}}$ be the targeted change and $\delta_r^{\text{rand}}$ the change in random run $r$.
+We compute specificity and ratio as:
+\begin{align}
+\text{Specificity} &= |\delta^{\text{targ}}| - |\mathbb{E}_r[\delta_r^{\text{rand}}]| \\
+\text{Ratio} &= \frac{|\delta^{\text{targ}}|}{|\mathbb{E}_r[\delta_r^{\text{rand}}]|}
+\end{align}
+and report a bootstrap CI on the paired difference (targeted $-$ random).
+If this CI excludes zero, targeted features are causally specific (not random noise).
 
 \paragraph{Ablation hook.}
 We implement two hook variants:
@@ -266,6 +297,29 @@ Importantly, within each model, the same hook variant is used for both targeted 
 
 \paragraph{Generation.}
 All captions are generated with deterministic greedy decoding (\texttt{do\_sample=False}, \texttt{num\_beams=1}, \texttt{max\_new\_tokens=64}) to eliminate sampling variance.
+
+\paragraph{Implementation: SAE-based feature ablation hook.}
+We implement the intervention via a PyTorch forward hook registered on the target decoder layer.
+The hook intercepts activations, applies the SAE encoder-decoder to compute feature activations, zeros specified features, and returns modified activations:
+
+\begin{quote}
+\small
+\textbf{Algorithm:} SAE Feature Ablation Hook \\
+\textit{Input:} Hidden states $\mathbf{x} \in \mathbb{R}^{B \times T \times d}$, feature indices $\mathcal{A}$ \\
+\textit{Output:} Modified activations $\mathbf{x}_{\text{mod}} \in \mathbb{R}^{B \times T \times d}$ \\
+\begin{enumerate}
+\item Flatten: $\mathbf{x}_{\text{flat}} \gets \text{reshape}(\mathbf{x}, [-1, d])$ \quad [$BT \times d$]
+\item Encode: $\mathbf{h}_{\text{pre}} \gets \mathbf{x}_{\text{flat}} \mathbf{W}_{\text{enc}}^T + \mathbf{b}_{\text{enc}}$ \quad [$BT \times n_f$]
+\item Sparsify: $\mathbf{h} \gets \max(0, \mathbf{h}_{\text{pre}})$ (ReLU)
+\item Ablate: $\mathbf{h}[:, \mathcal{A}] \gets 0$ \quad [\emph{zero specified features}]
+\item Decode: $\mathbf{x}_{\text{mod,flat}} \gets \mathbf{h} \mathbf{W}_{\text{dec}}^T + \mathbf{b}_{\text{dec}}$ \quad [$BT \times d$]
+\item Reshape: $\mathbf{x}_{\text{mod}} \gets \text{reshape}(\mathbf{x}_{\text{mod,flat}}, [B, T, d])$
+\item \textbf{Return} $\mathbf{x}_{\text{mod}}$
+\end{enumerate}
+\end{quote}
+
+The hook is registered once before generating the 500-image test set and applies identically to both targeted and random conditions, ensuring the only difference is the feature set $\mathcal{A}$.
+This guarantees fair comparison: any effect size difference must arise from the identity of features, not the ablation mechanism itself.
 
 \begin{figure}[t]
 \centering

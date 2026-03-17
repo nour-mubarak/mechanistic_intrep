@@ -887,7 +887,90 @@ def create_presentation():
         ("   Wilcoxon signed-rank test (non-parametric, paired)", 1),
         ("   Effect ratio: targeted_change / random_change", 1)
     ])
-    
+
+    # Targeted vs random: core causal logic
+    add_content_slide(prs, "Targeted vs Random Ablation: Core Causal Logic", [
+        "Core question: Are SAE gender features CAUSAL or merely correlated?",
+        "",
+        "Targeted-only evidence is insufficient:",
+        ("   Ablating any 100 features might also change output", 1),
+        "",
+        "Treatment vs control design:",
+        ("   TREATMENT = targeted ablation of top-100 gender features", 1),
+        ("   CONTROL = random ablation of 100 features (25 runs)", 1),
+        "",
+        "Formal hypotheses:",
+        ("   H0: targeted effect ≈ random effect", 1),
+        ("   H1: targeted effect differs from random (specific mechanism)", 1),
+        "",
+        "Causal claim is supported only if targeted differs significantly from random"
+    ])
+
+    # Targeted ablation step-by-step
+    add_content_slide(prs, "Targeted Ablation: Step-by-Step", [
+        "1) Offline feature identification",
+        ("   Compute Δ_j = |mean_male(j) - mean_female(j)| for each feature j", 1),
+        ("   Rank features by Δ_j and select top k=100", 1),
+        "",
+        "2) Baseline generation (no hook)",
+        ("   Generate captions for 500 images", 1),
+        ("   Count gender terms per image and in total", 1),
+        "",
+        "3) Targeted intervention generation",
+        ("   Register forward hook at selected decoder layer", 1),
+        ("   Remove contribution of the selected top-100 features", 1),
+        ("   Generate captions with modified activations", 1),
+        ("   Compare targeted counts vs baseline counts", 1)
+    ])
+
+    # Random ablation step-by-step
+    add_content_slide(prs, "Random Ablation (Control): Step-by-Step", [
+        "For each run r = 1...25:",
+        ("   Randomly sample k=100 feature indices", 1),
+        ("   Apply the same hook structure and generation settings", 1),
+        ("   Generate 500 captions and count gender terms", 1),
+        "",
+        "Aggregate across runs:",
+        ("   Random mean effect (μ) and standard deviation (σ)", 1),
+        ("   Empirical null distribution for non-specific ablation", 1),
+        "",
+        "Why 25 runs?",
+        ("   Single random run can be lucky/unlucky", 1),
+        ("   25 runs stabilize μ±σ and enable robust comparison", 1),
+        ("   Lets us test whether targeted lies outside random distribution", 1)
+    ])
+
+    # Quantitative comparison slide
+    add_table_slide(prs, "Targeted vs Random: Quantitative Specificity",
+        ["Model", "Targeted", "Random mean ± std", "Specificity", "Ratio", "Interpretation"],
+        [
+            ["PaLiGemma", "-16.1%", "-8.7% ± 3.9%", "7.3 pp", "1.84×", "Targeted > random"],
+            ["Qwen2-VL", "+3.95%", "-0.56% ± 1.14%", "4.51 pp", "7.1×", "Opposite direction"],
+            ["Llama", "+5.02%", "-0.84% ± 0.76%", "5.85 pp", "6.0×", "Opposite direction"]
+        ],
+        subtitle="Bootstrap CI(targeted-random) excludes zero for all models → causal specificity"
+    )
+
+    # Forward Hook Implementation
+    add_content_slide(prs, "Implementation: SAE-based Forward Hook",
+        [
+            "PyTorch hook registered on target decoder layer",
+            "Intercepts hidden activations, applies SAE transformation, returns modified activations",
+            "",
+            "Forward Hook Algorithm:",
+            "  1. Flatten batch activations: [B, T, d_model] → [B·T, d_model]",
+            "  2. Encode through SAE: x_flat @ W_enc^T + b_enc → [B·T, n_features]",
+            "  3. Apply ReLU: h = max(0, encoded)",
+            "  4. ABLATE: h[:, target_features] ← 0 (zero out specified features)",
+            "  5. Decode back: h @ W_dec^T + b_dec → [B·T, d_model]",
+            "  6. Reshape: [B·T, d_model] → [B, T, d_model]",
+            "",
+            "Same hook used for BOTH targeted and random → only difference is feature set",
+            "Greedy decoding (no sampling) to eliminate sampling variance"
+        ],
+        footer_note="Fair comparison: effect differences must arise from feature identity, not mechanism"
+    )
+
     # Hook Methods
     add_two_column_slide(prs, "Ablation Hook Methods: Two Approaches",
         "Full Reconstruction (PaLiGemma)",
