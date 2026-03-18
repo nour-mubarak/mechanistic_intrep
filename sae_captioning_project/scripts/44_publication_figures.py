@@ -375,6 +375,138 @@ def create_sae_metrics_table():
     print("✓ Appendix: SAE metrics table saved")
 
 
+def create_k_sensitivity_audit():
+    """
+    Create an audit figure/report for whether k=100 is sufficient and whether
+    larger-k evidence is valid in stored experiment files.
+    """
+    intervention_path = RESULTS_DIR / 'intervention_experiment/intervention_results.json'
+    random_matched_path = RESULTS_DIR / 'intervention_experiment/random_ablation_matched_baseline.json'
+
+    if not intervention_path.exists():
+        print("Could not find intervention_results.json for k-sensitivity audit")
+        return
+
+    with open(intervention_path) as f:
+        intervention = json.load(f)
+
+    random_matched = None
+    if random_matched_path.exists():
+        with open(random_matched_path) as f:
+            random_matched = json.load(f)
+
+    baseline_stats = intervention.get('baseline', {}).get('gender_stats', {})
+    baseline_total = baseline_stats.get('male_terms', 0) + baseline_stats.get('female_terms', 0)
+
+    k_rows = []
+    all_feature_sets = []
+
+    for k_key, abl in intervention.get('ablations', {}).items():
+        try:
+            k_nominal = int(str(k_key).replace('k=', ''))
+        except Exception:
+            continue
+
+        gs = abl.get('gender_stats', {})
+        targeted_total = gs.get('male_terms', 0) + gs.get('female_terms', 0)
+        targeted_change = ((targeted_total - baseline_total) / max(baseline_total, 1)) * 100
+
+        feats = abl.get('ablated_features', [])
+        feat_set = set(feats)
+        all_feature_sets.append((k_nominal, feat_set))
+
+        k_rows.append({
+            'k_nominal': k_nominal,
+            'n_ablated_listed': len(feats),
+            'n_ablated_unique': len(feat_set),
+            'targeted_total': targeted_total,
+            'targeted_change_pct': targeted_change,
+        })
+
+    if not k_rows:
+        print("No ablation rows found for k-sensitivity audit")
+        return
+
+    k_rows = sorted(k_rows, key=lambda x: x['k_nominal'])
+
+    # Determine whether nominal-k runs are truly distinct
+    identical_feature_sets = True
+    if len(all_feature_sets) > 1:
+        ref = all_feature_sets[0][1]
+        for _, fs in all_feature_sets[1:]:
+            if fs != ref:
+                identical_feature_sets = False
+                break
+
+    # Figure: nominal k vs targeted change, annotated by effective unique features
+    ks = [r['k_nominal'] for r in k_rows]
+    changes = [r['targeted_change_pct'] for r in k_rows]
+    unique_counts = [r['n_ablated_unique'] for r in k_rows]
+
+    fig, ax = plt.subplots(figsize=(8.2, 4.8))
+    bars = ax.bar(range(len(ks)), changes, color='#3C5488', alpha=0.85)
+    ax.axhline(0, color='black', linewidth=1)
+    ax.set_xticks(range(len(ks)))
+    ax.set_xticklabels([f"k={k}" for k in ks])
+    ax.set_ylabel('Targeted change from baseline (%)')
+    ax.set_title('k-Sensitivity Audit (Stored PaLiGemma Intervention File)')
+
+    for i, (bar, chg, nuniq) in enumerate(zip(bars, changes, unique_counts)):
+        ax.annotate(f"{chg:+.1f}%\n(unique={nuniq})",
+                    xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()),
+                    xytext=(0, 4 if chg >= 0 else -32),
+                    textcoords='offset points', ha='center', va='bottom' if chg >= 0 else 'top', fontsize=9)
+
+    note = "All nominal-k runs use identical feature sets" if identical_feature_sets else "Nominal-k runs use different feature sets"
+    ax.text(0.02, 0.02, note, transform=ax.transAxes, fontsize=9,
+            bbox=dict(facecolor='white', alpha=0.8, edgecolor='gray'))
+
+    plt.tight_layout()
+    plt.savefig(OUTPUT_DIR / 'figA2_k_sensitivity_audit.pdf')
+    plt.savefig(OUTPUT_DIR / 'figA2_k_sensitivity_audit.png')
+    plt.close()
+
+    # Evidence report
+    report_lines = []
+    report_lines.append("# k-Sensitivity Evidence Audit\n")
+    report_lines.append("## Files used\n")
+    report_lines.append(f"- {intervention_path}\n")
+    if random_matched is not None:
+        report_lines.append(f"- {random_matched_path}\n")
+
+    report_lines.append("\n## Observed targeted ablation rows\n")
+    report_lines.append("| Nominal k | Listed features | Unique features | Targeted change (%) |")
+    report_lines.append("|---:|---:|---:|---:|")
+    for r in k_rows:
+        report_lines.append(
+            f"| {r['k_nominal']} | {r['n_ablated_listed']} | {r['n_ablated_unique']} | {r['targeted_change_pct']:+.2f} |"
+        )
+
+    report_lines.append("\n## Validity checks\n")
+    report_lines.append(f"- Baseline total gender terms: **{baseline_total}**")
+    report_lines.append(f"- Feature sets identical across nominal k rows: **{identical_feature_sets}**")
+    if identical_feature_sets:
+        report_lines.append("- **Conclusion:** Stored k=200/500/1000 rows are not a valid k-sensitivity sweep (effective k is constant).")
+
+    if random_matched is not None:
+        s = random_matched.get('summary', {})
+        report_lines.append("\n## Random-control evidence at k=100 (matched baseline file)\n")
+        report_lines.append(f"- Targeted change: **{s.get('targeted_change_pct', float('nan')):+.2f}%**")
+        report_lines.append(f"- Random mean change: **{s.get('random_change_mean_pct', float('nan')):+.2f}%**")
+        report_lines.append(f"- Effect specificity (targeted - random): **{s.get('effect_specificity', float('nan')):+.2f} pp**")
+        report_lines.append(f"- Random SD: **{s.get('random_change_std_pct', float('nan')):.2f}%**")
+
+    report_lines.append("\n## Publication-safe claim\n")
+    report_lines.append("- Supported: fixed-k (k=100) targeted-vs-random causal specificity.")
+    report_lines.append("- Not yet supported: k-optimality claim from current stored sweep files.")
+
+    with open(OUTPUT_DIR / 'k_sensitivity_audit.md', 'w') as f:
+        f.write("\n".join(report_lines) + "\n")
+
+    print("✓ Figure A2: k-sensitivity audit saved")
+    print("✓ Appendix: k_sensitivity_audit.md saved")
+
+
 def create_paper_structure():
     """
     Create markdown file outlining paper figure/table structure.
@@ -411,6 +543,11 @@ def create_paper_structure():
 ### Figure A1: CLBAS Heatmap by Layer
 - **File:** `figA1_clbas_heatmap.pdf`
 - **Message:** CLBAS scores are consistently low across all layers
+
+### Figure A2: k-Sensitivity Audit
+- **File:** `figA2_k_sensitivity_audit.pdf`
+- **Message:** Audits whether stored nominal-k intervention rows represent true k-sweep evidence
+- **Companion report:** `k_sensitivity_audit.md`
 
 ### Table A1: Full SAE Quality Metrics
 - **File:** `appendix_sae_metrics.md`
@@ -453,6 +590,7 @@ def main():
     # Generate appendix figures
     print("\n--- Appendix Figures ---")
     fig4_clbas_heatmap(data)
+    create_k_sensitivity_audit()
     create_sae_metrics_table()
     
     # Create paper structure guide
