@@ -9,8 +9,17 @@
 \documentclass[11pt,a4paper]{article}
 
 % ---- Packages ----
+\usepackage{iftex}
+\ifPDFTeX
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\else
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{arabic}
+\newfontfamily\arabicfont[Script=Arabic]{DejaVu Sans}
+\fi
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage[round]{natbib}  % For \citep{} and \citet{}
@@ -388,21 +397,38 @@ All three models show statistically significant targeted effects: the bootstrap 
 Effect specificity ranges from 4.5 to 7.3 percentage points, and effect ratios range from 1.8$\times$ to 7.1$\times$.
 
 \paragraph{Qualitative cherry-picked examples (clean cross-lingual view).}
-To provide an organized qualitative view matching the cross-lingual setup, Table~\ref{tab:qual_examples} presents compact examples across configuration formats ([prompt language]$\rightarrow$[caption language]).
-Arabic outputs are included as transliterations for readability in this draft.
+To provide an organized qualitative view matching the cross-lingual setup, Table~\ref{tab:qual_examples} presents compact examples across configuration formats ([prompt language]$\rightarrow$[caption language]) with the actual input images.
 
 \begin{table*}[t]
 \centering
 \scriptsize
-\caption{Cherry-picked qualitative examples under targeted intervention (\qwen{}). Columns follow configuration format [Prompt Language]$\rightarrow$[Caption Language]. AR outputs shown in transliteration.}
+\caption{Cherry-picked qualitative examples under targeted intervention (\qwen{}). Each row shows the input image alongside captions across configuration formats [Prompt Lang.]$\rightarrow$[Caption Lang.]. Arrows ($\rightarrow$) denote baseline $\rightarrow$ targeted caption shift.}
 \label{tab:qual_examples}
-\begin{tabular}{@{}p{2.2cm}p{2.2cm}p{2.5cm}p{2.5cm}p{2.5cm}p{2.5cm}p{1.8cm}@{}}
+\begin{tabular}{@{}p{1.7cm}p{1.9cm}p{2.4cm}p{2.4cm}p{2.4cm}p{2.4cm}p{1.6cm}@{}}
 \toprule
-\textbf{Image context} & \textbf{Ground truth (short)} & \textbf{EN$\rightarrow$EN} & \textbf{EN$\rightarrow$AR} & \textbf{AR$\rightarrow$EN} & \textbf{AR$\rightarrow$AR} & \textbf{Bias type} \\
+\textbf{Image} & \textbf{Ground truth} & \textbf{EN$\rightarrow$EN} & \textbf{EN$\rightarrow$AR} & \textbf{AR$\rightarrow$EN} & \textbf{AR$\rightarrow$AR} & \textbf{Bias type} \\
 \midrule
-Tennis player & woman athlete & ``female tennis player ...'' & ``la'ibat ...'' $\rightarrow$ ``imra'a ...'' & ``woman playing tennis ...'' & ``nara imra'a tal'ab ...'' & Lexical shift \\
-Street wheelchair scene & neutral person description & ``person in wheelchair ...'' $\rightarrow$ ``man in wheelchair ...'' & ``rajul ...'' appears more explicitly & ``person ...'' $\rightarrow$ ``man ...'' & ``rajul/imra'a'' distribution shifts & Gender re-labeling \\
-Cyclist in forest & neutral role (cyclist) & ``cyclist ...'' $\rightarrow$ ``man ...'' & ``rakib darraja ...'' with gendered nouns & ``cyclist ...'' $\rightarrow$ ``man ...'' & gendered noun substitutions & Role-to-gender substitution \\
+\includegraphics[width=1.6cm,height=1.6cm,keepaspectratio]{img_tennis.jpg} &
+woman athlete (grass court) &
+``female tennis player \ldots'' $\rightarrow$ ``woman playing tennis \ldots'' &
+``لاعبة تنس \ldots'' $\rightarrow$ ``امرأة \ldots'' &
+``female tennis player \ldots'' $\rightarrow$ ``woman playing tennis \ldots'' &
+``في الصورة نرى امرأة \ldots'' &
+Lexical shift \\[4pt]
+\includegraphics[width=1.6cm,height=1.6cm,keepaspectratio]{img_wheelchair.jpg} &
+person in wheelchair &
+``person in wheelchair \ldots'' $\rightarrow$ ``man in wheelchair \ldots'' &
+``رجل \ldots'' (explicit gendering) &
+``person \ldots'' $\rightarrow$ ``man \ldots'' &
+distribution shifts between ``رجل/امرأة'' &
+Gender re-labeling \\[4pt]
+\includegraphics[width=1.6cm,height=1.6cm,keepaspectratio]{img_cyclist.jpg} &
+cyclist in forest &
+``cyclist \ldots'' $\rightarrow$ ``man on bicycle \ldots'' &
+``راكب دراجة \ldots'' (gendered nouns) &
+``cyclist \ldots'' $\rightarrow$ ``man \ldots'' &
+gendered noun substitutions in Arabic output &
+Role-to-gender subst. \\
 \bottomrule
 \end{tabular}
 \end{table*}

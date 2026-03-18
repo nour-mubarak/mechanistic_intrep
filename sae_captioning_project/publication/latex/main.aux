@@ -78,64 +78,64 @@
 \newlabel{sec:results}{{6}{8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Main Intervention Results}{8}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Qualitative cherry-picked examples (clean cross-lingual view).}{8}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Cherry-picked qualitative examples under targeted intervention (\textsc  {Qwen2-VL-7B}{}). Columns follow configuration format [Prompt Language]$\rightarrow $[Caption Language]. AR outputs shown in transliteration.}}{9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Cherry-picked qualitative examples under targeted intervention (\textsc  {Qwen2-VL-7B}{}). Each row shows the input image alongside captions across configuration formats [Prompt Lang.]$\rightarrow $[Caption Lang.]. Arrows ($\rightarrow $) denote baseline $\rightarrow $ targeted caption shift.}}{9}\protected@file@percent }
 \newlabel{tab:qual_examples}{{4}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Cross-model intervention comparison. (a)\nobreakspace  {}Percentage change in gender terms under targeted vs.\ random ablation. \textsc  {PaLiGemma-3B}{} shows a decrease ($-16.1\%$); \textsc  {Qwen2-VL-7B}{} and \textsc  {Llama-3.2-11B}{} show increases ($+3.95\%$, $+5.02\%$). (b)\nobreakspace  {}Effect specificity ratios; all models exceed 1$\times $ (dashed line), confirming targeted effects exceed random controls.}}{9}\protected@file@percent }
-\newlabel{fig:cross_model}{{3}{9}}
 \@writefile{toc}{\contentsline {paragraph}{Direction divergence: Excitatory vs.\ inhibitory gender encoding.}{9}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Per-image paired delta analysis. Bootstrap 95\% confidence intervals for (top)\nobreakspace  {}targeted ablation $\Delta $ per model and (bottom)\nobreakspace  {}the difference (targeted $-$ random mean). CIs excluding zero confirm statistical significance at the individual-image level.}}{10}\protected@file@percent }
-\newlabel{fig:paired_deltas}{{4}{10}}
-\@writefile{toc}{\contentsline {paragraph}{Instruction tuning effect.}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Instruction tuning effect.}{9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Cross-model intervention comparison. (a)\nobreakspace  {}Percentage change in gender terms under targeted vs.\ random ablation. \textsc  {PaLiGemma-3B}{} shows a decrease ($-16.1\%$); \textsc  {Qwen2-VL-7B}{} and \textsc  {Llama-3.2-11B}{} show increases ($+3.95\%$, $+5.02\%$). (b)\nobreakspace  {}Effect specificity ratios; all models exceed 1$\times $ (dashed line), confirming targeted effects exceed random controls.}}{10}\protected@file@percent }
+\newlabel{fig:cross_model}{{3}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Layer Specificity (PaLiGemma)}{10}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Layer specificity analysis for \textsc  {PaLiGemma-3B}{}. L9 (mid-layer) carries the entire effect; L17 (penultimate) shows no significant change.}}{10}\protected@file@percent }
 \newlabel{tab:layer_specificity}{{5}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Layer specificity in \textsc  {PaLiGemma-3B}{}. Gender bias features are concentrated at L9 (mid-layer): targeted ablation produces a significant decrease, while L17 (penultimate layer, negative control) shows no effect. Combining both layers yields no additional benefit.}}{11}\protected@file@percent }
-\newlabel{fig:layer_specificity}{{5}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Per-Term Analysis}{11}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top per-term changes under targeted EN$\to $EN ablation. \textsc  {PaLiGemma-3B}{} reduces pronouns; \textsc  {Qwen2-VL-7B}{}/\textsc  {Llama-3.2-11B}{} increase explicit nouns and possessives. Arabic per-term analysis is in the supplementary.}}{11}\protected@file@percent }
-\newlabel{tab:per_term}{{6}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Per-term gender change heatmap under targeted ablation. Each cell shows percentage change from baseline for a specific gender term. \textsc  {PaLiGemma-3B}{} dramatically reduces pronouns (``her'' $-73\%$, ``him'' $-83\%$) while \textsc  {Qwen2-VL-7B}{}/\textsc  {Llama-3.2-11B}{} increase explicit nouns (``man'' $+54\%$, ``him'' $+91\%$). This reveals that ablation reshuffles gendered language rather than uniformly suppressing it.}}{12}\protected@file@percent }
-\newlabel{fig:per_term}{{6}{12}}
-\@writefile{toc}{\contentsline {paragraph}{Arabic terms.}{12}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Arabic per-term changes under AR$\to $AR ablation. Terms shown in transliteration.}}{12}\protected@file@percent }
-\newlabel{tab:arabic_per_term}{{7}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}SAE Quality Metrics}{12}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces SAE quality metrics. \textsc  {PaLiGemma-3B}{} has the highest quality; \textsc  {Llama-3.2-11B}{} (original) has the lowest. Intervention results are significant across this quality range.}}{12}\protected@file@percent }
-\newlabel{tab:sae_quality}{{8}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Jaccard index of top-100 English vs.\ Arabic gender features across transformer layers. All models show near-zero overlap at all layers, confirming that gender bias is encoded through language-specific feature sets.}}{13}\protected@file@percent }
-\newlabel{fig:feature_overlap}{{7}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Cross-Lingual Analysis}{13}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.5.1}Causal Cross-Lingual Ablation}{13}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Cross-lingual causal ablation ($n = 500$ images, 10 random controls). Ablating English features significantly changes English output in \textsc  {Qwen2-VL-7B}{} but has no cross-lingual transfer---causally confirming language-specific encoding.}}{13}\protected@file@percent }
-\newlabel{tab:crosslingual_ablation}{{9}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{14}\protected@file@percent }
-\newlabel{sec:discussion}{{7}{14}}
-\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Architecture hypothesis.}{14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Hook method confound.}{14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Mean-pooling trade-off.}{14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Per-Term Analysis}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Arabic terms.}{10}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Per-image paired delta analysis. Bootstrap 95\% confidence intervals for (top)\nobreakspace  {}targeted ablation $\Delta $ per model and (bottom)\nobreakspace  {}the difference (targeted $-$ random mean). CIs excluding zero confirm statistical significance at the individual-image level.}}{11}\protected@file@percent }
+\newlabel{fig:paired_deltas}{{4}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}SAE Quality Metrics}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Cross-Lingual Analysis}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.5.1}Causal Cross-Lingual Ablation}{11}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Layer specificity in \textsc  {PaLiGemma-3B}{}. Gender bias features are concentrated at L9 (mid-layer): targeted ablation produces a significant decrease, while L17 (penultimate layer, negative control) shows no effect. Combining both layers yields no additional benefit.}}{12}\protected@file@percent }
+\newlabel{fig:layer_specificity}{{5}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{12}\protected@file@percent }
+\newlabel{sec:discussion}{{7}{12}}
+\@writefile{toc}{\contentsline {paragraph}{Excitatory vs.\ inhibitory gender features.}{12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Architecture hypothesis.}{12}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top per-term changes under targeted EN$\to $EN ablation. \textsc  {PaLiGemma-3B}{} reduces pronouns; \textsc  {Qwen2-VL-7B}{}/\textsc  {Llama-3.2-11B}{} increase explicit nouns and possessives. Arabic per-term analysis is in the supplementary.}}{13}\protected@file@percent }
+\newlabel{tab:per_term}{{6}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Arabic per-term changes under AR$\to $AR ablation. Terms shown in transliteration.}}{13}\protected@file@percent }
+\newlabel{tab:arabic_per_term}{{7}{13}}
+\@writefile{toc}{\contentsline {paragraph}{Hook method confound.}{13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-lingual implications.}{13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Mean-pooling trade-off.}{13}\protected@file@percent }
 \citation{karvonen2025saebench}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Per-term gender change heatmap under targeted ablation. Each cell shows percentage change from baseline for a specific gender term. \textsc  {PaLiGemma-3B}{} dramatically reduces pronouns (``her'' $-73\%$, ``him'' $-83\%$) while \textsc  {Qwen2-VL-7B}{}/\textsc  {Llama-3.2-11B}{} increase explicit nouns (``man'' $+54\%$, ``him'' $+91\%$). This reveals that ablation reshuffles gendered language rather than uniformly suppressing it.}}{14}\protected@file@percent }
+\newlabel{fig:per_term}{{6}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces SAE quality metrics. \textsc  {PaLiGemma-3B}{} has the highest quality; \textsc  {Llama-3.2-11B}{} (original) has the lowest. Intervention results are significant across this quality range.}}{14}\protected@file@percent }
+\newlabel{tab:sae_quality}{{8}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{14}\protected@file@percent }
+\newlabel{sec:limitations}{{8}{14}}
 \bibstyle{plainnat}
 \bibcite{bai2023qwen}{{1}{2023}{{Bai et~al.}}{{}}}
 \bibcite{bricken2023monosemanticity}{{2}{2023}{{Bricken et~al.}}{{}}}
 \bibcite{cunningham2023sparse}{{3}{2023}{{Cunningham et~al.}}{{}}}
 \bibcite{gao2024scaling}{{4}{2024}{{Gao et~al.}}{{}}}
-\bibcite{geiger2021causal}{{5}{2021}{{Geiger et~al.}}{{}}}
-\bibcite{hendricks2018women}{{6}{2018}{{Hendricks et~al.}}{{}}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{15}\protected@file@percent }
-\newlabel{sec:limitations}{{8}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Jaccard index of top-100 English vs.\ Arabic gender features across transformer layers. All models show near-zero overlap at all layers, confirming that gender bias is encoded through language-specific feature sets.}}{15}\protected@file@percent }
+\newlabel{fig:feature_overlap}{{7}{15}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Cross-lingual causal ablation ($n = 500$ images, 10 random controls). Ablating English features significantly changes English output in \textsc  {Qwen2-VL-7B}{} but has no cross-lingual transfer---causally confirming language-specific encoding.}}{15}\protected@file@percent }
+\newlabel{tab:crosslingual_ablation}{{9}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{15}\protected@file@percent }
 \newlabel{sec:conclusion}{{9}{15}}
+\bibcite{geiger2021causal}{{5}{2021}{{Geiger et~al.}}{{}}}
+\bibcite{hendricks2018women}{{6}{2018}{{Hendricks et~al.}}{{}}}
 \bibcite{hodosh2013framing}{{7}{2013}{{Hodosh et~al.}}{{}}}
 \bibcite{hirota2022quantifying}{{8}{2022}{{Hirota et~al.}}{{}}}
 \bibcite{liu2023visual}{{9}{2023}{{Liu et~al.}}{{}}}
 \bibcite{meng2022locating}{{10}{2022}{{Meng et~al.}}{{}}}
 \bibcite{team2024paligemma}{{11}{2024}{{Team et~al.}}{{}}}
 \bibcite{rajamanoharan2024jumping}{{12}{2024}{{Rajamanoharan et~al.}}{{}}}
-\bibcite{karvonen2025saebench}{{13}{2025}{{Karvonen et~al.}}{{}}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Comprehensive summary of main findings. (a)\nobreakspace  {}Cross-model intervention: targeted ablation of 100 gender features produces significant changes in all three models, with opposite directions for excitatory (\textsc  {PaLiGemma-3B}{}) vs.\ inhibitory (\textsc  {Qwen2-VL-7B}{}, \textsc  {Llama-3.2-11B}{}) architectures. (b)\nobreakspace  {}Bootstrap 95\% CIs confirm significance. (c)\nobreakspace  {}Effect specificity ratios. (d)\nobreakspace  {}Layer specificity in \textsc  {PaLiGemma-3B}{}: gender features are concentrated at L9.}}{16}\protected@file@percent }
 \newlabel{fig:summary}{{8}{16}}
+\bibcite{karvonen2025saebench}{{13}{2025}{{Karvonen et~al.}}{{}}}
 \bibcite{templeton2024scaling}{{14}{2024}{{Templeton et~al.}}{{}}}
 \bibcite{zhao2017men}{{15}{2017}{{Zhao et~al.}}{{}}}
 \bibcite{fiottokaufman2024nnsight}{{16}{2024}{{Fiotto-Kaufman et~al.}}{{}}}

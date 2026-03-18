@@ -344,6 +344,101 @@ def add_table_slide(prs, title, headers, rows, subtitle=""):
     
     return slide
 
+def add_qualitative_image_table_slide(prs, title, img_paths, headers, rows, subtitle=""):
+    """Add a qualitative examples slide with actual images in the first column."""
+    import os
+    slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(slide_layout)
+    set_slide_background(slide, COLORS['light'])
+
+    # Title bar
+    shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(10), Inches(1.1))
+    shape.fill.solid()
+    shape.fill.fore_color.rgb = COLORS['title_bg']
+    shape.line.fill.background()
+
+    txBox = slide.shapes.add_textbox(Inches(0.4), Inches(0.25), Inches(9.2), Inches(0.7))
+    tf = txBox.text_frame
+    p = tf.paragraphs[0]
+    p.text = title
+    p.font.size = Pt(28)
+    p.font.bold = True
+    p.font.color.rgb = COLORS['white']
+
+    if subtitle:
+        txBox = slide.shapes.add_textbox(Inches(0.3), Inches(1.15), Inches(9.4), Inches(0.35))
+        tf = txBox.text_frame
+        p = tf.paragraphs[0]
+        p.text = subtitle
+        p.font.size = Pt(13)
+        p.font.italic = True
+        p.font.color.rgb = COLORS['dark']
+
+    # Layout constants
+    table_left = Inches(0.2)
+    top_offset = Inches(1.6) if subtitle else Inches(1.3)
+    col_widths_inches = [1.55, 1.35, 1.45, 1.45, 1.45, 1.45, 1.35]
+    total_table_w = Inches(9.6)
+    header_h = Inches(0.42)
+    data_row_h = Inches(1.62)
+    n_data_rows = len(rows)
+    total_h = header_h + data_row_h * n_data_rows
+
+    n_cols = len(headers)
+    table = slide.shapes.add_table(
+        n_data_rows + 1, n_cols,
+        table_left, top_offset,
+        total_table_w, total_h
+    ).table
+
+    # Column widths proportional to sum to 9.6"
+    raw_total = sum(col_widths_inches)
+    for i, w in enumerate(col_widths_inches):
+        table.columns[i].width = int(Inches(w * 9.6 / raw_total))
+
+    # Row heights
+    table.rows[0].height = header_h
+    for r in range(1, n_data_rows + 1):
+        table.rows[r].height = data_row_h
+
+    # Header row
+    for i, header in enumerate(headers):
+        cell = table.cell(0, i)
+        cell.text = header
+        cell.fill.solid()
+        cell.fill.fore_color.rgb = COLORS['title_bg']
+        p = cell.text_frame.paragraphs[0]
+        p.font.size = Pt(12)
+        p.font.bold = True
+        p.font.color.rgb = COLORS['white']
+        p.alignment = PP_ALIGN.CENTER
+
+    # Data rows (col 0 left empty — image placed on top)
+    for row_idx, row in enumerate(rows):
+        for col_idx, value in enumerate(row):
+            cell = table.cell(row_idx + 1, col_idx)
+            cell.text = "" if col_idx == 0 else str(value)
+            p = cell.text_frame.paragraphs[0]
+            p.font.size = Pt(10)
+            p.font.color.rgb = COLORS['dark']
+            p.alignment = PP_ALIGN.CENTER
+            cell.text_frame.word_wrap = True
+            if row_idx % 2 == 0:
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = RgbColor(245, 247, 250)
+
+    # Add images positioned over first column of each data row
+    img_col_w_pt = int(Inches(col_widths_inches[0] * 9.6 / raw_total))
+    for row_idx, img_path in enumerate(img_paths):
+        if img_path and os.path.exists(img_path):
+            img_x = table_left + Inches(0.04)
+            img_y = top_offset + header_h + data_row_h * row_idx + Inches(0.08)
+            max_size = data_row_h - Inches(0.16)
+            slide.shapes.add_picture(img_path, img_x, img_y, width=max_size, height=max_size)
+
+    return slide
+
+
 def add_key_finding_slide(prs, finding_number, title, description, evidence, is_novel=False):
     """Add a key finding highlight slide."""
     slide_layout = prs.slide_layouts[6]
@@ -1059,23 +1154,30 @@ def create_presentation():
     )
 
     # Clean Qualitative Table (Cross-Lingual Format)
-    add_table_slide(prs, "Qualitative Examples (Clean Cross-Lingual Table)",
-        ["Image Context", "Ground Truth", "EN→EN", "EN→AR", "AR→EN", "AR→AR", "Bias Type"],
+    _img_base = os.path.join(os.path.dirname(__file__), '..', 'publication', 'latex')
+    _img_tennis     = os.path.normpath(os.path.join(_img_base, 'img_tennis.jpg'))
+    _img_wheelchair = os.path.normpath(os.path.join(_img_base, 'img_wheelchair.jpg'))
+    _img_cyclist    = os.path.normpath(os.path.join(_img_base, 'img_cyclist.jpg'))
+
+    add_qualitative_image_table_slide(
+        prs, "Qualitative Examples (Cross-Lingual)",
+        [_img_tennis, _img_wheelchair, _img_cyclist],
+        ["Image", "Ground Truth", "EN→EN", "EN→AR", "AR→EN", "AR→AR", "Bias Type"],
         [
             [
                 "Tennis player",
                 "Woman athlete",
                 "'female tennis player...'",
-                "'la'iba ...' → 'imra'a ...'",
+                "'لاعبة ...' → 'امرأة ...'",
                 "'woman playing tennis...'",
-                "'nara imra'a tal'ab ...'",
+                "'في الصورة نرى امرأة ...'",
                 "Lexical shift"
             ],
             [
                 "Wheelchair street scene",
                 "Person in wheelchair",
                 "'person ...' → 'man ...'",
-                "More explicit 'rajul' usage",
+                "More explicit 'رجل' usage",
                 "'person ...' → 'man ...'",
                 "Gendered noun substitutions",
                 "Gender re-labeling"
@@ -1084,13 +1186,13 @@ def create_presentation():
                 "Cyclist in forest",
                 "Cyclist (neutral role)",
                 "'cyclist ...' → 'man ...'",
-                "Gender-marked Arabic nouns",
+                "Gender-marked nouns ('راكب دراجة' etc.)",
                 "'cyclist ...' → 'man ...'",
                 "Role wording becomes gendered",
                 "Role→gender substitution"
             ]
         ],
-        subtitle="Configuration format: [Prompt Language] → [Caption Language]; Arabic shown as transliteration"
+        subtitle="Configuration format: [Prompt Language] → [Caption Language]; Arabic shown in script"
     )
     
     # Key Finding 1
